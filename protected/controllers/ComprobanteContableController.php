@@ -7,7 +7,6 @@ class ComprobanteContableController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $formLinea;
 
 	/**
 	 * @return array action filters
@@ -27,13 +26,14 @@ class ComprobanteContableController extends Controller
 	 */
 	public function accessRules()
 	{
+		
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view'),
+				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -42,15 +42,6 @@ class ComprobanteContableController extends Controller
 			);
 	}
 	
-/*	public function actions() {
-    return array(
-        'getRowForm' => array(
-        	'class' => 'ext.dynamictabularform.actions.GetRowForm',
-        	'view' => '_rowForm',
-        	'modelClass' => 'LineaContable'
-        ),
-    );
-}*/
 
 	/**
 	 * Displays a particular model.
@@ -58,21 +49,8 @@ class ComprobanteContableController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$modelasiento=new LineaContable;
-
-		if(isset($_POST['AsientoContable']))
-		{
-			$modelasiento->attributes=$_POST['AsientoContable'];
-			$modelasiento->NUMERO_COMPROBANTE=$id;
-			if($modelasiento->save())
-			{
-				$this->redirect(array('view','id' =>$id));
-			}
-
-		}
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-			'modelasiento'=>$modelasiento,
 		));
 	}
 
@@ -83,22 +61,19 @@ class ComprobanteContableController extends Controller
 	public function actionCreate()
 	{
 		$model=new ComprobanteContable;
-		$LineasContables=array();
-		$this->$formLinea = Yii::$app->request->post('LineaContable');
-		foreach ($formLinea as $key => $value) 
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['ComprobanteContable']))
 		{
-			$modelLinea=new LineaContable(array('scenario'=>LineaContable::SCENARIO_BATCH_UPDATE));
-			$modelLinea->setAttributes($value);
-            $LienasContables[] = $modelLinea;
-        }
-        //Si el boton addRow es presionado
-        if($_POST('addRow') == 'true')
-		
-        
+			$model->attributes=$_POST['ComprobanteContable'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->NUMERO_COMPROBANTE));
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
-			'modelLineas'=>$modelLineas,
 		));
 	}
 

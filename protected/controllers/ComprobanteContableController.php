@@ -61,19 +61,43 @@ class ComprobanteContableController extends Controller
 	public function actionCreate()
 	{
 		$model=new ComprobanteContable;
+		$request=Yii::app()->request;
+		/*almacenara arreglos de lineas contables, 
+		el tamaño dependera de la cantidad de lineas contables agregadas en el formulario.*/
+		$lineasContables= array();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ComprobanteContable']))
-		{
-			$model->attributes=$_POST['ComprobanteContable'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->NUMERO_COMPROBANTE));
-		}
+	    if(isset($_POST['LineaContable'])) 
+	    {       
+	        $formLineas = $_POST['LineaContable'];  
+	        foreach ($formLineas as $i => $formLinea) 
+	        {
+	            $modelLinea = new LineaContable(array('scenario' => LineaContable::SCENARIO_BATCH_UPDATE));
+	            $modelLinea->setAttributes($formLinea);
+	            $lineasContables = $modelLinea;
+        	}         
+        }
+		else 
+		   {
+		        $formLineas = null;
+		   }
+		
+	   
+        //handling if the addRow button has been pressed
+        if ($_POST['addRow'] == 'true') {
+            $model->load($this);
+            $lineasContables = new LineaContable(array('scenario' => LineaContable::SCENARIO_BATCH_UPDATE));
+            return $this->render('create', array(
+                'model' => $model,
+                'lineasContables' => $lineasContables,
+            ));
+        }
 
 		$this->render('create',array(
 			'model'=>$model,
+			'lineasContables'=>$lineasContables,
 		));
 	}
 

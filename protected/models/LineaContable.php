@@ -16,6 +16,33 @@
 class LineaContable extends CActiveRecord
 {
 
+	const UPDATE_TYPE_CREATE = 'create';
+    const UPDATE_TYPE_UPDATE = 'update';
+    const UPDATE_TYPE_DELETE = 'delete';
+ 
+    const SCENARIO_BATCH_UPDATE = 'batchUpdate';
+ 
+ 
+    private $_updateType;
+
+    public function getUpdateType()
+    {
+        if (empty($this->_updateType)) {
+            if ($this->isNewRecord) {
+                $this->_updateType = self::UPDATE_TYPE_CREATE;
+            } else {
+                $this->_updateType = self::UPDATE_TYPE_UPDATE;
+            }
+        }
+ 
+        return $this->_updateType;
+    }
+
+    public function setUpdateType($value)
+    {
+        $this->_updateType = $value;
+    }
+
 	 /**
 	 * @return string the associated database table name
 	 */
@@ -32,6 +59,10 @@ class LineaContable extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('updateType', 'required', 'on' => self::SCENARIO_BATCH_UPDATE),
+            array('updateType','in','range' => array(self::UPDATE_TYPE_CREATE, self::UPDATE_TYPE_UPDATE, self::UPDATE_TYPE_DELETE),
+                'on' => self::SCENARIO_BATCH_UPDATE
+            ),
 			array('NUMERO_COMPROBANTE', 'required'),
 			array('NUMERO_COMPROBANTE, DEBE, HABER', 'numerical', 'integerOnly'=>true),
 			array('CUENTA', 'length', 'max'=>50),

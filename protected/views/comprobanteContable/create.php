@@ -16,7 +16,7 @@ $this->menu=array(
     <div div class="panel panel-primary">
     <div class="panel-heading text-center"><h1 class="panel-title">Crear Comprobante Contable</h1></div>
         <div class="panel-body">
-            <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+            <?php $this->renderPartial('_form', array('model'=>$model,'lineasContables'=>$lineasContables)); ?>
         </div>
     </div>
 	

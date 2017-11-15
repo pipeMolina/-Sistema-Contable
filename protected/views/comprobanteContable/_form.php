@@ -3,7 +3,13 @@
 /* @var $model ComprobanteContable */
 /* @var $form CActiveForm */
 ?>
-
+<script>
+$(function(){
+$("#btn-info").click(function(){
+        $("ol").append("<li>Appended item</li>");
+    });
+});
+</script>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -17,7 +23,7 @@
 
 	<p class="note">Campos con <span class="required">*</span> son obligatorios.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($model,$lineasContables); ?>
 
 
 	<div class="form-group">
@@ -55,7 +61,23 @@
 				<?php //echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array('class' =>'btn btn-primary'));; ?>
 		</div>	
 	</div>-->
+ <?php foreach ($lineasContables as $i => $modelDetail) : ?>
+        <div class="row linea-detail linea-detail-<?= $i ?>">
+            <div class="col-lg-10">
+                <?php echo CHtml::activeHiddenInput($modelDetail, "[$i]id") ?>
+                <?php echo CHtml::activeHiddenInput($modelDetail, "[$i]updateType", array('class' => 'update-type')) ?>
+                <?php echo $form->textField($modelDetail, "[$i]CUENTA") ?>
+            </div>
+            <div class="col-md-2">
+                <?php echo CHtml::button('x', array('class' => 'delete-button btn btn-danger', 'data-target' => "linea-detail-$i")) ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
+  <div class="form-group">
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Update', array('class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')) ?>
+        <?php echo CHtml::submitButton('Add row', array('name' => 'addRow', 'value' => 'true', 'class' => 'btn btn-info')) ?>
+    </div>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

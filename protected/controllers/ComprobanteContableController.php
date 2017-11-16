@@ -75,8 +75,8 @@ class ComprobanteContableController extends Controller
 	        foreach ($formLineas as $i => $formLinea) 
 	        {
 	            $modelLinea = new LineaContable(array('scenario' => LineaContable::SCENARIO_BATCH_UPDATE));
-	            $modelLinea->setAttributes($formLinea);
-	            $lineasContables = $modelLinea;
+	            $modelLinea->attributes=$formLinea;
+	            $lineasContables[]= $modelLinea;
         	}         
         }
 		else 
@@ -86,7 +86,7 @@ class ComprobanteContableController extends Controller
 		
 	   
         //handling if the addRow button has been pressed
-        if ($_POST['addRow'] == 'true') {
+        if (isset($_POST['addRow'])) {
             $model->load($this);
             $lineasContables = new LineaContable(array('scenario' => LineaContable::SCENARIO_BATCH_UPDATE));
             return $this->render('create', array(

@@ -64,9 +64,9 @@ $("#btn-info").click(function(){
  <?php foreach ($lineasContables as $i => $modelDetail) : ?>
         <div class="row linea-detail linea-detail-<?= $i ?>">
             <div class="col-lg-10">
-                <?php echo CHtml::activeHiddenInput($modelDetail, "[$i]id") ?>
-                <?php echo CHtml::activeHiddenInput($modelDetail, "[$i]updateType", array('class' => 'update-type')) ?>
-                <?php echo $form->textField($modelDetail, "[$i]CUENTA") ?>
+                <?php //echo CHtml::activeHiddenField($modelDetail, "NUMERO_COMPROBANTE") ?>
+                <?php //echo CHtml::activeHiddenField($modelDetail, "CUENTA", array('class' => 'update-type')) ?>
+                <?php //echo $form->textField($modelDetail, "[$i]CUENTA") ?>
             </div>
             <div class="col-md-2">
                 <?php echo CHtml::button('x', array('class' => 'delete-button btn btn-danger', 'data-target' => "linea-detail-$i")) ?>
@@ -76,7 +76,7 @@ $("#btn-info").click(function(){
 
   <div class="form-group">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Update', array('class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')) ?>
-        <?php echo CHtml::submitButton('Add row', array('name' => 'addRow', 'value' => 'true', 'class' => 'btn btn-info')) ?>
+        <?php echo CHtml::submitButton('Agregar Linea', array('name' => 'addRow', 'class' => 'btn btn-info')) ?>
     </div>
 <?php $this->endWidget(); ?>
 

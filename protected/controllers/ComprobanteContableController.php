@@ -85,9 +85,9 @@ class ComprobanteContableController extends Controller
 		   }
 		
 	   
-        //handling if the addRow button has been pressed
+        //Si el boton agregar fila ha sido prsionada
         if (isset($_POST['addRow'])) {
-            $model->load($this);
+            //$model->load($request);
             $lineasContables = new LineaContable(array('scenario' => LineaContable::SCENARIO_BATCH_UPDATE));
             return $this->render('create', array(
                 'model' => $model,

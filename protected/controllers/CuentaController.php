@@ -32,7 +32,7 @@ class CuentaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos'),
+				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos','setCodigo'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -209,5 +209,13 @@ class CuentaController extends Controller
         {
         	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($subtipo),true);
         }
+    }
+
+    public function actionsetCodigo()
+    {
+    	$id_subtipo= $_POST['Cuenta']['ID_SUBTIPOCUENTA'];
+    	$codigo_cuenta=Cuenta::model()->findByPk('ID_SUBTIPOCUENTA=:idsub',array('idsub'=>$id_subtipo));
+    	echo CHtml::activeTextField(Cuenta::model(),'ID_CUENTA',array('value'=>$c));
+
     }
 }

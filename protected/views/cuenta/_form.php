@@ -49,8 +49,14 @@
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_SUBTIPOCUENTA'); ?>
 			<?php echo $form->dropDownList($model,'ID_SUBTIPOCUENTA', array(),
-					array("class"=>"form-control")
-			)?>
+					array("class"=>"form-control",
+						"ajax"=>array(
+							'type' =>'POST' , 
+							'url'=>CController::createUrl('cuenta/setCodigo'),
+							'update'=>'#codigo',
+							)
+						)
+			);?>
 			<!--<?php //echo $form->textField($model,'ID_SUBTIPOCUENTA',array("class"=>"form-control")); ?>-->
 			<?php echo $form->error($model,'ID_SUBTIPOCUENTA'); ?>
 		</div>
@@ -69,12 +75,21 @@
 			<?php //echo $form->textField($model,'ID_SUBTIPOCUENTA',array("class"=>"form-control")); ?>
 			<?php echo $form->error($model,'ID_SUBTIPOCUENTA'); ?>
 		</div>-->
+	<div class="form-group">
+		
 		<div class="col-md-6">
 			<?php echo $form->labelEx($model,'ID_CUENTA'); ?>
-			<?php echo $form->textField($model,'ID_CUENTA',array("class"=>"form-control")); ?>
+			<div id='codigo'>
+				<?php echo $form->textField($model,'ID_CUENTA',array("class"=>"form-control")); ?>
+			</div>
 			<?php echo $form->error($model,'ID_CUENTA'); ?>
 			
+		</div>	
+
+		<div class="col-md-6">
+			<?php echo Chtml::button('Asignar Codigo',array("id"=>"btn1"));?>
 		</div>
+		
 	</div>
     <!--<div class="form-group">
      	<div class="col-md-12">
@@ -104,29 +119,14 @@
 
 </div><!-- form -->
 
-<script> 
-$(document).ready(function(){
-    $("#flip").click(function(){
-        $("#panel").slideToggle("slow");
+<script>
+	
+	$(document).ready(function(){
+		$("#btn1").click(function(){
+        $("#textCodigo").val("Hola Mundo");
     });
-});
+	});
 </script>
-
-<style> 
-#panel, #flip {
-    padding: 5px;
-    text-align: center;
-    background-color: #e5eecc;
-    border: solid 1px #c3c3c3;
-}
-
-#panel {
-    padding: 100px;
-    display: none;
-}
-</style>
-<ul id="flip">Ver plan de cuentas</ul>
-<div id="panel">Hello world!</div>
 <!--<select name="selectcito" id="selectcito">
         <option value="NO">No</option>
         <option value="SI">Sí</option>

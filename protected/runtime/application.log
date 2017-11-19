@@ -19591,3 +19591,792 @@ Stack trace:
 REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
 HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
 ---
+2017/11/17 19:54:01 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(217): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create&id=58
+---
+2017/11/19 03:25:51 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 03:25:55 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10200000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 03:25:57 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10300000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:00:12 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:00:15 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10200000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:00:17 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10300000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:02:23 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '20200000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:02:33 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '20300000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:17:13 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:17:15 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10200000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:17:17 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10300000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:28:44 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:28:47 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10200000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:31:05 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:35:47 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.:idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set(':idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:36:47 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.:idsub" is not defined.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set(':idsub', '10100000')
+#1 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 C:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php(614): CDbCommandBuilder->createCriteria(Array, Array)
+#3 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1485): CDbCommandBuilder->createPkCriteria(Object(CMysqlTableSchema), 'ID_SUBTIPOCUENT...', Array, Array, '`t`.')
+#4 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CActiveRecord->findByPk('ID_SUBTIPOCUENT...', Array)
+#5 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#15 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#16 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 04:45:34 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(220): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (220)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 04:45:38 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(220): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (220)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 04:45:41 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(220): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (220)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 04:46:12 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(220): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (220)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 04:48:32 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (218)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 05:02:43 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (218)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 05:43:49 [error] [php] htmlspecialchars() expects parameter 1 to be string, object given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:103)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(158): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2255): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1434): activeInputField()
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(219): activeTextField()
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 06:25:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '>ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1' at line 1. The SQL statement executed was: SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 06:25:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '>ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1' at line 1. The SQL statement executed was: SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1581): CDbCommand->queryAll()
+#2 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(219): CActiveRecord->findAllBySql('SELECT * FROM C...')
+#3 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#14 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 06:26:14 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 06:26:14 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1351): CDbCommand->queryRow()
+#2 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1456): CActiveRecord->query(Object(CDbCriteria))
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(219): CActiveRecord->find('SELECT * FROM C...')
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 06:26:19 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 06:26:19 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1351): CDbCommand->queryRow()
+#2 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1456): CActiveRecord->query(Object(CDbCriteria))
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(219): CActiveRecord->find('SELECT * FROM C...')
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 06:26:21 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 06:26:21 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA ord' at line 1. The SQL statement executed was: SELECT * FROM `subtipo_cuenta` `t` WHERE SELECT * FROM Cuenta where ID_SUBTIPOCUENTA=$codigo_cuenta->ID_SUBTIPOCUENTA order by ID_CUENTA desc limit 1 LIMIT 1' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1351): CDbCommand->queryRow()
+#2 C:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1456): CActiveRecord->query(Object(CDbCriteria))
+#3 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(219): CActiveRecord->find('SELECT * FROM C...')
+#4 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#14 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#15 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 06:41:46 [error] [php] Undefined variable: connection (C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php:219)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CuentaController->runAction()
+#1 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CuentaController->filterAccessControl()
+#4 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(265): CuentaController->runActionWithFilters()
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CuentaController->run()
+#8 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\SistemaContable\index.php(13): CWebApplication->run()
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (219)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 07:09:23 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (218)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 07:09:23 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CDbCommand->queryAll()
+#2 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#3 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 07:10:41 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (218)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 07:10:41 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CDbCommand->queryAll()
+#2 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#3 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 07:10:57 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (218)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 07:10:57 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':$codigo_cuenta->ID_SUBTIPOCUENTA' at line 3. The SQL statement executed was: SELECT *
+FROM `Cuenta`
+WHERE ID_SUBTIPOCUENTA=:$codigo_cuenta->ID_SUBTIPOCUENTA' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(218): CDbCommand->queryAll()
+#2 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#3 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---
+2017/11/19 07:58:32 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: select ID_CUENTA from Cuenta where ID_SUBTIPOCUENTA=:codigo_cuenta order by ID_CUENTA desc limit 1.
+in C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php (221)
+in C:\xampp\htdocs\SistemaContable\index.php (13)
+2017/11/19 07:58:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: no parameters were bound. The SQL statement executed was: select ID_CUENTA from Cuenta where ID_SUBTIPOCUENTA=:codigo_cuenta order by ID_CUENTA desc limit 1' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 C:\xampp\htdocs\SistemaContable\protected\controllers\CuentaController.php(221): CDbCommand->query()
+#2 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CuentaController->actionsetCodigo()
+#3 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('setCodigo')
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cuenta/setCodig...')
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\SistemaContable\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/SistemaContable/index.php?r=cuenta/setCodigo
+HTTP_REFERER=http://localhost/SistemaContable/index.php?r=cuenta/create
+---

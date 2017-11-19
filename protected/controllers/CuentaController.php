@@ -214,8 +214,13 @@ class CuentaController extends Controller
     public function actionsetCodigo()
     {
     	$id_subtipo= $_POST['Cuenta']['ID_SUBTIPOCUENTA'];
-    	$codigo_cuenta=Cuenta::model()->findByPk('ID_SUBTIPOCUENTA=:idsub',array('idsub'=>$id_subtipo));
-    	echo CHtml::activeTextField(Cuenta::model(),'ID_CUENTA',array('value'=>$c));
+    	$codigo_cuenta=SubtipoCuenta::model()->find('ID_SUBTIPOCUENTA=:idsub',array(':idsub'=>$id_subtipo));
+    	$sql="SELECT ID_CUENTA FROM Cuenta WHERE ID_SUBTIPOCUENTA=:codigo_cuenta ORDER BY ID_CUENTA DESC LIMIT 1";
+    	$connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->query();
+    	//var_dump($codigo_cuenta);
+    	echo CHtml::activeTextField(Cuenta::model(),'ID_CUENTA',array('value'=>$dataReader));
 
     }
 }

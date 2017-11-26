@@ -20,6 +20,7 @@ class Cuenta extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+	public $Cuenta;
 	public function tableName()
 	{
 		return 'cuenta';
@@ -33,12 +34,12 @@ class Cuenta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_CUENTA, ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA', 'required'),
-			array('ID_CUENTA, ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA', 'numerical', 'integerOnly'=>true),
+			array('CODIGO_CUENTA,ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA', 'required'),
+			array('ID_CUENTA, CODIGO_CUENTA, ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA', 'numerical', 'integerOnly'=>true),
 			array('DESCRIPCION_CUENTA', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_CUENTA, ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA, DESCRIPCION_CUENTA', 'safe', 'on'=>'search'),
+			array('ID_CUENTA, CODIGO_CUENTA, ID_TIPOCUENTA, ID_PLANCUENTA, ID_SUBTIPOCUENTA, DESCRIPCION_CUENTA', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +63,8 @@ class Cuenta extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID_CUENTA' => 'Codigo Cuenta',
+			//'ID_CUENTA' => 'Codigo Cuenta',
+			'CODIGO_CUENTA'=>'Codigo Cuenta',
 			'ID_TIPOCUENTA' => 'Tipo cuenta',
 			'ID_PLANCUENTA' => 'Plan cuenta',
 			'ID_SUBTIPOCUENTA' => 'Subtipo cuenta',
@@ -89,6 +91,7 @@ class Cuenta extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('ID_CUENTA',$this->ID_CUENTA);
+		$criteria->compare('CODIGO_CUENTA',$this->CODIGO_CUENTA);
 		$criteria->compare('ID_TIPOCUENTA',$this->ID_TIPOCUENTA);
 		$criteria->compare('ID_PLANCUENTA',$this->ID_PLANCUENTA);
 		$criteria->compare('ID_SUBTIPOCUENTA',$this->ID_SUBTIPOCUENTA);

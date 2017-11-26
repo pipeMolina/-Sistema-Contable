@@ -217,14 +217,14 @@ class CuentaController extends Controller
     	$id_subtipo= $_POST['Cuenta']['ID_SUBTIPOCUENTA'];
     	$codigo_cuenta=SubtipoCuenta::model()->find('ID_SUBTIPOCUENTA=:idsub',array(':idsub'=>$id_subtipo));
     	$codigo=$codigo_cuenta->ID_SUBTIPOCUENTA;
-    	$sql='SELECT ID_CUENTA FROM Cuenta WHERE ID_SUBTIPOCUENTA='.$codigo.' ORDER BY ID_CUENTA DESC LIMIT 1;';
+    	$sql='SELECT CODIGO_CUENTA FROM Cuenta WHERE ID_SUBTIPOCUENTA='.$codigo.' ORDER BY CODIGO_CUENTA DESC LIMIT 1;';
     	$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
         foreach ($dataReader as $key => $value)
         {	
-       		$sum = $value['ID_CUENTA']+1;
-    		echo CHtml::activeTextField(Cuenta::model(),'ID_CUENTA',array('value'=>$sum));	   
+       		$sum = $value['CODIGO_CUENTA']+1;
+    		echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
         }   
     }
 }

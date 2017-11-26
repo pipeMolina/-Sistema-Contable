@@ -22,115 +22,47 @@ $this->menu=array(
 </div>
 
 
-		<!--<div class="panel-body">
-			<?php //$this->renderPartial('admin', array('model'=>$model)); ?>	
-		</div>-->
-
-
+<!--Obtener datos de la tabla cuenta para mostrar en el tree panel-->
+<?php 
+    $sql='SELECT * FROM cuenta WHERE ID_PLANCUENTA=52';
+    $connection = Yii::app()->db;
+    $command = $connection->createCommand($sql);
+    $dataReader = $command->queryAll();
+?>
 
 
 <div class="container">
     <div class="panel panel-default">
-        <div class="panel-heading">Treeview List</div>
+        <div class="panel-heading">Plan de Cuentas</div>
         <div class="panel-body">
             <!-- TREEVIEW CODE -->
             <ul class="treeview">
-                <li><a href="#">Tree</a>
+                <?php foreach ($dataReader as $key => $value){ ?>
+                    <li><a href="#"> <?php echo $value['ID_TIPOCUENTA'];?> </a>
                     <ul>
-                        <li><a href="#">Branch</a></li>
-                        <li><a href="#">Branch</a>
+                        <li><a href="#"><?php echo $value['ID_SUBTIPOCUENTA'];?></a>
                             <ul>
-                                <li><a href="#">Stick</a></li>
-                                <li><a href="#">Stick</a></li>
-                                <li><a href="#">Stick</a>
-                                    <ul>
-                                        <li><a href="#">Twig</a></li>
-                                        <li><a href="#">Twig</a></li>
-                                        <li><a href="#">Twig</a></li>
-                                        <li><a href="#">Twig</a>
-                                            <ul>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                                <li><a href="#">Leaf</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Twig</a></li>
-                                        <li><a href="#">Twig</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Stick</a></li>
+                                <li><a href="#"><?php echo $value['CODIGO_CUENTA'];?></a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Branch</a></li>
-                        <li><a href="#">Branch</a></li>
                     </ul>
-                </li>
+                </li>   
+                <?php }?>
+                
             </ul>
             <!-- TREEVIEW CODE -->
+
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">Treeview Div</div>
-        <div class="panel-body">
-            <!-- TREEVIEW CODE -->
-            <div class="treeview">
-                <ul>
-                    <li><a href="#">Tree</a>
-                        <ul>
-                            <li><a href="#">Branch</a></li>
-                            <li><a href="#">Branch</a>
-                                <ul>
-                                    <li><a href="#">Stick</a></li>
-                                    <li><a href="#">Stick</a></li>
-                                    <li><a href="#">Stick</a>
-                                        <ul>
-                                            <li><a href="#">Twig</a></li>
-                                            <li><a href="#">Twig</a></li>
-                                            <li><a href="#">Twig</a></li>
-                                            <li><a href="#">Twig</a>
-                                                <ul>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                    <li><a href="#">Leaf</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Twig</a></li>
-                                            <li><a href="#">Twig</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Stick</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Branch</a></li>
-                            <li><a href="#">Branch</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- TREEVIEW CODE -->
-        </div>
-    </div>
+   
 
 <script>
     $.fn.extend({
-    treeview:   function() {
+    treeview:function() {
         
         return this.each(function() {
             // Initialize the top levels;
             var tree = $(this);
-            
             tree.addClass('treeview-tree');
             tree.find('li').each(function() {
                 var stick = $(this);

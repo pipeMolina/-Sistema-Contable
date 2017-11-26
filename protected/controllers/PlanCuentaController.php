@@ -69,10 +69,6 @@ class PlanCuentaController extends Controller
 		if(isset($_POST['PlanCuenta']))
 		{
 			$model->attributes=$_POST['PlanCuenta'];
-			//$modelcuenta->attributes=$_POST['Cuenta'];
-			//$modelcuenta->ID_PLANCUENTA=$_POST['PlanCuenta']['ID_PLANCUENTA'];//para que valide
-        	//$valid=$model->validate();
-        	//$valid=$modelcuenta->validate() && $valid;
 			if(true)
 				{
 					if($model->save())

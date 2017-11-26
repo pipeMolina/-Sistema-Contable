@@ -66,11 +66,11 @@
 	<div class="form-group">
 		
 		<div class="col-md-6">
-			<?php echo $form->labelEx($model,'ID_CUENTA'); ?>
+			<?php echo $form->labelEx($model,'CODIGO_CUENTA'); ?>
 			<div id='codigo'>
-				<?php echo $form->textField($model,'ID_CUENTA',array("class"=>"form-control")); ?>
+				<?php echo $form->textField($model,'CODIGO_CUENTA',array("class"=>"form-control")); ?>
 			</div>
-			<?php echo $form->error($model,'ID_CUENTA'); ?>
+			<?php echo $form->error($model,'CODIGO_CUENTA'); ?>
 			
 		</div>	
 		

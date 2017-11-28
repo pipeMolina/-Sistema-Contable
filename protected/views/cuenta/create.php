@@ -24,34 +24,58 @@ $this->menu=array(
 
 <!--Obtener datos de la tabla cuenta para mostrar en el tree panel-->
 <?php 
-    $sql='SELECT * FROM cuenta WHERE ID_PLANCUENTA=52';
-    $connection = Yii::app()->db;
-    $command = $connection->createCommand($sql);
-    $dataReader = $command->queryAll();
+    $sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA FROM cuenta WHERE ID_PLANCUENTA=52;';
+    $dataReader = Yii::app()->db->createCommand($sql)->queryAll();
+    var_dump($dataReader);
 ?>
-
-
 <div class="container">
     <div class="panel panel-default">
-        <div class="panel-heading">Plan de Cuentas</div>
+        <div class="panel-heading">Plan de Cuentas <?php echo '"aqui va el nombre de la empresa"'?></div>
         <div class="panel-body">
             <!-- TREEVIEW CODE -->
             <ul class="treeview">
-                <?php foreach ($dataReader as $key => $value){ ?>
-                    <li><a href="#"> <?php echo $value['ID_TIPOCUENTA'];?> </a>
+                <li><a href="#">Activo </a>
                     <ul>
-                        <li><a href="#"><?php echo $value['ID_SUBTIPOCUENTA'];?></a>
+                        <li><a href="#">Activo Circulante</a><!--Inicio Activo Circulante-->
                             <ul>
-                                <li><a href="#"><?php echo $value['CODIGO_CUENTA'];?></a></li>
+
+                                <?php
+                                     foreach ($dataReader as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10100000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
                             </ul>
-                        </li>
+                        </li><!-- Fin Activo Circulante -->
+                        <li><a href="#">Activo Fijo</a><!--Inicio Activo Fijo-->
+                            <ul>
+                                <?php 
+                                foreach ($dataReader as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10200000){ 
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Fijo -->
+                        <li><a href="#">Activo Into</a><!--Inicio Activo Into-->
+                            <ul>
+                                <?php 
+                                foreach ($dataReader as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10300000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Into -->
                     </ul>
-                </li>   
-                <?php }?>
-                
+                                        
+                                 
+                  </li>
             </ul>
             <!-- TREEVIEW CODE -->
-
         </div>
     </div>
    

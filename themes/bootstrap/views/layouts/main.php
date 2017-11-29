@@ -8,7 +8,8 @@
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap.css"  />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap.min.css" />
-
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.css" />-->
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.min.css" />-->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-treepanel.css" />
 
 	<?php
@@ -26,7 +27,7 @@
 <body>
 
 <div class="navbar navbar-default">
-  <div class="container">
+  <div class="container-fluid">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="<?php echo Yii::app()->homeUrl; ?>"> <?php echo Yii::app()->name ?> </a>
 	</div>

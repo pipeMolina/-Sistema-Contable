@@ -16,7 +16,6 @@
 	'htmlOptions' => array('class'=>'form-horizontal'),
 )); ?>
 
-
 	<?php echo $form->errorSummary($model); ?>
 
 	<legend><p class="note">Campos con <span class="required">*</span> son obligatorios.</p></legend>
@@ -25,7 +24,7 @@
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
 			<?php  	
-				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"test"));
+				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan"));
 				
 			?>
 			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control","disabled"=>"")); ?>-->
@@ -98,168 +97,11 @@
 
 		</div>
 	</div>
-	<button> Ver dato del dropdown</button>
 
+   
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
 
-<!--Obtener datos de la tabla cuenta para mostrar en el tree panel-->
-<?php 
-    
-    $sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA FROM cuenta WHERE ID_PLANCUENTA=52;';
-    $dataReader = Yii::app()->db->createCommand($sql)->queryAll();
-?>
 
-
-
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">Plan de Cuentas <?php echo '"aqui va el nombre de la empresa"'?></div>
-        <div class="panel-body">
-            <!-- TREEVIEW CODE -->
-            <ul class="treeview">
-                <li><a href="#">Activo </a>
-                    <ul>
-                        <li><a href="#">Activo Circulante</a><!--Inicio Activo Circulante-->
-                            <ul>
-
-                                <?php
-                                     foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Circulante -->
-                        <li><a href="#">Activo Fijo</a><!--Inicio Activo Fijo-->
-                            <ul>
-                                <?php 
-                                foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10200000){ 
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Fijo -->
-                        <li><a href="#">Activo Into</a><!--Inicio Activo Into-->
-                            <ul>
-                                <?php 
-                                foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10300000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Into -->
-                    </ul>                  
-                  </li>
-
-                  <li><a href="#">Pasivo </a>
-                    <ul>
-                        <li><a href="#">Pasivo Exigible</a><!--Inicio Activo Circulante-->
-                            <ul>
-
-                                <?php
-                                     foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Circulante -->
-                        <li><a href="#">Pasivo Largo Plazo</a><!--Inicio Activo Fijo-->
-                            <ul>
-                                <?php 
-                                foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20200000){ 
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Fijo -->
-                        <li><a href="#">Patrimonio</a><!--Inicio Activo Into-->
-                            <ul>
-                                <?php 
-                                foreach ($dataReader as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20300000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Into -->
-                    </ul>                  
-                  </li>
-            </ul>
-            <!-- TREEVIEW CODE -->
-        </div>
-    </div>
-   
-
-<script>
-    $.fn.extend({
-    treeview:function() {
-        
-        return this.each(function() {
-            // Initialize the top levels;
-            var tree = $(this);
-            tree.addClass('treeview-tree');
-            tree.find('li').each(function() {
-                var stick = $(this);
-            });
-            tree.find('li').has("ul").each(function () {
-                var branch = $(this); //li with children ul
-                
-                branch.prepend("<i class='tree-indicator glyphicon glyphicon-plus'></i>");
-                branch.addClass('tree-branch');
-                branch.on('click', function (e) {
-                    if (this == e.target) {
-                        var icon = $(this).children('i:first');
-                        
-                        icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
-                        $(this).children().children().toggle();
-                    }
-                })
-                branch.children().children().toggle();
-                
-                /**
-                 *  The following snippet of code enables the treeview to
-                 *  function when a button, indicator or anchor is clicked.
-                 *
-                 *  It also prevents the default function of an anchor and
-                 *  a button from firing.
-                 */
-                branch.children('.tree-indicator, button, a').click(function(e) {
-                    branch.click();
-                    
-                    e.preventDefault();
-                });
-            });
-        });
-    }
-});
-
-/**
- *  The following snippet of code automatically converst
- *  any '.treeview' DOM elements into a treeview component.
- */
-$(window).on('load', function () {
-    $('.treeview').each(function () {
-        var tree = $(this);
-        tree.treeview();
-    })
-})
-$("button").click(function()
-{
-	alert($("#test").val());
-});
-
-
-</script>
 

@@ -1,16 +1,13 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="col-lg-3">
-	<div id="sidebar">
+	<div class="sidebar-nav">
 	<?php
-		$this->beginWidget('zii.widgets.CPortlet', array(
-			'title'=>'Operations',
-		));
 		$this->widget('zii.widgets.CMenu', array(
-			'items'=>$this->menu,
-			'htmlOptions'=>array('class'=>'operations'),
+			'items'=>array(
+				array('label'=>'Operaciones','items'=>$this->menu),
+				),
 		));
-		$this->endWidget();
 	?>
 	</div><!-- sidebar -->
 </div>

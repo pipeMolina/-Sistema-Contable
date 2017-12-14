@@ -221,11 +221,18 @@ class CuentaController extends Controller
     	$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
-        foreach ($dataReader as $key => $value)
-        {	
-       		$sum = $value['CODIGO_CUENTA']+1;
-    		echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
-        }   
+        if(empty($dataReader)){
+        	$sum=$codigo+1;
+	    	echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
+
+        }else
+        {
+	        foreach ($dataReader as $key => $value)
+	        {	
+	       		$sum = $value['CODIGO_CUENTA']+1;
+	    		echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
+	        }   
+        }
     }
 }
  

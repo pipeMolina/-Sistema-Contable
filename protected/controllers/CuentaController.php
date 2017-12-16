@@ -32,7 +32,7 @@ class CuentaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos','setCodigo'),
+				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos','setCodigo','Tree'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -233,6 +233,12 @@ class CuentaController extends Controller
 	    		echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
 	        }   
         }
+    }
+
+    public function actionTree()
+    {
+    	$idplan=$_POST["id"];
+    	var_dump($idplan);
     }
 }
  

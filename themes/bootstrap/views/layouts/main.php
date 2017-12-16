@@ -17,11 +17,7 @@
 	  $cs = Yii::app()->getClientScript();
 	  Yii::app()->clientScript->registerCoreScript('jquery');
 	?>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 	
-	
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 

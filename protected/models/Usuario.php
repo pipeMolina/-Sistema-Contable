@@ -107,11 +107,13 @@ class Usuario extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function validatePassword($password){
-return $this->hashPassword($password)===$this->PASS_USUARIO;
-}
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password)===$this->PASS_USUARIO;
+	}
  
-public function hashPassword($password){
-return md5($password);
-}
+	public function hashPassword($password)
+	{
+		return md5($password);
+	}
 }

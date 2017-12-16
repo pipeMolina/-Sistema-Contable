@@ -17,10 +17,13 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
+	<div div class="panel panel-primary">
+	<div class="panel-heading text-center"><h1 class="panel-title">Crear Cuenta</h1></div>
+		<div class="panel-body">
 
 	<legend><p class="note">Campos con <span class="required">*</span> son obligatorios.</p></legend>
    
-	<div class="form-group">
+	<div class="form-group" method="post" id="formulario">
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
 			<?php  	
@@ -97,11 +100,35 @@
 
 		</div>
 	</div>
+ </div>
+</div>
+<button id="btn-tree" class="btn btn-primary">Ver Plan de Cuentas</button>
+<div id="resultado"></div>
+<script>
+    
+   $(document).ready(function()
+    {
+        $("#btn-tree").click(function()
+            {
+                $.ajax(
+                	{
+                		type:"POST",
+                		url:"url",
+                		data:$("#formulario").serialize(),
+                		success: function(data)
+                		{
+                			$("#resultado").html(data);
+                		}
+                	});
+                return false;
+            });
+    });
 
+</script>
    
-<?php $this->endWidget(); ?>
-
 </div><!-- form -->
+
+<?php $this->endWidget(); ?>
 
 
 

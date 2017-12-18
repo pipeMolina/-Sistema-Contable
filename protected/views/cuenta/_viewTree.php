@@ -1,10 +1,4 @@
-<!--Obtener datos de la tabla cuenta para mostrar en el tree panel-->
-<?php 
-    
-    $sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA FROM cuenta WHERE ID_PLANCUENTA='.$model->ID_PLANCUENTA.';';
-    $dataReader = Yii::app()->db->createCommand($sql)->query();
-    //var_dump($dataReader);
-?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-treepanel.css" />
 
 <div class="container">
     <div class="panel panel-primary" id="size">
@@ -17,7 +11,7 @@
                             <ul>
 
                                 <?php
-                                     foreach ($dataReader as $key => $value) 
+                                     foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==10100000){
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
@@ -28,7 +22,7 @@
                         <li><a href="#">Activo Fijo</a><!--Inicio Activo Fijo-->
                             <ul>
                                 <?php 
-                                foreach ($dataReader as $key => $value) 
+                                foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==10200000){ 
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
@@ -39,7 +33,7 @@
                         <li><a href="#">Activo Into</a><!--Inicio Activo Into-->
                             <ul>
                                 <?php 
-                                foreach ($dataReader as $key => $value) 
+                                foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==10300000){
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
@@ -56,7 +50,7 @@
                             <ul>
 
                                 <?php
-                                     foreach ($dataReader as $key => $value) 
+                                     foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==20100000){
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
@@ -67,7 +61,7 @@
                         <li><a href="#">Pasivo Largo Plazo</a><!--Inicio Activo Fijo-->
                             <ul>
                                 <?php 
-                                foreach ($dataReader as $key => $value) 
+                                foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==20200000){ 
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
@@ -78,7 +72,7 @@
                         <li><a href="#">Patrimonio</a><!--Inicio Activo Into-->
                             <ul>
                                 <?php 
-                                foreach ($dataReader as $key => $value) 
+                                foreach ($model as $key => $value) 
                                     if($value['ID_SUBTIPOCUENTA']==20300000){
                                 {?>
                                     <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>

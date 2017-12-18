@@ -20,7 +20,6 @@ class Cuenta extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
-	public $Cuenta;
 	public function tableName()
 	{
 		return 'cuenta';
@@ -111,5 +110,13 @@ class Cuenta extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public function cargarCuentas($idPlan)
+	{
+		$sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA from Cuenta WHERE ID_PLANCUENTA='.$idPlan.'';
+		$connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->queryAll();
+        return $dataReader;
 	}
 }

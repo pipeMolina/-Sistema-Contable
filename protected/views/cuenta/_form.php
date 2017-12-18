@@ -27,7 +27,7 @@
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
 			<?php  	
-				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan","onchange"=>"treePanel();"));
+				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan","onchange"=>"treePanel()"));
 				
 			?>
 			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control","disabled"=>"")); ?>-->
@@ -102,32 +102,25 @@
 	</div>
  </div>
 </div>
-<!--<button id="btn-tree" class="btn btn-primary">Ver Plan de Cuentas</button>-->
 <div id="resultado"></div>
-<script>
-    
-   
-        //$("#btn-tree").click(function()
-        	function treePanel()
-            {
-            	//var url="_viewTree.php";
-				var url = "<?php echo CController::createUrl('cuenta/Tree'); ?>";
-                $.ajax(
-                	{
-                		type:"POST",
-                		url: url,
-                		//data:$("#formulario").serialize(),
-                		data:"id="+$("#idplan").val(),
-                		dataType:"html",
-                		success: function(data)
-                		{
-                			$("#resultado").html(data);
-                		}
-                	});
-         
-            }//);
-   
 
+<script>
+	function treePanel()
+    {
+		var url = "<?php echo CController::createUrl('cuenta/Tree'); ?>";
+            $.ajax(
+                {
+                	type:"POST",
+                	url: url,
+               		//data:$("#formulario").serialize(),
+               		data:"id="+$("#idplan").val(),
+               		dataType:"html",
+               		success: function(data)
+               		{
+               			$("#resultado").html(data);
+               		}
+               	});
+    }
 </script>
    
 </div><!-- form -->

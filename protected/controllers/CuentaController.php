@@ -215,8 +215,8 @@ class CuentaController extends Controller
     {
     	$id_plan=$_POST["Cuenta"]["ID_PLANCUENTA"];
     	$id_subtipo= $_POST['Cuenta']['ID_SUBTIPOCUENTA'];
-    	$codigo_cuenta=SubtipoCuenta::model()->find('ID_SUBTIPOCUENTA=:idsub',array(':idsub'=>$id_subtipo));
-    	$codigo=$codigo_cuenta->ID_SUBTIPOCUENTA;
+    	$codigo_subtipo=SubtipoCuenta::model()->find('ID_SUBTIPOCUENTA=:idsub',array(':idsub'=>$id_subtipo));
+    	$codigo=$codigo_subtipo->ID_SUBTIPOCUENTA;
     	$sql='SELECT CODIGO_CUENTA FROM Cuenta WHERE ID_SUBTIPOCUENTA='.$codigo.' ORDER BY CODIGO_CUENTA DESC LIMIT 1;';
     	$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
@@ -237,8 +237,11 @@ class CuentaController extends Controller
 
     public function actionTree()
     {
-    	$idplan=$_POST["id"];
-    	var_dump($idplan);
+    	$idPlan=$_POST["id"];
+    	$model=Cuenta::model()->cargarCuentas($idPlan);
+    	$this->renderPartial('_viewTree',array(
+			'model'=>$model,
+		));
     }
 }
  

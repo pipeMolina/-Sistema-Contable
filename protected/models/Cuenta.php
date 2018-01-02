@@ -111,6 +111,7 @@ class Cuenta extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	/*Carga todas las cuentas de una empresa*/
 	public function cargarCuentas($idPlan)
 	{
 		$sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA from Cuenta WHERE ID_PLANCUENTA='.$idPlan.'';
@@ -118,5 +119,9 @@ class Cuenta extends CActiveRecord
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
         return $dataReader;
+	}
+	public function cargarLibroDiario()
+	{
+		
 	}
 }

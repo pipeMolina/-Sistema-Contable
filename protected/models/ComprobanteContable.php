@@ -111,4 +111,15 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	/*Carga todos los comprobantes */
+	public function cargarComprobantes()
+	{
+		$sql='SELECT rut_empresa,comprobante_contable.numero_comprobante,fecha_comprobante,id_tipocomp,cuenta,glosa_comprobante,debe,haber
+ 				FROM COMPROBANTE_CONTABLE,LINEA_CONTABLE 
+ 				WHERE comprobante_contable.NUMERO_COMPROBANTE=linea_contable.NUMERO_COMPROBANTE;';
+ 		$connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $rawData = $command->queryAll();
+        return $rawData;
+	}
 }

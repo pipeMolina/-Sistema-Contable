@@ -111,15 +111,17 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	/*Carga todos los comprobantes */
-	public function cargarComprobantes()
+	/*Carga todos los comprobantes contables segun la empresa en un mes*/
+	public function cargarComprobantes($rutEmpresa,$mes)
 	{
-		$sql='SELECT rut_empresa,comprobante_contable.numero_comprobante,fecha_comprobante,id_tipocomp,cuenta,glosa_comprobante,debe,haber
- 				FROM COMPROBANTE_CONTABLE,LINEA_CONTABLE 
- 				WHERE comprobante_contable.NUMERO_COMPROBANTE=linea_contable.NUMERO_COMPROBANTE;';
+		$sql='SELECT cc.rut_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,cc.id_tipocomp,lc.cuenta,cc.glosa_comprobante,lc.debe,lc.haber
+ 				FROM COMPROBANTE_CONTABLE AS cc
+ 				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
+                WHERE cc.rut_empresa="'.$rutEmpresa.'" AND MONTH(cc.fecha_comprobante)='.$mes.';';
  		$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
-        $rawData = $command->queryAll();
-        return $rawData;
+        $dataReader = $command->queryAll();
+        
+        return $dataReader;
 	}
 }

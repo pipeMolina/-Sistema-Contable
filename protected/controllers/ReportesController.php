@@ -13,7 +13,7 @@ public function accessRules()
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','libroMayor','libroDiario'),
+				'actions'=>array('index','libroMayor','libroDiario','filterLibroDiario'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -22,27 +22,27 @@ public function accessRules()
 			);
 	}
 
+
 	public function actionLibroMayor()
-	{
-		$model="soy el libro mayor";
-		
-		$this->render('_reportlibroMayor',
-			array(
-				'model'=>$model,
-			));
+	{	
+		$this->render('_reportLibroMayor');
 	}
 	public function actionLibroDiario()
 	{
-		$rawData=ComprobanteContable::model()->cargarComprobantes();
-
-		$this->render('_reportlibrodiario',
-			array(
-				'rawData'=>$rawData,
-			));
+		$this->render('_reportLibrodiario');
 	}
 	public function actionIndex()
 	{
 		$this->render('index');
+	}
+	public function actionFilterLibroDiario()
+	{
+		$mes = $_POST['hiddenM'];
+		$rutEmpresa=$_POST['hiddenE'];
+		$data=ComprobanteContable::model()->cargarComprobantes($rutEmpresa,$mes);
+		var_dump($data);
+		die();
+
 	}
 }
 ?>

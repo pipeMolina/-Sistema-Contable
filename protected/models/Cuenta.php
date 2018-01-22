@@ -118,6 +118,7 @@ class Cuenta extends CActiveRecord
 		$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
+      
         return $dataReader;
 	}
 	public function cargarLibroDiario()

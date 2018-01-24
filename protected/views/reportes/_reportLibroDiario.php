@@ -7,8 +7,8 @@
         if(target.id == 'filterM'){
             document.getElementById('hiddenM').value = choose;
         }
-        if(target.id == 'filterA'){
-            document.getElementById('hiddenA').value = choose;
+        if(target.id == 'filterP'){
+            document.getElementById('hiddenP').value = choose;
         }
         if(target.id == 'filterE'){
             document.getElementById('hiddenE').value = choose;
@@ -88,7 +88,7 @@
                         {
                             $years[$i] = $i;
                         }
-                        echo CHtml::dropDownList('filterA',@$_POST['periodo'],$years,array('empty'=>'Seleccione Año','class'=>'form-control','onchange' => 'Asignate(this)'));  
+                        echo CHtml::dropDownList('filterP',@$_POST['periodo'],$years,array('empty'=>'Seleccione Año','class'=>'form-control','onchange' => 'Asignate(this)'));  
                         echo '</form>';
                     ?>        
                 </td>
@@ -98,7 +98,7 @@
                          echo '<form action=<"'.CController::createUrl('reportes/librodiario').'" id="formulario" method="post" name="formulario">';
                          echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_POST['dia'].'">';   
                          echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_POST['mes'].'">';
-                         echo '<input id="hiddenA" type="hidden" name="hiddenA" value="'.@$_POST['periodo'].'">';   
+                         echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_POST['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_POST['empresa'].'">'; 
                         echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterLibroDiario')),
                             array(
@@ -115,48 +115,10 @@
     	</table>
     </div>
 </div>
-<div id="print-total">
-</div>
-<!--<?php/*
 
-	$dataProvider=new CArrayDataProvider($rawData, array(
-    'id'=>'librodiario',
-    'pagination'=>array(
-        'pageSize'=>10,
-    ),
-));
-	*/?>-->
-	
-	<!--<?php/*
-	@$this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'librodiario-grid',
-    'dataProvider'=>$dataProvider,
-    'columns'=>array(
-                        array(
-                            'name'=>'numero_comprobante',
-                            'header'=>'Numero Comprobante',
-                        ),
-    					array(
-                            'name'=>'glosa_comprobante',
-                            'header'=>'Glosa Comprobante',
-                        ),
-                        array(
-                            'name'=>'cuenta',
-                        ),
-                        array(
-                            'name'=>'debe',
-                            'value' =>'number_format($data[debe], 0, ",", ".");',
-                        ),
-                        array(
-                            'name'=>'haber',
-                            'value' =>'number_format($data[haber], 0, ",", ".");',
-                        ),
-                        
-                        
-                        
-    	),
- ));
-*/?>-->
+<div id="print-total">
+
+</div>
 
 
 	

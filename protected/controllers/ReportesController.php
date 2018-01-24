@@ -37,12 +37,43 @@ public function accessRules()
 	}
 	public function actionFilterLibroDiario()
 	{
+		$dia=$_POST['hiddenD'];
 		$mes = $_POST['hiddenM'];
+		$periodo=$_POST['hiddenP'];
 		$rutEmpresa=$_POST['hiddenE'];
-		$data=ComprobanteContable::model()->cargarComprobantes($rutEmpresa,$mes);
-		var_dump($data);
-		die();
-
+		$cadena='';
+		$filtroP=false;
+		$filtroM=false;
+		if(empty($rutEmpresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+			else
+			{
+				$cadena = 'WHERE cc.rut_empresa="'.$rutEmpresa.'"';
+				
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+					$filtroP = true;
+				}
+				if(isset($mes) && !empty($mes) && $filtroP == true)
+				{
+					$cadena =''.$cadena.' AND MONTH(cc.fecha_comprobante)='.$mes.'';
+					$filtroM = true;
+				}
+				if(isset($dia) && !empty($dia) && $filtroM == true)
+				{
+					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
+				}
+				$data=ComprobanteContable::model()->cargarComprobantes($cadena);
+			}
+		
+		$this->renderPartial('libroDiario',array(
+			'data'=>$data,
+			));
 	}
 }
 ?>

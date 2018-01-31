@@ -23,28 +23,36 @@ public function accessRules()
 	}
 
 
-	public function actionLibroMayor()
-	{	
-		$this->render('_reportLibroMayor');
+	public function actionIndex()
+	{
+		$this->render('index');
 	}
 	public function actionLibroDiario()
 	{
 		$this->render('_reportLibrodiario');
 	}
-	public function actionIndex()
+	public function actionLibroMayor()
+	{	
+		$this->render('_reportLibroMayor');
+	}
+	public function actionEstadoResultado()
 	{
-		$this->render('index');
+		$this->render('_reportEstadoResultado');	
+	}
+	public function actionBalanceGeneral()
+	{
+		$this->render('_reportBalanceGeneral');
 	}
 	public function actionFilterLibroDiario()
 	{
+		@session_start();
 		$dia=$_POST['hiddenD'];
 		$mes = $_POST['hiddenM'];
 		$periodo=$_POST['hiddenP'];
-		$rutEmpresa=$_POST['hiddenE'];
 		$cadena='';
 		$filtroP=false;
 		$filtroM=false;
-		if(empty($rutEmpresa))
+		if(empty($_POST['hiddenE']))
 		{
 			echo '<script language="JavaScript" type="text/javascript">
 						alert("Debe elegir Empresa");
@@ -52,7 +60,7 @@ public function accessRules()
 		}
 			else
 			{
-				$cadena = 'WHERE cc.rut_empresa="'.$rutEmpresa.'"';
+				$cadena = 'WHERE cc.rut_empresa="'.$_POST['hiddenE'].'"';
 				
 				if(isset($periodo) && !empty($periodo))
 				{
@@ -68,12 +76,23 @@ public function accessRules()
 				{
 					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
 				}
-				$data=ComprobanteContable::model()->cargarComprobantes($cadena);
+				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
+				/*$sumaDebe=0;	
+				foreach ($data as $key => $value) 
+				{
+					if($data[$key]["numero_comprobante"]!=$referencia)
+					{
+						$arrayDebe[]=$sumaDebe;
+						$sumaDebe=0;
+					}
+					$sumaDebe += $data[$key]["debe"];
+				}*/
+				$_SESSION['data']=$data;
+				//$_SESSION['arrayDebe']=$arrayDebe;
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';
 			}
-		
-		$this->renderPartial('libroDiario',array(
-			'data'=>$data,
-			));
+
+
 	}
 }
 ?>

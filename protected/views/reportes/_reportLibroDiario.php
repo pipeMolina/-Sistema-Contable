@@ -22,27 +22,25 @@
 		'LibroDiario',
 	);
 ?>
-
-<div class="row-fluid">
-    <div>
+<?php @session_start();?>
     	<table>
     		<tr>
-                 <td align="center">
+                 <td style="min-width:200px;" align="center">
                         <?php echo "Empresa";?>
                 </td>
-                 <td align="center">
+                 <td style="min-width:100px;" align="center">
                         <?php echo "Día";?>
                 </td>
-	            <td align="center">
+	            <td style="min-width:100px;" align="center">
 	                    <?php echo "Mes";?>
 	            </td>
-	            <td align="center">
+	            <td style="min-width:100px;" align="center">
 	                    <?php echo "Año";?>
 	            </td>
         	</tr>
         	<tr>
-	            <td>
-                      <?php  echo CHtml::dropDownList('filterE',@$_POST['empresa'],CHtml::listData(Empresa::model()->findAll(array('order'=>'RAZONSOCIAL_EMPRESA')),'RUT_EMPRESA','RAZONSOCIAL_EMPRESA'),array(
+	            <td valign="top" align="center">
+                      <?php  echo CHtml::dropDownList('filterE',@$_SESSION['filtro']['empresa'],CHtml::listData(Empresa::model()->findAll(array('order'=>'RAZONSOCIAL_EMPRESA')),'RUT_EMPRESA','RAZONSOCIAL_EMPRESA'),array(
                               'empty'=>'Seleccione Empresa',
                               'onchange' => 'Asignate(this)',
                               'class'=>'form-control'
@@ -95,11 +93,11 @@
                 <td valign="top" align="center">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/librodiario').'" id="formulario" method="post" name="formulario">';
+                         echo '<form action=<"'.CController::createUrl('reportes/filterLibroDiario').'" id="formulario" method="post" name="formulario">';
                          echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_POST['dia'].'">';   
                          echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_POST['mes'].'">';
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_POST['periodo'].'">';   
-                         echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_POST['empresa'].'">'; 
+                         echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['empresa'].'">'; 
                         echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterLibroDiario')),
                             array(
                                 'type'=>'POST',
@@ -113,12 +111,98 @@
                 </td>
 	        </tr>
     	</table>
-    </div>
-</div>
+
+<br>
+<table class="table2">
+<h3 align="center" style="blue">Libro Diario </h3><br>
+
 
 <div id="print-total">
+<table width="100%" class="table2">
+  <tr class="tr">
+    <th>Empresa</th>
+    <th>Fecha</th> 
+    <th>Glosa</th> 
+    <th>Numero Comprobante</th>
+  </tr>
+  <tr class="tr">
+    <td class="td">Carlos Manuel</td>
+    <td class="td">05-12-2016</td>
+    <td class="td">Cancela Impuestos y Honorarios</td>
+    <td class="td">1</td>
+  </tr>
+</table>
+<?php
+        $rawData=@$_SESSION['data'];
+        $dataProvider=new CArrayDataProvider($rawData, array(
+        'id'=>'librodiario',
+        'pagination'=>array(
+            'pageSize'=>10,
+        ),
+    ));
+
+?>
+  <?php
+      /*  $rawDataTotales=@$_SESSION['arrayDebe'];
+        $dataProviderTotales=new CArrayDataProvider($rawDataTotales, array(
+        'id'=>'librodiario-total',
+        'pagination'=>array(
+            'pageSize'=>10,
+        ),
+    ));*/
+
+?>      
+    <?php
+        @$this->widget('zii.widgets.grid.CGridView', array(
+        'id'=>'librodiario-grid',
+        'dataProvider'=>$dataProvider,
+        'columns'=>array(
+                            array(
+                                'name'=>'numero_comprobante',
+                                'header'=>'Numero Comprobante',
+                            ),
+                            array(
+                                'name'=>'glosa_comprobante',
+                                'header'=>'Glosa Comprobante',
+                            ),
+                            array(
+                                'name'=>'cuenta',
+                            ),
+                            array(
+                                'name'=>'debe',
+                                'value' =>'number_format($data[debe], 0, ",", ".");',
+                            ),
+                            array(
+                                'name'=>'haber',
+                                'value' =>'number_format($data[haber], 0, ",", ".");',
+                            ),                          
+                            
+            ),
+     ));
+    ?>
+   <!-- <?php
+        /*@$this->widget('zii.widgets.grid.CGridView', array(
+        'id'=>'librodiario-grid',
+        'dataProviderTotales'=>$dataProviderTotales,
+        'columns'=>array(
+                            array(
+                                'name'=>'numero_comprobante',
+                                'header'=>'Numero Comprobante',
+                            ),
+                            array(
+                                'name'=>'glosa_comprobante',
+                                'header'=>'Glosa Comprobante',
+                            ),                        
+                            
+            ),
+     ));*/
+    ?>-->
 
 </div>
 
-
+<style>
+.table2,.td,.tr,th{
+    border: 1px solid black;
+}
+</style>
 	

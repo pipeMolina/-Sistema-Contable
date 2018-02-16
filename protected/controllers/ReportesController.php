@@ -49,10 +49,11 @@ public function accessRules()
 		$dia=$_POST['hiddenD'];
 		$mes = $_POST['hiddenM'];
 		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
 		$cadena='';
 		$filtroP=false;
 		$filtroM=false;
-		if(empty($_POST['hiddenE']))
+		if(empty($empresa))
 		{
 			echo '<script language="JavaScript" type="text/javascript">
 						alert("Debe elegir Empresa");
@@ -77,18 +78,30 @@ public function accessRules()
 					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
 				}
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
-				/*$sumaDebe=0;	
+			
+				//controla el cambio de comprobante
+				$referencia=$data[0]["numero_comprobante"];
+				
+				$sumaDebe=0;
+				$sumaHaber=0;
+				$i=$data[0]["numero_comprobante"];	
 				foreach ($data as $key => $value) 
 				{
+
 					if($data[$key]["numero_comprobante"]!=$referencia)
 					{
-						$arrayDebe[]=$sumaDebe;
+						$arrayDebe[$i]=$sumaDebe;
+						$arrayHaber[$i]=$sumaHaber;
 						$sumaDebe=0;
+						$sumaHaber=0;
+						$i=$data[0]["numero_comprobante"];
 					}
 					$sumaDebe += $data[$key]["debe"];
-				}*/
+					$sumaHaber += $data[$key]["haber"];
+				}
 				$_SESSION['data']=$data;
-				//$_SESSION['arrayDebe']=$arrayDebe;
+				$_SESSION['arrayDebe']=$arrayDebe;
+				$_SESSION['arrayHaber']=$arrayHaber;
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';
 			}
 

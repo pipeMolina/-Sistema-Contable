@@ -18,6 +18,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.*',
 		//'ext.dynamictabularform.*',
 	),
 
@@ -42,6 +43,10 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+		'excel'=>array(
+                  'class'=>'application.extensions.PHPExcel',
+        ),
+
 		//'bootstrap'=>array(
        //     'class'=>'bootstrap.components.Bootstrap',
        // ),

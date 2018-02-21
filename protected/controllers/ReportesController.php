@@ -2,7 +2,7 @@
  class ReportesController extends Controller
  {
 
- 	public $layout='//layouts/column2';
+ 	//public $layout='//layouts/column2';
 
  
 public function accessRules()
@@ -13,7 +13,7 @@ public function accessRules()
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','libroMayor','libroDiario','filterLibroDiario'),
+				'actions'=>array('index','libroMayor','libroDiario','filterLibroDiario','ExcelLibroDiario'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -43,13 +43,15 @@ public function accessRules()
 	{
 		$this->render('_reportBalanceGeneral');
 	}
-	public function actionFilterLibroDiario()
+	public function actionFilterLibroDiario($id)
 	{
 		@session_start();
 		$dia=$_POST['hiddenD'];
 		$mes = $_POST['hiddenM'];
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+
 		$cadena='';
 		$filtroP=false;
 		$filtroM=false;
@@ -79,33 +81,57 @@ public function accessRules()
 				}
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
 			
-				//controla el cambio de comprobante
-				$referencia=$data[0]["numero_comprobante"];
-				
-				$sumaDebe=0;
-				$sumaHaber=0;
-				$i=$data[0]["numero_comprobante"];	
-				foreach ($data as $key => $value) 
+				if(!empty($data))
 				{
-
-					if($data[$key]["numero_comprobante"]!=$referencia)
+					//controla el cambio de comprobante
+					$referencia=$data[0]["numero_comprobante"];
+					
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$arrayDebe[]=array();
+					$arrayHaber[]=array();
+					$i=$data[0]["numero_comprobante"];	
+					foreach ($data as $key => $value) 
 					{
-						$arrayDebe[$i]=$sumaDebe;
-						$arrayHaber[$i]=$sumaHaber;
-						$sumaDebe=0;
-						$sumaHaber=0;
-						$i=$data[0]["numero_comprobante"];
+
+						if($data[$key]["numero_comprobante"]!=$referencia)
+						{
+							$arrayDebe[$i]=$sumaDebe;
+							$arrayHaber[$i]=$sumaHaber;
+							$sumaDebe=0;
+							$sumaHaber=0;
+							$i=$data[0]["numero_comprobante"];
+						}
+						$sumaDebe += $data[$key]["debe"];
+						$sumaHaber += $data[$key]["haber"];
 					}
-					$sumaDebe += $data[$key]["debe"];
-					$sumaHaber += $data[$key]["haber"];
+					
+					$_SESSION['data']=$data;
+					$_SESSION['arrayDebe']=$arrayDebe;
+					$_SESSION['arrayHaber']=$arrayHaber;
 				}
-				$_SESSION['data']=$data;
-				$_SESSION['arrayDebe']=$arrayDebe;
-				$_SESSION['arrayHaber']=$arrayHaber;
-				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';
+				if($id == 0)
+				{
+					echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';	
+				}else
+				{
+					echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/ExcelLibroDiario";</script>';	
+
+				}
 			}
+	}
 
-
+	public function actionExcelLibroDiario()
+	{
+		$tabla[0][0]="cuenta";
+		$tabla[0][1]="descripcion";
+		$tabla[0][2]="Glosa";
+		$tabla[0][3]="Debe";
+		$tabla[0][4]="Haber";
+		
+		$this->renderPartial('libroDiarioExcel',array(
+			'tabla'=>$tabla,
+			));
 	}
 }
 ?>

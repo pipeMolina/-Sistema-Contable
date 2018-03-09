@@ -202,8 +202,9 @@ class CuentaController extends Controller
 	public function actionselectSubtipos()
 	{
 		$id_tipocuenta  = $_POST['Cuenta']['ID_TIPOCUENTA'];
+		
         $subtipos = SubtipoCuenta::model()->findAll('ID_TIPOCUENTA=:id_tipocuenta',array(':id_tipocuenta'=> $id_tipocuenta));
-        $data     = CHtml::listData($subtipos,'ID_SUBTIPOCUENTA','NOMBRE_SUBTIPOCUENTA');   
+        $data     = CHtml::listData($subtipos,'ID_SUBTIPOCUENTA','NOMBRE_SUBTIPOCUENTA');  
         echo CHtml::tag('option',array('value'=>''),'Seleccione',true);
         foreach($data as $value=>$subtipo)  
         {
@@ -221,7 +222,8 @@ class CuentaController extends Controller
     	$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
-        if(empty($dataReader)){
+        if(empty($dataReader))
+        {
         	$sum=$codigo+1;
 	    	echo CHtml::activeTextField(Cuenta::model(),'CODIGO_CUENTA',array('value'=>$sum));	   
 

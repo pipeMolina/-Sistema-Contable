@@ -31,15 +31,15 @@
               <td style="min-width:200px;" align="center">
                         <?php echo "Empresa";?>
               </td>
-              <td style="min-width:100px;" align="center">
-                        <?php echo "Día";?>
-              </td>
-	            <td style="min-width:100px;" align="center">
-	                    <?php echo "Mes";?>
-	            </td>
 	            <td style="min-width:100px;" align="center">
 	                    <?php echo "Año";?>
 	            </td>
+              <td style="min-width:100px;" align="center">
+                      <?php echo "Mes";?>
+              </td>
+              <td style="min-width:100px;" align="center">
+                        <?php echo "Día";?>
+              </td>
         	</tr>
         	<tr>
 	            <td valign="top" align="center" class="col-lg-4">
@@ -53,37 +53,7 @@
                       echo '</form>';
                       ?>
 
-	            </td>
-              <td valign="top" align="center" class="col-lg-2">
-                <?php /* Filtrado por Día */ 
-                        echo '<form action=<"'.CController::createUrl('reportes/filterDay').'" id="formulario3" method="post" name="formulario3">';
-                        $dias;
-                        $count = 1;
-                        for($i=1;$i<=31;$i++)
-                        {
-                            $dias[$i] = $count;
-                            $count++;
-                        } 
-                        echo CHtml::dropDownList('filterD',@$_POST['dia'],$dias,array(
-                            'empty'=> 'Todos',
-                            'onchange' => 'Asignate(this)',
-                            'class'=>'form-control'
-                        ));
-                        echo '</form>';
-                    ?>
               </td>
-	             <td valign="top" align="center" class="col-lg-2">
-	                    <?php /* Filtrado por Mes */ 
-	                        echo '<form action=<"'.CController::createUrl('reportes/filterMonth').'" id="formulario1" method="post" name="formulario1">';
-	                        $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
-	                        echo CHtml::dropDownList('filterM',@$_POST['mes'],$meses,array(
-                                'empty'=>"Seleccione Mes",
-                                'onchange' => 'Asignate(this)',
-                                'class'=>'form-control'
-                                ));
-	                        echo '</form>';
-	                    ?>
-	            </td>
                 <td valign="top" align="center" class="col-lg-2">
                     <?php /* Filtrado por Año */
                         echo '<form action=<"'.CController::createUrl('reportes/filterYear').'" id="formulario2" method="post" name="formulario2">';
@@ -92,19 +62,49 @@
                         {
                             $years[$i] = $i;
                         }
-                        echo CHtml::dropDownList('filterP',@$_POST['periodo'],$years,array('empty'=>'Seleccione Año','class'=>'form-control','onchange' => 'Asignate(this)'));  
+                        echo CHtml::dropDownList('filterP',@$_SESSION['filtro']['periodo'],$years,array('empty'=>'Seleccione Año','class'=>'form-control','onchange' => 'Asignate(this)'));  
                         echo '</form>';
                     ?>        
+                </td>
+               <td valign="top" align="center" class="col-lg-2">
+                      <?php /* Filtrado por Mes */ 
+                          echo '<form action=<"'.CController::createUrl('reportes/filterMonth').'" id="formulario1" method="post" name="formulario1">';
+                          $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
+                          echo CHtml::dropDownList('filterM',@$_SESSION['filtro']['mes'],$meses,array(
+                                'empty'=>"Seleccione Mes",
+                                'onchange' => 'Asignate(this)',
+                                'class'=>'form-control'
+                                ));
+                          echo '</form>';
+                      ?>
+              </td>
+                <td valign="top" align="center" class="col-lg-2">
+                  <?php /* Filtrado por Día */ 
+                          echo '<form action=<"'.CController::createUrl('reportes/filterDay').'" id="formulario3" method="post" name="formulario3">';
+                          $dias;
+                          $count = 1;
+                          for($i=1;$i<=31;$i++)
+                          {
+                              $dias[$i] = $count;
+                              $count++;
+                          } 
+                          echo CHtml::dropDownList('filterD',@$_SESSION['filtro']['dia'],$dias,array(
+                              'empty'=> 'Todos',
+                              'onchange' => 'Asignate(this)',
+                              'class'=>'form-control'
+                          ));
+                          echo '</form>';
+                      ?>
                 </td>
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterLibroDiario',array('id' => 0)).'" id="formulario" method="post" name="formulario">';
-                         echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_POST['dia'].'">';   
-                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_POST['mes'].'">';
-                         echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_POST['periodo'].'">';   
+                         echo '<form action=<"'.CController::createUrl('reportes/filterLibroDiario').'" id="formulario" method="post" name="formulario">';
+                         echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_SESSION['filtro']['dia'].'">';   
+                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
+                         echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
-                         echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterLibroDiario&id=0')),
+                         echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterLibroDiario')),
                             array(
                                 'type'=>'POST',
                                 'update' => '#print-total',
@@ -118,12 +118,12 @@
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterLibroDiario',array('id' => 1)).'" id="formulario5" method="post" name="formulario5">';
-                         echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_POST['dia'].'">';   
-                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_POST['mes'].'">';
-                         echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_POST['periodo'].'">';   
+                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelLibroDiario').'" id="formulario5" method="post" name="formulario5">';
+                         echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_SESSION['filtro']['dia'].'">';   
+                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
+                         echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
-                        echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterLibroDiario&id=1')),
+                        echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelLibroDiario')),
                             array(
                                 'type'=>'POST',
                                 'update' => '#print-total',
@@ -188,9 +188,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php for($j=0;$j<count($arrayListaComprobantes[$i]);$j++) 
-                            {
-                      ?>
+<?php                   for($j=0;$j<count($arrayListaComprobantes[$i]);$j++) 
+                          {
+?>
                               <tr>
                                 <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>
                                 <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>

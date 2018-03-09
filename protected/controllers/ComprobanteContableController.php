@@ -33,7 +33,7 @@ class ComprobanteContableController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view'),
+				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -83,22 +83,13 @@ class ComprobanteContableController extends Controller
 	public function actionCreate()
 	{
 		$model=new ComprobanteContable;
-		$LineasContables=array();
-		$this->$formLinea = Yii::$app->request->post('LineaContable');
-		foreach ($formLinea as $key => $value) 
-		{
-			$modelLinea=new LineaContable(array('scenario'=>LineaContable::SCENARIO_BATCH_UPDATE));
-			$modelLinea->setAttributes($value);
-            $LienasContables[] = $modelLinea;
-        }
-        //Si el boton addRow es presionado
-        if($_POST('addRow') == 'true')
+		$modelLinea=new LineaContable;
 		
-        
+        //$this->performAjaxValidation($model);
 
 		$this->render('create',array(
 			'model'=>$model,
-			'modelLineas'=>$modelLineas,
+			'modelLinea'=>$modelLinea,
 		));
 	}
 
@@ -192,5 +183,27 @@ class ComprobanteContableController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	public function actionCargaCuentas()
+	{
+		$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
+		$cuentas = cuenta::model()->loadCuentas($rutEmpresa);
+        $data     = CHtml::listData($cuentas,'CODIGO_CUENTA','DESCRIPCION_CUENTA');  
+        echo CHtml::tag('option',array('value'=>''),'Seleccione',true);
+        foreach($data as $value=>$key)  
+        {
+        	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($key),true);
+        }
+	}
+	public function actionCargaCuentasJs()
+	{
+		$rutEmpresa=$_POST['id'];
+		$cuentas = cuenta::model()->loadCuentas($rutEmpresa);
+        $data     = CHtml::listData($cuentas,'CODIGO_CUENTA','DESCRIPCION_CUENTA');  
+        echo CHtml::tag('option',array('value'=>''),'Seleccione',true);
+        foreach($data as $value=>$key)  
+        {
+        	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($key),true);
+        }
 	}
 }

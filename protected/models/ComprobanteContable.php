@@ -111,7 +111,7 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	/*Carga todos los comprobantes contables segun la empresa en un mes*/
+	/*Carga todos los comprobantes contables*/
 	public function cargarComprobantes($cadena)
 	{
 		$sql='SELECT e.razonsocial_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,lc.cuenta,c.descripcion_cuenta,cc.glosa_comprobante,lc.debe,lc.haber

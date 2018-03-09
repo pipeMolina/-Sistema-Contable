@@ -111,7 +111,7 @@ class Cuenta extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	/*Carga todas las cuentas de una empresa*/
+	/*Carga todas las cuentas de una empresa segun plan de cuentas*/
 	public function cargarCuentas($idPlan)
 	{
 		$sql='SELECT ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA from Cuenta WHERE ID_PLANCUENTA='.$idPlan.'';
@@ -121,8 +121,21 @@ class Cuenta extends CActiveRecord
       
         return $dataReader;
 	}
-	public function cargarLibroDiario()
+
+	public function loadcuentas($rutEmpresa)
 	{
-		
+		$sql='SELECT DISTINCT c.ID_PLANCUENTA,c.CODIGO_CUENTA,c.DESCRIPCION_CUENTA,tc.nombre_tipocuenta 
+			FROM cuenta AS c
+			INNER JOIN tipo_cuenta tc ON c.id_tipocuenta=tc.id_tipocuenta
+			INNER JOIN PLAN_CUENTA AS pc ON c.id_plancuenta=pc.id_plancuenta
+			INNER JOIN EMPRESA AS e ON pc.id_plancuenta=e.id_plancuenta
+			INNER JOIN COMPROBANTE_CONTABLE AS cc ON e.rut_empresa=cc.rut_empresa
+			WHERE cc.rut_empresa="'.$rutEmpresa.'"';
+
+		$connection = Yii::app()->db;
+       	$command = $connection->createCommand($sql);
+       	$dataReader = $command->queryAll();
+      
+        return $dataReader;
 	}
 }

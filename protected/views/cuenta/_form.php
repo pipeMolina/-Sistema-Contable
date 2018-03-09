@@ -42,7 +42,7 @@
 				 	'ajax' => array(
 								'type'=>'POST',
 								'url'=>CController::createUrl('cuenta/selectSubtipos'),
-								'update'=>'#'.CHtml::activeId(cuenta::model(),'ID_SUBTIPOCUENTA'),
+								'update'=>'#'.CHtml::activeId($model,'ID_SUBTIPOCUENTA'),
 							)
 				 	)); ?>
 			<!--<?php //echo $form->textField($model,'ID_TIPOCUENTA',array("class"=>"form-control")); ?>-->
@@ -112,7 +112,7 @@
                 {
                 	type:"POST",
                 	url: url,
-               		//data:$("#formulario").serialize(),
+               		data:$("#formulario").serialize(),
                		data:"id="+$("#idplan").val(),
                		dataType:"html",
                		success: function(data)

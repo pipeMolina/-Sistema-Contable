@@ -65,7 +65,7 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return array(
 			'NUMERO_COMPROBANTE' => 'Numero Comprobante',
-			'ID_TIPOCOMP' => 'Id Tipocomp',
+			'ID_TIPOCOMP' => 'Tipo Comprobante',
 			'RUT_EMPRESA' => 'Rut Empresa',
 			'FECHA_COMPROBANTE' => 'Fecha Comprobante',
 			'GLOSA_COMPROBANTE' => 'Glosa Comprobante',
@@ -111,7 +111,7 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	/*Carga todos los comprobantes contables*/
+	/*Carga todos los comprobantes contables segun el filtro del reporte Libro Diario*/
 	public function cargarComprobantes($cadena)
 	{
 		$sql='SELECT e.razonsocial_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,lc.cuenta,c.descripcion_cuenta,cc.glosa_comprobante,lc.debe,lc.haber
@@ -129,5 +129,33 @@ class ComprobanteContable extends CActiveRecord
         return $dataReader;
          //WHERE cc.rut_empresa="'.$rutEmpresa.'" AND DAY(cc.fecha_comprobante)='.$dia.' AND MONTH(cc.fecha_comprobante)='.$mes.' AND YEAR(cc.fecha_comprobante)='.$periodo.';';
 
+	}
+	/*Consultar el ultimo Comprobante ingresado*/
+	public function cargaUltimoComprobante()
+	{
+		$sql = 'SELECT MAX(NUMERO_COMPROBANTE) AS numero_comprobante FROM comprobante_contable';
+		$connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->queryAll();
+        
+        return $dataReader;
+	}
+	/*Carga Comprobantes por cuenta segun año y/o mes*/
+	public function cargarComprobantesCuenta($cadena)
+	{
+		$sql = 'SELECT  e.razonsocial_empresa,lc.cuenta,c.descripcion_cuenta,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,cc.numero_comprobante,tc.nombre_tipocomp,cc.glosa_comprobante,lc.debe,lc.haber
+ 				FROM COMPROBANTE_CONTABLE AS cc 
+ 				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
+                INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
+                INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA
+                INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
+                INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
+                '.$cadena.' order by MONTH(cc.fecha_comprobante),DAY(cc.fecha_comprobante)';
+
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->queryAll();
+
+        return $dataReader;
 	}
 }

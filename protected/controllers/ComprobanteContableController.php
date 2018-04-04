@@ -33,7 +33,7 @@ class ComprobanteContableController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs'),
+				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
 				'users'=>array('molina'),
 			),
 			array('deny',  // deny all users
@@ -84,7 +84,59 @@ class ComprobanteContableController extends Controller
 	{
 		$model=new ComprobanteContable;
 		$modelLinea=new LineaContable;
-		
+		$msje="";
+		if(isset($_POST['ComprobanteContable']))
+		{
+			$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
+			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
+			$glosa=$_POST['ComprobanteContable']['GLOSA_COMPROBANTE'];
+			$cuenta=$_POST['Cuenta'];
+			$debe=$_POST['LineaContable']['DEBE'];
+			$haber=$_POST['LineaContable']['HABER'];
+
+			$sql='INSERT INTO comprobante_contable(ID_TIPOCOMP,RUT_EMPRESA,FECHA_COMPROBANTE,GLOSA_COMPROBANTE)
+				   VALUES ('.$tipoComprobante.',"'.$rutEmpresa.'","'.$_POST['FECHA_COMPROBANTE'].'","'.$glosa.'")';
+			Yii::app()->db->createCommand($sql)->execute();
+			
+			$data=ComprobanteContable::model()->cargaUltimoComprobante();
+			$numeroComprobante=$data[0]['numero_comprobante'];
+			$sumaDebe=0;
+			$sumaHaber=0;
+			$resultado=0;
+			for ($i=0; $i < count($cuenta) ; $i++) 
+			{
+				$sumaDebe+=$debe[$i];
+				$sumaHaber+=$haber[$i];
+			}
+			$resultado=$sumaDebe-$sumaHaber;
+			if($resultado == 0)
+			{
+				for ($i=0; $i < count($cuenta) ; $i++) 
+				{
+					$sql2='INSERT INTO linea_contable(NUMERO_COMPROBANTE,DEBE,HABER,CUENTA)
+					VALUES("'.$numeroComprobante.'",'.$debe[$i].','.$haber[$i].','.$cuenta[$i].')';
+					Yii::app()->db->createCommand($sql2)->execute();
+					$msje="Se ingreso satisfactoriamente el Comprobante";
+
+				}
+					echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
+			}
+			else
+			{
+				$sql3='DELETE FROM comprobante_contable WHERE NUMERO_COMPROBANTE="'.$numeroComprobante.'"';
+				Yii::app()->db->createCommand($sql3)->execute();
+				
+					$msje="Problemas con las Lineas Contables";
+			echo '<div class="alert alert-danger">'.json_encode($msje).'</div>';
+
+			}
+			//echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
+			
+			
+			exit;
+
+		}
+
         //$this->performAjaxValidation($model);
 
 		$this->render('create',array(
@@ -101,19 +153,68 @@ class ComprobanteContableController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		
+		//$modelLinea=LineaContable::model()->findByAttributes('NUMERO_COMPROBANTE=:id',array(':id'=>$id));
+		$modelLinea=LineaContable::model()->findAllByAttributes(array('NUMERO_COMPROBANTE'=>$id));
+		//var_dump($model,$modelLinea);
+		//die();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ComprobanteContable']))
 		{
-			$model->attributes=$_POST['ComprobanteContable'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->NUMERO_COMPROBANTE));
+			$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
+			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
+			$glosa=$_POST['ComprobanteContable']['GLOSA_COMPROBANTE'];
+			//$cuenta=$_POST['LineaContable']['Cuenta[$i]'];
+			$debe=$_POST['LineaContable']['DEBE'];
+			$haber=$_POST['LineaContable']['HABER'];
+
+			$sql='UPDATE comprobante_contable(ID_TIPOCOMP,RUT_EMPRESA,FECHA_COMPROBANTE,GLOSA_COMPROBANTE)
+				   SET ('.$tipoComprobante.',"'.$rutEmpresa.'","'.$_POST['ComprobanteContable']['FECHA_COMPROBANTE'].'","'.$glosa.'")';
+			Yii::app()->db->createCommand($sql)->execute();
+			
+			$data=ComprobanteContable::model()->cargaUltimoComprobante();
+			$numeroComprobante=$data[0]['numero_comprobante'];
+			$sumaDebe=0;
+			$sumaHaber=0;
+			$resultado=0;
+			for ($i=0; $i < count($cuenta) ; $i++) 
+			{
+				$sumaDebe+=$debe[$i];
+				$sumaHaber+=$haber[$i];
+			}
+			$resultado=$sumaDebe-$sumaHaber;
+			if($resultado == 0)
+			{
+				for ($i=0; $i < count($cuenta) ; $i++) 
+				{
+					$sql2='UPDATE linea_contable(NUMERO_COMPROBANTE,DEBE,HABER,CUENTA)
+					SET("'.$numeroComprobante.'",'.$debe[$i].','.$haber[$i].','.$cuenta[$i].')';
+					Yii::app()->db->createCommand($sql2)->execute();
+					$msje="Se ingreso satisfactoriamente el Comprobante";
+
+				}
+					echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
+			}
+			else
+			{
+				$sql3='DELETE FROM comprobante_contable WHERE NUMERO_COMPROBANTE="'.$numeroComprobante.'"';
+				Yii::app()->db->createCommand($sql3)->execute();
+				
+					$msje="Problemas con las Lineas Contables";
+			echo '<div class="alert alert-danger">'.json_encode($msje).'</div>';
+
+			}
+			//echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
+			
+			
+			exit;
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'modelLinea'=>$modelLinea,
 		));
 	}
 
@@ -206,4 +307,12 @@ class ComprobanteContableController extends Controller
         	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($key),true);
         }
 	}
+	public function actionTree()
+    {
+    	$rut=$_POST["id"];
+    	$model=Cuenta::model()->loadCuentas($rut);
+    	$this->renderPartial('_viewTree',array(
+			'model'=>$model,
+		));
+    }
 }

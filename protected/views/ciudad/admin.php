@@ -18,7 +18,8 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#ciudad-grid').yiiGridView('update', {
+	$('#ciudad-grid').yiiGridView('update', 
+	{
 		data: $(this).serialize()
 	});
 	return false;

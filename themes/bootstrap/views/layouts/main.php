@@ -11,13 +11,17 @@
 	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.css" />-->
 	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.min.css" />-->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-treepanel.css" />
+	
+
 
 	<?php
 	  $baseUrl = Yii::app()->theme->baseUrl; 
 	  $cs = Yii::app()->getClientScript();
 	  Yii::app()->clientScript->registerCoreScript('jquery');
 	?>
-	
+    <?php
+    	$cs->registerScriptFile($baseUrl.'/js/bootstrap-datepicker.min.js');  
+	 ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -37,14 +41,14 @@
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Empresa', 'url'=>array('/Empresa/index')),
 				array('label'=>'Plan Cuenta', 'url'=>array('/PlanCuenta/index')),
-				array('label'=>'Comprobante Contable', 'url'=>array('/ComprobanteContable/index')),
-				array('label'=>'Linea Contable', 'url'=>array('/lineaContable/index')),
 				array('label'=>'Cuenta', 'url'=>array('/Cuenta/index')),
-				array('label'=>'Tipo Cuenta', 'url'=>array('/TipoCuenta/index')),
+				array('label'=>'Comprobante Contable', 'url'=>array('/ComprobanteContable/index')),
+				//array('label'=>'Linea Contable', 'url'=>array('/lineaContable/index')),
+				//array('label'=>'Tipo Cuenta', 'url'=>array('/TipoCuenta/index')),
+				array('label'=>'Reportes', 'url'=>array('/reportes/index')),
 				array('label'=>'Ciudad', 'url'=>array('/Ciudad/index')),
 				array('label'=>'Region', 'url'=>array('/Region/index')),
 				array('label'=>'Usuario', 'url'=>array('/Usuario/index')),
-				array('label'=>'Reportes', 'url'=>array('/reportes/index')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

@@ -12,15 +12,7 @@ $this->menu=array(
 	array('label'=>'Administrar ComprobanteContable', 'url'=>array('admin')),
 );
 ?>
-<div class="content">
-   
-    <div div class="panel panel-primary">
-    <div class="panel-heading text-center"><h1 class="panel-title">Crear Comprobante Contable</h1></div>
-        <div class="panel-body">
-            <?php $this->renderPartial('_form', array('model'=>$model,'modelLinea'=>$modelLinea)); ?>
-        </div>
-    </div>
-</div>
+   <?php $this->renderPartial('_form', array('model'=>$model,'modelLinea'=>$modelLinea)); ?>
 
 
 

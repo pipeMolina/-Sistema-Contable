@@ -17,6 +17,9 @@
  */
 class Cuenta extends CActiveRecord
 {
+	
+	
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -124,13 +127,12 @@ class Cuenta extends CActiveRecord
 
 	public function loadcuentas($rutEmpresa)
 	{
-		$sql='SELECT DISTINCT c.ID_PLANCUENTA,c.CODIGO_CUENTA,c.DESCRIPCION_CUENTA,tc.nombre_tipocuenta 
+		$sql='SELECT DISTINCT c.ID_PLANCUENTA,c.CODIGO_CUENTA,c.DESCRIPCION_CUENTA,c.ID_TIPOCUENTA,c.ID_SUBTIPOCUENTA,tc.nombre_tipocuenta 
 			FROM cuenta AS c
 			INNER JOIN tipo_cuenta tc ON c.id_tipocuenta=tc.id_tipocuenta
 			INNER JOIN PLAN_CUENTA AS pc ON c.id_plancuenta=pc.id_plancuenta
 			INNER JOIN EMPRESA AS e ON pc.id_plancuenta=e.id_plancuenta
-			INNER JOIN COMPROBANTE_CONTABLE AS cc ON e.rut_empresa=cc.rut_empresa
-			WHERE cc.rut_empresa="'.$rutEmpresa.'"';
+			WHERE e.rut_empresa="'.$rutEmpresa.'"';
 
 		$connection = Yii::app()->db;
        	$command = $connection->createCommand($sql);

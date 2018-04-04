@@ -2,6 +2,9 @@
 
 class CuentaController extends Controller
 {
+
+	public $codigoTipoCuenta;
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -18,7 +21,6 @@ class CuentaController extends Controller
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
-
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -62,7 +64,7 @@ class CuentaController extends Controller
 		$model=new Cuenta;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		//El id_planCuenta viene de la pestaña plan de cuenta
 		if(isset($_GET['id']))
 			{
 			$model->ID_PLANCUENTA=$_GET['id'];
@@ -202,19 +204,21 @@ class CuentaController extends Controller
 	public function actionselectSubtipos()
 	{
 		$id_tipocuenta  = $_POST['Cuenta']['ID_TIPOCUENTA'];
-		
-        $subtipos = SubtipoCuenta::model()->findAll('ID_TIPOCUENTA=:id_tipocuenta',array(':id_tipocuenta'=> $id_tipocuenta));
-        $data     = CHtml::listData($subtipos,'ID_SUBTIPOCUENTA','NOMBRE_SUBTIPOCUENTA');  
-        echo CHtml::tag('option',array('value'=>''),'Seleccione',true);
-        foreach($data as $value=>$subtipo)  
-        {
-        	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($subtipo),true);
-        }
+		$codigoTipoCuenta=$_POST['Cuenta']['ID_TIPOCUENTA'];
+	        $subtipos = SubtipoCuenta::model()->findAll('ID_TIPOCUENTA=:id_tipocuenta',array(':id_tipocuenta'=> $id_tipocuenta));
+	        $data     = CHtml::listData($subtipos,'ID_SUBTIPOCUENTA','NOMBRE_SUBTIPOCUENTA');  
+	        echo CHtml::tag('option',array('value'=>''),'Seleccione',true);
+	        foreach($data as $value=>$subtipo)  
+	        {
+	        	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($subtipo),true);
+	        }
+        
     }
 
+    /*Asignar codigo a la cuenta segun el tipo cuenta o subtipo cuenta*/
     public function actionsetCodigo()
     {
-    	$id_plan=$_POST["Cuenta"]["ID_PLANCUENTA"];
+		$id_tipocuenta  = $_POST["Cuenta"]["ID_TIPOCUENTA"];
     	$id_subtipo= $_POST['Cuenta']['ID_SUBTIPOCUENTA'];
     	$codigo_subtipo=SubtipoCuenta::model()->find('ID_SUBTIPOCUENTA=:idsub',array(':idsub'=>$id_subtipo));
     	$codigo=$codigo_subtipo->ID_SUBTIPOCUENTA;
@@ -222,6 +226,7 @@ class CuentaController extends Controller
     	$connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $dataReader = $command->queryAll();
+        // Si no existen valores en la tabla cuenta.
         if(empty($dataReader))
         {
         	$sum=$codigo+1;

@@ -27,7 +27,7 @@
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
 			<?php  	
-				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan","onchange"=>"treePanel()"));
+				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan",'empty'=>'Seleccione Empresa',"onchange"=>"treePanel()"));
 				
 			?>
 			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control","disabled"=>"")); ?>-->
@@ -39,6 +39,7 @@
 				 array(
 				 	"class"=>"form-control",
 				 	'empty' => 'Elige Tipo Cuenta',
+				 	'id'=> 'tipoCUenta',
 				 	'ajax' => array(
 								'type'=>'POST',
 								'url'=>CController::createUrl('cuenta/selectSubtipos'),
@@ -104,6 +105,10 @@
 </div>
 <div id="resultado"></div>
 
+   
+</div><!-- form -->
+
+<?php $this->endWidget(); ?>
 <script>
 	function treePanel()
     {
@@ -112,7 +117,6 @@
                 {
                 	type:"POST",
                 	url: url,
-               		data:$("#formulario").serialize(),
                		data:"id="+$("#idplan").val(),
                		dataType:"html",
                		success: function(data)
@@ -122,10 +126,6 @@
                	});
     }
 </script>
-   
-</div><!-- form -->
-
-<?php $this->endWidget(); ?>
 
 
 

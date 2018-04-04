@@ -15,7 +15,6 @@
         }
     }
 </script>
-
 <?php
 	$this->breadcrumbs=array(
 		'Reportes'=>array('index'),
@@ -118,17 +117,17 @@
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelLibroDiario').'" id="formulario5" method="post" name="formulario5">';
+                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelLibroDiario&id=1').'" id="formulario5" method="post" name="formulario5">';
                          echo '<input id="hiddenD" type="hidden" name="hiddenD" value="'.@$_SESSION['filtro']['dia'].'">';   
                          echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
-                        echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelLibroDiario')),
+                        echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelLibroDiario&id=1')),
                             array(
                                 'type'=>'POST',
                                 'update' => '#print-total',
                             ),
-                            array('type'=>'submit', 'class'=>'btn btn-primary' )
+                            array('type'=>'submit', 'class'=>'btn btn-default' )
                         );
                         echo '</form>';
                     
@@ -139,12 +138,13 @@
     </div>
 </br>
 <div id="print-total">
-<h3 align="center" style="blue">Libro Diario </h3><br>
+<h2 align="center">Libro Diario:</h2>
+<h2 align= "center"><small><?php echo 'Dia:'.@$_SESSION['filtro']['dia'].' Mes:'.@$_SESSION['filtro']['mes'].' Año:'.@$_SESSION['filtro']['periodo'].''?></small></h2>
+<br></br>
 <?php
         $rawData = @$_SESSION['data'];
         $rawDataDebe = @$_SESSION['arrayDebe'];
         $rawDataHaber = @$_SESSION['arrayHaber'];
-
         if (!empty($rawData)) 
         {
             $arrayComprobante=array();
@@ -159,6 +159,12 @@
                   $arrayComprobante=array();
                   
                 }
+                $arrayComprobante[]=$rawData[$key]["numero_comprobante"];
+                $arrayComprobante[]=$rawData[$key]["dia"];
+                $arrayComprobante[]=$rawData[$key]["mes"];
+                $arrayComprobante[]=$rawData[$key]["Año"];
+                $arrayComprobante[]=$rawData[$key]["razonsocial_empresa"];
+                $arrayComprobante[]=$rawData[$key]["nombre_tipocomp"];
                 $arrayComprobante[]=$rawData[$key]["cuenta"];
                 $arrayComprobante[]=$rawData[$key]["descripcion_cuenta"];
                 $arrayComprobante[]=$rawData[$key]["glosa_comprobante"];
@@ -166,16 +172,16 @@
                 $arrayComprobante[]=$rawData[$key]["haber"];  
             }
             $arrayListaComprobantes[]=$arrayComprobante;
-           
+     
             for($i = 0;$i < count($arrayListaComprobantes);$i++) 
             {
-?>
-                  <table class="table table-striped table-hover">
+               echo '<table class="table table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>N° Comrpobante:<?php echo ' '.$arrayListaComprobantes[$i][0] ?></th>
-                        <th>Empresa:<?php echo ' '.$rawData[$key]['razonsocial_empresa'] ?></th>
-                        <th>Tipo Comprobante:<?php echo ' '.$rawData[$key]['nombre_tipocomp'] ?></th>
+                        <th>Empresa:'.$arrayListaComprobantes[$i][4].'</th>
+                        <th>Comprobante:'.$arrayListaComprobantes[$i][0].'</th>
+                        <th>Fecha: '.$arrayListaComprobantes[$i][1].'-'.$arrayListaComprobantes[$i][2].'-'.$arrayListaComprobantes[$i][3].'</th>
+                        <th>Tipo Comprobante:'.$arrayListaComprobantes[$i][5].'</th>
                       </tr>
                     </thead>
                     <thead>
@@ -187,29 +193,33 @@
                         <th>Haber</th>
                       </tr>
                     </thead>
-                    <tbody>
-<?php                   for($j=0;$j<count($arrayListaComprobantes[$i]);$j++) 
+                    <tbody>';
+                   for($j=6;$j<count($arrayListaComprobantes[$i]);$j++) 
                           {
-?>
-                              <tr>
-                                <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>
-                                <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>
-                                <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>
-                                <td><?php echo $arrayListaComprobantes[$i][$j++] ?></td>
-                                <td><?php echo $arrayListaComprobantes[$i][$j] ?></td>
-                              </tr>
-<?php 
-        
+                              echo '<tr>
+                                      <td>'. $arrayListaComprobantes[$i][$j++].'</td>
+                                      <td> '.$arrayListaComprobantes[$i][$j++].' </td>
+                                      <td> '.$arrayListaComprobantes[$i][$j++].' </td>
+                                      <td>'.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
+                                      <td> '.number_format($arrayListaComprobantes[$i][$j], 0, ",", ".").' </td>
+                                    </tr>';
+                              $j+=6;
                           }
-?>
 
-                    </tbody>
-                  </table> 
-<?php 
+                  echo    '</tbody>';
+                     echo '<tr>
+                              <td class="text-center">TOTAL COMPROBANTE</td>
+                              <td></td>
+                              <td></td>
+                              <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
+                            </tr>';
+                  echo '</table>';                     
+              
           }
       }
         else
-          echo "No se han encontrado datos para el filtro seleccionado";
+          echo "No se encontraron datos con los valores indicados";
          @$_SESSION['data']='';
          @$_SESSION['arrayDebe']='';
          @$_SESSION['arrayHaber']='';
@@ -218,157 +228,149 @@
 </div>
 <?php
 /*
-
-  array (size=9)
+array (size=11)
   0 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
       'numero_comprobante' => string '1' (length=1)
       'dia' => string '5' (length=1)
       'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20109001' (length=8)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '83879' (length=5)
-      'haber' => null
-  1 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20100001' (length=8)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '41200' (length=5)
-      'haber' => null
-  2 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20122000' (length=8)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '19312' (length=5)
-      'haber' => null
-  3 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20126000' (length=8)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '22532' (length=5)
-      'haber' => null
-  4 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20127000' (length=8)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '44286' (length=5)
-      'haber' => null
-  5 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '20132000' (length=8)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10301002' (length=8)
+      'descripcion_cuenta' => string 'Impuesto Renta' (length=14)
       'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
       'debe' => string '501268' (length=6)
-      'haber' => null
-  6 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
+      'haber' => string '0' (length=1)
+  1 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
       'numero_comprobante' => string '1' (length=1)
       'dia' => string '5' (length=1)
       'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '10101000' (length=8)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10101001' (length=8)
+      'descripcion_cuenta' => string 'Caja' (length=4)
       'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => null
+      'debe' => string '83879' (length=5)
+      'haber' => string '0' (length=1)
+  2 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '1' (length=1)
+      'dia' => string '5' (length=1)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10201002' (length=8)
+      'descripcion_cuenta' => string 'Instalaciones' (length=13)
+      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
+      'debe' => string '44286' (length=5)
+      'haber' => string '0' (length=1)
+  3 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '1' (length=1)
+      'dia' => string '5' (length=1)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10201001' (length=8)
+      'descripcion_cuenta' => string 'Muebles y Utiles' (length=16)
+      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
+      'debe' => string '41200' (length=5)
+      'haber' => string '0' (length=1)
+  4 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '1' (length=1)
+      'dia' => string '5' (length=1)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '20100001' (length=8)
+      'descripcion_cuenta' => string 'I.V.A' (length=5)
+      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
+      'debe' => string '22532' (length=5)
+      'haber' => string '0' (length=1)
+  5 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '1' (length=1)
+      'dia' => string '5' (length=1)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10301001' (length=8)
+      'descripcion_cuenta' => string 'Cuenta Particular' (length=17)
+      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
+      'debe' => string '19312' (length=5)
+      'haber' => string '0' (length=1)
+  6 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '1' (length=1)
+      'dia' => string '5' (length=1)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10101002' (length=8)
+      'descripcion_cuenta' => string 'Mercaderias' (length=11)
+      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
+      'debe' => string '0' (length=1)
       'haber' => string '712477' (length=6)
   7 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
       'numero_comprobante' => string '2' (length=1)
       'dia' => string '12' (length=2)
       'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '10103000' (length=8)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10101001' (length=8)
+      'descripcion_cuenta' => string 'Caja' (length=4)
       'glosa_comprobante' => string 'Cancela Impuestos y honorarios' (length=30)
       'debe' => string '23428' (length=5)
-      'haber' => null
+      'haber' => string '0' (length=1)
   8 => 
-    array (size=10)
-      'rut_empresa' => string '12488706-2' (length=10)
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
       'numero_comprobante' => string '2' (length=1)
       'dia' => string '12' (length=2)
       'mes' => string '12' (length=2)
-      'AÃ±o' => string '2016' (length=4)
-      'id_tipocomp' => string '2' (length=1)
-      'cuenta' => string '10101000' (length=8)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Egreso' (length=6)
+      'cuenta' => string '10201001' (length=8)
+      'descripcion_cuenta' => string 'Muebles y Utiles' (length=16)
       'glosa_comprobante' => string 'Cancela Impuestos y honorarios' (length=30)
-      'debe' => null
+      'debe' => string '0' (length=1)
       'haber' => string '23428' (length=5)
-
-*/
-
-/*
-
-array (size=2)
-  0 => 
-    array (size=28)
-      0 => string '20109001' (length=8)
-      1 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      2 => string '83879' (length=5)
-      3 => null
-      4 => string '20100001' (length=8)
-      5 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      6 => string '41200' (length=5)
-      7 => null
-      8 => string '20122000' (length=8)
-      9 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      10 => string '19312' (length=5)
-      11 => null
-      12 => string '20126000' (length=8)
-      13 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      14 => string '22532' (length=5)
-      15 => null
-      16 => string '20127000' (length=8)
-      17 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      18 => string '44286' (length=5)
-      19 => null
-      20 => string '20132000' (length=8)
-      21 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      22 => string '501268' (length=6)
-      23 => null
-      24 => string '10101000' (length=8)
-      25 => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      26 => null
-      27 => string '712477' (length=6)
-  1 => 
-    array (size=4)
-      0 => string '10103000' (length=8)
-      1 => string 'Cancela Impuestos y honorarios' (length=30)
-      2 => string '23428' (length=5)
-      3 => null
+  9 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '3' (length=1)
+      'dia' => string '12' (length=2)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Traspaso' (length=8)
+      'cuenta' => string '10201002' (length=8)
+      'descripcion_cuenta' => string 'Instalaciones' (length=13)
+      'glosa_comprobante' => string 'Ajustes Credito Fiscal' (length=22)
+      'debe' => string '188' (length=3)
+      'haber' => string '0' (length=1)
+  10 => 
+    array (size=11)
+      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
+      'numero_comprobante' => string '3' (length=1)
+      'dia' => string '12' (length=2)
+      'mes' => string '12' (length=2)
+      'Año' => string '2016' (length=4)
+      'nombre_tipocomp' => string 'Traspaso' (length=8)
+      'cuenta' => string '10101002' (length=8)
+      'descripcion_cuenta' => string 'Mercaderias' (length=11)
+      'glosa_comprobante' => string 'Ajustes Credito Fiscal' (length=22)
+      'debe' => string '0' (length=1)
+      'haber' => string '188' (length=3)
 */
 ?>  

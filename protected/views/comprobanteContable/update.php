@@ -16,6 +16,4 @@ $this->menu=array(
 );
 ?>
 
-<h1>Modificar ComprobanteContable <?php echo $model->NUMERO_COMPROBANTE; ?></h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_formUpdate', array('model'=>$model,'modelLinea'=>$modelLinea)); ?>

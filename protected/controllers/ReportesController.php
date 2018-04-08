@@ -36,13 +36,10 @@ public function accessRules()
 			),
 			);
 	}
-
-
 	public function actionIndex()
 	{
 		$this->render('index');
 	}
-
 	public function actionLibroDiario()
 	{
 		$this->render('_reportLibrodiario');
@@ -478,6 +475,75 @@ public function accessRules()
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/saldoporMes";</script>';			
 			}
 	}
+	public function actionFilterBalanceGeneral()
+	{
+		@session_start();
+		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
+		$cadena='';
+		/*Mantiene Valores del filtrado al recargar la pagina*/
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+		if(empty($empresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+		else
+			{
+				$cadena = 'WHERE cc.rut_empresa="'.$_POST['hiddenE'].'"';
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				}
+				
+				$data = ComprobanteContable::model()->cargaCuentasBalance($cadena);
+				//se guardaran las cuentas con sus respectivos valores
+				$arrayCuentas=array();
+				if(!empty($data))
+				{
+				    //controla el cambio de Cuenta
+					$referenciaCuenta=$data[0]["cuenta"];
+					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$diferencia=0;
+					//indice de las filas del arrayCuentas[]
+					$i=0;
+					foreach ($data as $key => $value) 
+					{
+
+						if($data[$key]["cuenta"]!=$referenciaCuenta)
+						{
+							$diferencia=$sumaDebe-$sumaHaber;
+							$arrayCuentas[$i][]=$referenciaCuenta;
+							$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+							$arrayCuentas[$i][]=$sumaDebe;
+							$arrayCuentas[$i][]=$sumaHaber;
+							$arrayCuentas[$i][]=$diferencia;
+							$referenciaCuenta=$data[$key]["cuenta"];
+							$referenciaDescripcionCuenta=$data[$key]["descripcion_cuenta"];
+							$sumaDebe=0;
+							$sumaHaber=0;
+							$i++;
+						}
+						$sumaDebe += $data[$key]["debe"];
+						$sumaHaber += $data[$key]["haber"];
+					}
+					//para el ultimo caso
+					$diferencia=$sumaDebe-$sumaHaber;
+					$arrayCuentas[$i][]=$data[$key]["cuenta"];
+					$arrayCuentas[$i][]=$data[$key]["descripcion_cuenta"];
+					$arrayCuentas[$i][]=$sumaDebe;
+					$arrayCuentas[$i][]=$sumaHaber;
+					$arrayCuentas[$i][]=$diferencia;
+				}
+				$_SESSION['arrayCuentas']=$arrayCuentas;
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
+
+			}
+	}	
 	public function actionCargaCuentas()
 	{
 		$rutEmpresa=$_POST['rut'];

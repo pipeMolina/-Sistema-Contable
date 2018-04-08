@@ -140,7 +140,7 @@ class ComprobanteContable extends CActiveRecord
         
         return $dataReader;
 	}
-	/*Carga Comprobantes por cuenta segun año y/o mes*/
+	/*Carga Comprobantes por cuenta segun año, consulta diseñada para la vista libroMayor*/
 	public function cargarComprobantesCuenta($cadena)
 	{
 		$sql = 'SELECT  e.razonsocial_empresa,lc.cuenta,c.descripcion_cuenta,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,cc.numero_comprobante,tc.nombre_tipocomp,cc.glosa_comprobante,lc.debe,lc.haber
@@ -151,6 +151,24 @@ class ComprobanteContable extends CActiveRecord
                 INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
                 INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
                 '.$cadena.' order by MONTH(cc.fecha_comprobante),DAY(cc.fecha_comprobante)';
+
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->queryAll();
+
+        return $dataReader;
+	}
+	/*Carga todas las cuentas anualmente, consulta diseñada para la vista Balance8Columnas*/
+	public function cargaCuentasBalance($cadena)
+	{
+		$sql='SELECT  e.razonsocial_empresa,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,lc.cuenta,c.descripcion_cuenta,lc.debe,lc.haber
+ 				FROM COMPROBANTE_CONTABLE AS cc 
+ 				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
+                INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
+                INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA
+                INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
+                INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
+                '.$cadena.' ORDER BY cuenta;';
 
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);

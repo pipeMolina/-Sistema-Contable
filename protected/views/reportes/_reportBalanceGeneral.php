@@ -57,7 +57,6 @@
                     <?php
                     
                          echo '<form action=<"'.CController::createUrl('reportes/filterBalanceGeneral').'" id="formulario" method="post" name="formulario">';  
-                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
                          echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterBalanceGeneral')),
@@ -75,7 +74,6 @@
                     <?php
                     
                          echo '<form action=<"'.CController::createUrl('reportes/filterExcelBalanceGeneral&id=1').'" id="formulario5" method="post" name="formulario5">';   
-                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
                         echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelBalanceGeneral')),
@@ -93,3 +91,62 @@
     	</table>
     </div>
 </br>
+<div id="print-total">
+<h2 align="center">Balance General:</h2>
+<h2 align= "center"><small><?php echo 'Empresa:'.@$_SESSION['filtro']['empresa'].' Año:'.@$_SESSION['filtro']['periodo'].''?></small></h2>
+<br></br>
+<?php
+        $rawData = @$_SESSION['arrayCuentas'];
+     if (!empty($rawData)) 
+        {
+          echo '<table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Cuenta</th>
+                      <th></th>
+                      <th>Debito</th>
+                      <th>Credito</th>
+                      <th>Deudor</th>
+                      <th>Acreedor</th>
+                      <th>Activos</th>
+                      <th>Pasivos</th>
+                      <th>Perdida</th>
+                      <th>Ganancia</th>
+                    </tr>
+                  </thead>
+                  <tbody>';
+                    for($i=0;$i<count($rawData);$i++)
+                    {
+                      for($j=0;$j<count($rawData[$i]);$j++)
+                      {
+                         echo '<tr>
+                                      <td>'. $rawData[$i][$j++].'</td>
+                                      <td> '.$rawData[$i][$j++].' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>';
+                                      if($rawData[$i][$j]>0)
+                                      {
+                                        //Valores columna Deudor y Activos respectivamente
+                                        echo    '<td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>
+                                                 <td></td>
+                                                 <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>'; 
+                                      }
+                                      else
+                                      {
+                                        //valores columna Acreedor y Pasivos respectivamente
+                                          echo '<td></td>
+                                                <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>
+                                                <td></td>
+                                                <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>'; 
+                                      }
+                           echo '</tr>';
+                      }
+                    } 
+            echo '</tbody>';
+          echo '</table>';    
+        }
+        else
+          echo "No se encontraron datos con los valores indicados";
+?>
+</div>
+</div>

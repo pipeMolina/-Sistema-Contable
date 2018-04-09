@@ -70,10 +70,9 @@
 	<?php echo $content; ?>
 	
 </div>
-<br></br>
 <div class="footer text-center" >
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>			
-		All Rights Reserved.<br/>
+		Sistema Contable <?php echo date('Y'); ?>.<br/>			
+		Carlos Molina.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 

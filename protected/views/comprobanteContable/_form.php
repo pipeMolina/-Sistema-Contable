@@ -90,17 +90,7 @@
 		     <button id="add" type="button" class="btn btn-default" >Agregar Linea</button>
 		 </div>
 		 <div class="col-lg-3">
-		 	<?php echo CHtml::ajaxSubmitButton('Save','your-url',array(
-		 		"type":"POST",
-		                "url": "url",
-	               		"data":"$("#comprobante-contable-form").serialize()",
-		               	"success": function(data)
-		               	{
-           	   				//alert("hola");
-           	   				$("#mensaje").html(data);
-		               	},
-		 	);?>
-
+		     <button id="submit" type="button" class="btn btn-primary">Guardar Comprobante</button>
 		 </div>
 	</div>
 </div>
@@ -205,3 +195,4 @@
                	});
     }
 </script>
+

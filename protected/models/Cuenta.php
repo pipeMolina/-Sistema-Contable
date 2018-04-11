@@ -124,7 +124,7 @@ class Cuenta extends CActiveRecord
       
         return $dataReader;
 	}
-
+	/*Carga todas las cuentas de una empresa segun rut el rut de la empresa*/
 	public function loadcuentas($rutEmpresa)
 	{
 		$sql='SELECT DISTINCT c.ID_PLANCUENTA,c.CODIGO_CUENTA,c.DESCRIPCION_CUENTA,c.ID_TIPOCUENTA,c.ID_SUBTIPOCUENTA,tc.nombre_tipocuenta 
@@ -134,6 +134,16 @@ class Cuenta extends CActiveRecord
 			INNER JOIN EMPRESA AS e ON pc.id_plancuenta=e.id_plancuenta
 			WHERE e.rut_empresa="'.$rutEmpresa.'"';
 
+		$connection = Yii::app()->db;
+       	$command = $connection->createCommand($sql);
+       	$dataReader = $command->queryAll();
+      
+        return $dataReader;
+	}
+	/*Carga el plan de cuentas generico*/
+	public function planGenerico()
+	{
+		$sql='SELECT CODIGO_CUENTA,ID_TIPOCUENTA,ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA FROM contabilidad.cuenta WHERE ID_PLANCUENTA=1;';
 		$connection = Yii::app()->db;
        	$command = $connection->createCommand($sql);
        	$dataReader = $command->queryAll();

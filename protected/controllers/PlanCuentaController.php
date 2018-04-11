@@ -61,29 +61,24 @@ class PlanCuentaController extends Controller
 	public function actionCreate()
 	{
 		$model=new PlanCuenta;
-		$modelCuenta=new Cuenta;
 		// Uncomment the following line if AJAX validation is needed
 		 $this->performAjaxValidation($model);
-
 
 		if(isset($_POST['PlanCuenta']))
 		{
 			$model->attributes=$_POST['PlanCuenta'];
-			if(true)
-				{
-					if($model->save())
-					{
-						//$modelcuenta->ID_PLANCUENTA=$model->ID_PLANCUENTA;
-						$this->redirect(array('//cuenta/create','id'=>$model->ID_PLANCUENTA));
-												/*if($modelcuenta->save())
-						{
-							$this->redirect(Yii::app()->request->baseUrl."/index.php?r=Cuenta/create");
-						}*/
-					}
-				}
-			
+			if($model->save())
+			{
+		 		$plan = cuenta::model()->planGenerico();
+		 		foreach ($plan as $key => $value) 
+		 		{
+					$sql='INSERT INTO cuenta(CODIGO_CUENTA,ID_TIPOCUENTA,ID_PLANCUENTA,ID_SUBTIPOCUENTA,DESCRIPCION_CUENTA)
+						VALUES('.$plan[$key]['CODIGO_CUENTA'].','.$plan[$key]['ID_TIPOCUENTA'].','.$model->ID_PLANCUENTA.','.$plan[$key]['ID_SUBTIPOCUENTA'].',"'.$plan[$key]['DESCRIPCION_CUENTA'].'")';
+						Yii::app()->db->createCommand($sql)->execute();
+				}	
+					$this->redirect(array('//empresa/create','id'=>$model->ID_PLANCUENTA));	
+			}
 		}
-
 		$this->render('create',array(
 			'model'=>$model,
 		));

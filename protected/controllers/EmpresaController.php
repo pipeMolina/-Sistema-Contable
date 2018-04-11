@@ -65,12 +65,27 @@ class EmpresaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		 $this->performAjaxValidation($model);
 
-		if(isset($_POST['Empresa']))
+		if(isset($_GET['id']))
+			{
+			$model->ID_PLANCUENTA=$_GET['id'];
+			if(isset($_POST['Empresa']))
+				{
+					$model->attributes=$_POST['Empresa'];
+					if($model->save())
+						{
+							$this->redirect(array('view','id'=>$model->RUT_EMPRESA));
+						}		
+				}
+			}
+		else
 		{
-			$model->attributes=$_POST['Empresa'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->RUT_EMPRESA));
-		}
+			if(isset($_POST['Empresa']))
+			{
+				$model->attributes=$_POST['Empresa'];
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->RUT_EMPRESA));
+			}
+		}	
 
 		$this->render('create',array(
 			'model'=>$model,

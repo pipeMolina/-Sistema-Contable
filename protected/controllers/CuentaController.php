@@ -64,27 +64,6 @@ class CuentaController extends Controller
 		$model=new Cuenta;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		//El id_planCuenta viene de la pestaña plan de cuenta
-		if(isset($_GET['id']))
-			{
-			$model->ID_PLANCUENTA=$_GET['id'];
-			if(isset($_POST['Cuenta']))
-				{
-					$model->attributes=$_POST['Cuenta'];
-
-					if($model->save())
-						{
-							if(isset($_POST['otro']))
-							{
-								$this->redirect(array('create','id'=>$model->ID_PLANCUENTA));
-								
-							}
-							else
-							$this->redirect(array('view','id'=>$model->ID_CUENTA));
-						}		
-				}
-			}
-			else
 				if(isset($_POST['Cuenta']))
 				{
 					$model->attributes=$_POST['Cuenta'];
@@ -100,10 +79,6 @@ class CuentaController extends Controller
 							$this->redirect(array('view','id'=>$model->ID_CUENTA));
 						}		
 				}
-				else
-					{
-					$model->ID_PLANCUENTA=0;
-					}
 
 		$this->render('create',array(
 			'model'=>$model,

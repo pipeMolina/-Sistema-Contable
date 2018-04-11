@@ -113,6 +113,8 @@ public function accessRules()
 					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
 				}
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
+				var_dump($cadena);
+				die();
 			
 				if(!empty($data))
 				{

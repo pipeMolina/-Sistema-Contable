@@ -135,10 +135,11 @@
 <br></br>
   <?php 
     $rawData=@$_SESSION['data'];
-    $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
     $rawDataDebe=@$_SESSION['arrayDebe'];
     $rawDataHaber=@$_SESSION['arrayHaber'];
-    $rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
+    $rawDataSaldos=@$_SESSION['arraySaldos'];
+    $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
+    //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 
     {
       $arrayComprobante=array();
@@ -146,6 +147,7 @@
       $referencia=$rawData[0]["mes"];
       $fila=0;
       $columna=0;
+      $i=0;
       foreach ($rawData as $key => $value) 
       {
         if($rawData[$key]["mes"]!=$referencia )
@@ -168,8 +170,10 @@
         $arrayComprobante[]=$rawData[$key]["glosa_comprobante"];
         $arrayComprobante[]=$rawData[$key]["debe"];
         $arrayComprobante[]=$rawData[$key]["haber"];
+        $arrayComprobante[]=$rawDataSaldos[$i];
         $arrayComprobante[]=$rawDataArrayListaSaldos[$fila][$columna];
         $columna++;
+        $i++;
       }
       $arrayListaComprobantes[]=$arrayComprobante;
     
@@ -220,8 +224,8 @@
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
                                       <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
+                                      <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>;
                                       <td> '.number_format($arrayListaComprobantes[$i][$j], 0, ",", ".").' </td>';
-
                                     echo  '</tr>';
                                       $j+=3;
                           }
@@ -236,7 +240,7 @@
                               <td class="text-center">Total Mes de '.$arrayListaComprobantes[$i][4].'</td>
                               <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
-                              <td>'.number_format($rawDataTotalSaldos[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($rawDataArrayListaSaldos[$i], 0, ",", ".").'</td>
                             </tr>
 
                             <tr>

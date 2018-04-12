@@ -113,8 +113,7 @@ public function accessRules()
 					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
 				}
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
-				var_dump($cadena);
-				die();
+		
 			
 				if(!empty($data))
 				{
@@ -259,18 +258,17 @@ public function accessRules()
 					$totalSaldos=0;
 					$arrayDebe;
 					$arrayHaber;
-					$arrayTotalSaldos;
 					foreach ($data as $key => $value) 
 					{
 
 						if($data[$key]["mes"]!=$referencia)
 						{
 							$referencia=$data[$key]["mes"];
-							$arrayListaSaldos[]=$arraySaldos;
-							$arraySaldos=array();
-
+							//Se almacena la suma de los debe
 							$arrayDebe[]=$sumaDebe;
 							$arrayHaber[]=$sumaHaber;
+							$totalSaldos=$sumaDebe-$sumaHaber;
+							$arrayListaSaldos[]=$totalSaldos;
 							$sumaDebe=0;
 							$sumaHaber=0;
 						}
@@ -282,25 +280,15 @@ public function accessRules()
 						$sumaHaber += $data[$key]["haber"];
 
 					}
-					$arrayListaSaldos[]=$arraySaldos;
-					/*Suma columna Saldo*/
-					for($i=0;$i<count($arrayListaSaldos);$i++)
-					{
-						for($j=0;$j<count($arrayListaSaldos[$i]);$j++)
-						{
-							$totalSaldos+=$arrayListaSaldos[$i][$j];
-						}
-						$arrayTotalSaldos[]=$totalSaldos;
-						$totalSaldos=0;
-					}
 					$arrayDebe[]=$sumaDebe;
 					$arrayHaber[]=$sumaHaber;
-
+					$totalSaldos=$sumaDebe-$sumaHaber;
+					$arrayListaSaldos[]=$totalSaldos;
 					$_SESSION['data']=$data;
 					$_SESSION['arrayDebe']=$arrayDebe;
 					$_SESSION['arrayHaber']=$arrayHaber;
+					$_SESSION['arraySaldos']=$arraySaldos;
 					$_SESSION['arrayListaSaldos']=$arrayListaSaldos;
-					$_SESSION['arrayTotalSaldos']=$arrayTotalSaldos;
 
 				}
 

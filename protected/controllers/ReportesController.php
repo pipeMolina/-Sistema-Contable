@@ -258,6 +258,15 @@ public function accessRules()
 					$totalSaldos=0;
 					$arrayDebe;
 					$arrayHaber;
+					$totalAcDebe=0;
+					$totalAcHaber=0;
+					$totalAcSaldo=0;
+					$arrayTotalAcDebe=array();
+					$arrayTotalAcHaber=array();
+					$arrayTotalAcTotal=array();
+					$saldoAnteriorD[]=0;
+					$saldoAnteriorH[]=0;
+					$saldoAnteriorS[]=0;
 					foreach ($data as $key => $value) 
 					{
 
@@ -284,11 +293,32 @@ public function accessRules()
 					$arrayHaber[]=$sumaHaber;
 					$totalSaldos=$sumaDebe-$sumaHaber;
 					$arrayListaSaldos[]=$totalSaldos;
+					/*Valores del total acumulado Debe,Haber y Saldo*/
+					for($i=0;$i<count($arrayListaSaldos);$i++)
+					{
+						$totalAcDebe+=$arrayDebe[$i];
+						$totalAcHaber+=$arrayHaber[$i];
+						$totalAcSaldo+=$arrayListaSaldos[$i];
+						$saldoAnteriorD[]=$totalAcDebe;
+						$saldoAnteriorH[]=$totalAcHaber;
+						$saldoAnteriorS[]=$totalAcSaldo;
+						$arrayTotalAcDebe[]=$totalAcDebe;
+						$arrayTotalAcHaber[]=$totalAcHaber;
+						$arrayTotalAcSaldo[]=$totalAcSaldo;
+
+					}
 					$_SESSION['data']=$data;
 					$_SESSION['arrayDebe']=$arrayDebe;
 					$_SESSION['arrayHaber']=$arrayHaber;
 					$_SESSION['arraySaldos']=$arraySaldos;
 					$_SESSION['arrayListaSaldos']=$arrayListaSaldos;
+					$_SESSION['arrayTotalAcDebe']=$arrayTotalAcDebe;
+					$_SESSION['arrayTotalAcHaber']=$arrayTotalAcHaber;
+					$_SESSION['arrayTotalAcSaldo']=$arrayTotalAcSaldo;
+					$_SESSION['saldoAnteriorD']=$saldoAnteriorD;
+					$_SESSION['saldoAnteriorH']=$saldoAnteriorH;
+					$_SESSION['saldoAnteriorS']=$saldoAnteriorS;
+
 
 				}
 

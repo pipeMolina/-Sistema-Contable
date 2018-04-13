@@ -139,6 +139,14 @@
     $rawDataHaber=@$_SESSION['arrayHaber'];
     $rawDataSaldos=@$_SESSION['arraySaldos'];
     $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
+    $acumuladoDebe=$_SESSION['arrayTotalAcDebe'];
+    $acumuladoHaber=$_SESSION['arrayTotalAcHaber'];
+    $acumuladoSaldos=$_SESSION['arrayTotalAcSaldo'];
+    $saldoAnteriorD=$_SESSION['saldoAnteriorD'];
+
+    $saldoAnteriorH=$_SESSION['saldoAnteriorH'];
+    $saldoAnteriorS=$_SESSION['saldoAnteriorS'];
+
     //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 
     {
@@ -194,9 +202,9 @@
                         <th></th>
                         <th></th>
                         <th>Saldo Anterior</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>0</th>
+                        <th>'.number_format($saldoAnteriorD[$i], 0, ",", ".").'</th>
+                        <th>'.number_format($saldoAnteriorH[$i], 0, ",", ".").'</th>
+                        <th>'.number_format($saldoAnteriorS[$i], 0, ",", ".").'</th>
                       </tr>
                     </thead>
                     <thead>
@@ -224,8 +232,7 @@
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
                                       <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
-                                      <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>;
-                                      <td> '.number_format($arrayListaComprobantes[$i][$j], 0, ",", ".").' </td>';
+                                      <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>';
                                     echo  '</tr>';
                                       $j+=3;
                           }
@@ -250,9 +257,9 @@
                               <td></td>
                               <td></td>
                               <td class="text-center">Total Acumulado </td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
+                              <td>'.number_format($acumuladoDebe[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($acumuladoHaber[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($acumuladoSaldos[$i], 0, ",", ".").'</td>
                             </tr>
                  </table>';        
       }

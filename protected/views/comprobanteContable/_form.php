@@ -76,10 +76,13 @@
 					<?php echo $form->labelEx($modelLinea,'CUENTA'); ?>
 				</div>
 				<div class="col-lg-3"><br>
-					<?php echo $form->labelEx($modelLinea,'DEBE'); ?>
+					<?php echo $form->labelEx($modelLinea,'DEBE'); ?><div id="totalDebe"></div>
+                    <?php echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> 
+
 				</div>
 				<div class="col-lg-3"><br>
-					<?php echo $form->labelEx($modelLinea,'HABER'); ?>
+					<?php echo $form->labelEx($modelLinea,'HABER'); ?><div id="totalHaber"></div>
+					<?php echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>
 				</div>
 			</div>
 			<!--Aqui se agregan los campos de texto mediante JQuery-->
@@ -103,12 +106,27 @@
 
 
  <script type="text/javascript">  
+	      function total(n,obj)
+	      {
+	      	if(n==1)
+	      	{
+	      		document.getElementById('hiddenD').value = parseInt(obj)+parseInt(document.getElementById('hiddenD').value);
+           	   	$("#totalDebe").html(document.getElementById('hiddenD').value);
+	      	}
+	      	else
+	      	{
+	      		document.getElementById('hiddenH').value = parseInt(obj)+parseInt(document.getElementById('hiddenH').value);
+           	   	$("#totalHaber").html(document.getElementById('hiddenH').value);
+	      	}
+
+	      }  
  $(document).ready(function(){ 
  	  
  	  //$('#datepicker').datepicker();
  	  
  	  var i=0;
-       
+      var sumaDebe=0;
+      var sumaHaber=0;
       $("#add").click(function(){ 
             
            var rutEmpresa=$("#rutEmpresa").val();
@@ -127,8 +145,8 @@
 	      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
 	           //alert('row'+i);
 	           var dropDown = $("<select id='resultado"+i+"' name=\"Cuenta[]\" class=\"form-control\"/>");
-	           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control"))?>');
-	           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control"));?>');
+	           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);"))?>');
+	           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value);"));?>');
 	           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
 	           divDropDownList.append(dropDown);
 	           divDebe.append(debe);
@@ -159,24 +177,45 @@
            $("#row"+button_id+'').remove();  
       });
 
-
- }); 
-
       $("#submit").click(function(){
 
 			var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
-      		$.ajax(
-		            {
-		               	type:"POST",
-		                url: url,
-	               		data:$("#comprobante-contable-form").serialize(),
-		               	success: function(data)
-		               	{
-           	   				//alert("hola");
-           	   				$("#mensaje").html(data);
-		               	}
-		            });
-      });  
+			var sumaDebe=$("#hiddenD").val();
+			var sumaHaber=$("#hiddenH").val();
+			alert(sumaDebe);
+			if(sumaDebe==sumaHaber)
+			{
+	      		$.ajax(
+			            {
+			               	type:"POST",
+			                url: url,
+		               		data:$("#comprobante-contable-form").serialize(),
+			               	success: function(data)
+			               	{
+	           	   				//alert("hola");
+	           	   				$("#mensaje").html(data);
+	           	   				//SrollTop: $("#mensaje").offset().top,1000;
+	      						location.href ="#mensaje";
+	      						/*Se eliminan las lineas contables*/
+					      		while(i>0)
+					      		{
+					      			$("#row"+i+'').remove(); 
+					      			i--;
+					      		}
+			               	}
+			            });				
+			}
+			else
+			{
+				location.href ="#mensaje";
+				$("#mensaje").html("hjkadf");
+			}
+    
+      });
+
+
+ }); 
+
  </script>
 <script>
 	function treePanel()

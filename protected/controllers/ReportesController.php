@@ -14,20 +14,27 @@ public function accessRules()
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index',
+					'filterLibroDiario',
+					'filterExcelLibroDiario',
+					'exportarExcelLibroDiario',
 					'libroMayor',
 					'filterLibroMayor',
 					'filterExcelLibroMayor',
 					'exportarExcelLibroMayor',
 					'libroDiario',
-					'filterLibroDiario',
-					'filterExcelLibroDiario',
-					'exportarExcelLibroDiario',
 					'balanceGeneral',
-					'cargaCuentas',
+					'filterBalanceGeneral',
+					'filterExcelBalanceGeneral',
+					'exportarExcelBalanceGeneral',
 					'saldoporMes',
 					'filterSaldoporMes',
 					'filterExcelSaldoporMes',
 					'exportarExcelSaldoPorMes',
+					'estadoResultado',
+					'filterEstadoResultado',
+					'filterExcelEstadoResultado',
+					'exportarExcelEstadoResultado',
+					'cargaCuentas',
 					),
 				'users'=>array('molina'),
 			),
@@ -63,16 +70,25 @@ public function accessRules()
 	}
 	public function actionExportarExcelSaldoPorMes()
 	{
-		$this->renderPartial('_reportSaldoPorMesExcel');
-	}
-	public function actionEstadoResultado()
-	{
-		$this->render('_reportEstadoResultado');	
+		$this->renderPartial('saldoPorMesExcel');
 	}
 	public function actionBalanceGeneral()
 	{
 		$this->render('_reportBalanceGeneral');
 	}
+	public function actionExportarExcelBalanceGeneral()
+	{
+		$this->renderPartial('balanceGeneralExcel');
+	}
+	public function actionEstadoResultado()
+	{
+		$this->render('_reportEstadoResultado');	
+	}
+	public function actionExportarExcelEstadoResultado()
+	{
+		$this->renderPartial('estadoResultadoExcel');
+	}
+
 	public function actionFilterLibroDiario()
 	{
 		@session_start();
@@ -441,6 +457,7 @@ public function accessRules()
 					$referencia=$data[0]["mes"];
 					$diferencia=0;
 					$valorSaldo=0;
+					$sumaValorSaldo=0;
 					$arrayListaSaldos=array();
 					
 					$sumaDebe=0;
@@ -449,50 +466,127 @@ public function accessRules()
 					$arrayDebe;
 					$arrayHaber;
 					$arrayTotalSaldos;
+					$arraySaldoMes=array();
+					$arraySaldoMes[0][]=$data[0]["cuenta"];
+					$arraySaldoMes[0][]=$data[0]["descripcion_cuenta"];
+
+					$i=1;
 					foreach ($data as $key => $value) 
 					{
 
 						if($data[$key]["mes"]!=$referencia)
 						{
-							$referencia=$data[$key]["mes"];
-							$arrayListaSaldos[]=$arraySaldos;
-							$arraySaldos=array();
+							$valorSaldo += $diferencia;
+							$arraySaldoMes[$i][] = $referencia;
+							$arraySaldoMes[$i][] = $sumaDebe;
+							$arraySaldoMes[$i][] = $sumaHaber;
+							$arraySaldoMes[$i][] = $diferencia;
+							$arraySaldoMes[$i][] = $valorSaldo;
+							
 
-							$arrayDebe[]=$sumaDebe;
-							$arrayHaber[]=$sumaHaber;
-							$sumaDebe=0;
-							$sumaHaber=0;
+							$referencia = $data[$key]["mes"];
+							$sumaDebe = 0;
+							$sumaHaber = 0;
+							$i++;
 						}
-						$diferencia =$data[$key]["debe"]-$data[$key]["haber"];
-						$valorSaldo+=$diferencia;
-						$arraySaldos[]=$valorSaldo;
 
 						$sumaDebe += $data[$key]["debe"];
 						$sumaHaber += $data[$key]["haber"];
+						$diferencia = $sumaDebe-$sumaHaber;
 
 					}
-					$arrayListaSaldos[]=$arraySaldos;
-					/*Suma columna Saldo*/
-					for($i=0;$i<count($arrayListaSaldos);$i++)
-					{
-						for($j=0;$j<count($arrayListaSaldos[$i]);$j++)
-						{
-							$totalSaldos+=$arrayListaSaldos[$i][$j];
-						}
-						$arrayTotalSaldos[]=$totalSaldos;
-						$totalSaldos=0;
-					}
-					$arrayDebe[]=$sumaDebe;
-					$arrayHaber[]=$sumaHaber;
-					$_SESSION['data']=$data;
-					$_SESSION['arrayDebe']=$arrayDebe;
-					$_SESSION['arrayHaber']=$arrayHaber;
-					$_SESSION['arrayListaSaldos']=$arrayListaSaldos;
-					$_SESSION['arrayTotalSaldos']=$arrayTotalSaldos;
+					$valorSaldo += $diferencia;
+					$arraySaldoMes[$i][] = $data[$key]["mes"];
+					$arraySaldoMes[$i][] = $sumaDebe;
+					$arraySaldoMes[$i][] = $sumaHaber;
+					$arraySaldoMes[$i][] = $diferencia;
+					$arraySaldoMes[$i][] = $valorSaldo;
+					
+					$_SESSION['arraySaldoMes'] = $arraySaldoMes;
 					
 				}
 				
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/saldoporMes";</script>';			
+			}
+	}
+	public function actionFilterExcelSaldoporMes()
+	{
+		@session_start();
+		$cuenta=$_POST['hiddenC'];
+		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
+		$cadena='';
+		if(empty($empresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+		else
+			{
+				$cadena = 'WHERE lc.cuenta="'.$_POST['hiddenC'].'"';
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				}
+				
+				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
+				if(!empty($data))
+				{
+					//controla el cambio de Mes
+					$referencia=$data[0]["mes"];
+					$diferencia=0;
+					$valorSaldo=0;
+					$sumaValorSaldo=0;
+					$arrayListaSaldos=array();
+					
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$totalSaldos=0;
+					$arrayDebe;
+					$arrayHaber;
+					$arrayTotalSaldos;
+					$arraySaldoMes=array();
+					$arraySaldoMes[0][]=$data[0]["cuenta"];
+					$arraySaldoMes[0][]=$data[0]["descripcion_cuenta"];
+
+					$i=1;
+					foreach ($data as $key => $value) 
+					{
+
+						if($data[$key]["mes"]!=$referencia)
+						{
+							$valorSaldo += $diferencia;
+							$arraySaldoMes[$i][] = $referencia;
+							$arraySaldoMes[$i][] = $sumaDebe;
+							$arraySaldoMes[$i][] = $sumaHaber;
+							$arraySaldoMes[$i][] = $diferencia;
+							$arraySaldoMes[$i][] = $valorSaldo;
+							
+
+							$referencia = $data[$key]["mes"];
+							$sumaDebe = 0;
+							$sumaHaber = 0;
+							$i++;
+						}
+
+						$sumaDebe += $data[$key]["debe"];
+						$sumaHaber += $data[$key]["haber"];
+						$diferencia = $sumaDebe-$sumaHaber;
+
+					}
+					$valorSaldo += $diferencia;
+					$arraySaldoMes[$i][] = $data[$key]["mes"];
+					$arraySaldoMes[$i][] = $sumaDebe;
+					$arraySaldoMes[$i][] = $sumaHaber;
+					$arraySaldoMes[$i][] = $diferencia;
+					$arraySaldoMes[$i][] = $valorSaldo;
+					
+					$_SESSION['arraySaldoMes'] = $arraySaldoMes;
+					
+				}
+				
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelSaldoporMes";</script>';			
 			}
 	}
 	public function actionFilterBalanceGeneral()
@@ -541,14 +635,53 @@ public function accessRules()
 							$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
 							$arrayCuentas[$i][]=$sumaDebe;
 							$arrayCuentas[$i][]=$sumaHaber;
-							$arrayCuentas[$i][]=$diferencia;
+							if($diferencia>0)
+							{
+								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=0;	
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
+							else
+							{
+								$arrayCuentas[$i][]=0;
+								$arrayCuentas[$i][]=$diferencia;
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
 							$referenciaCuenta=$data[$key]["cuenta"];
 							$referenciaDescripcionCuenta=$data[$key]["descripcion_cuenta"];
 							$sumaDebe=0;
 							$sumaHaber=0;
 							$i++;
 						}
+						//columna debito
 						$sumaDebe += $data[$key]["debe"];
+						//columna Credito
 						$sumaHaber += $data[$key]["haber"];
 					}
 					//para el ultimo caso
@@ -557,13 +690,196 @@ public function accessRules()
 					$arrayCuentas[$i][]=$data[$key]["descripcion_cuenta"];
 					$arrayCuentas[$i][]=$sumaDebe;
 					$arrayCuentas[$i][]=$sumaHaber;
-					$arrayCuentas[$i][]=$diferencia;
+					if($diferencia>0)
+							{
+								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=0;	
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
+							else
+							{
+								$arrayCuentas[$i][]=0;
+								$arrayCuentas[$i][]=$diferencia;
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
+					$_SESSION['arrayCuentas']=$arrayCuentas;
 				}
-				$_SESSION['arrayCuentas']=$arrayCuentas;
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
 
 			}
-	}	
+	}
+	public function actionFilterExcelBalanceGeneral()
+	{
+		@session_start();
+		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
+		$cadena='';
+		/*Mantiene Valores del filtrado al recargar la pagina*/
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+		if(empty($empresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+		else
+			{
+				$cadena = 'WHERE cc.rut_empresa="'.$_POST['hiddenE'].'"';
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				}
+				
+				$data = ComprobanteContable::model()->cargaCuentasBalance($cadena);
+				//se guardaran las cuentas con sus respectivos valores
+				$arrayCuentas=array();
+				if(!empty($data))
+				{
+				    //controla el cambio de Cuenta
+					$referenciaCuenta=$data[0]["cuenta"];
+					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$diferencia=0;
+					//indice de las filas del arrayCuentas[]
+					$i=0;
+					foreach ($data as $key => $value) 
+					{
+
+						if($data[$key]["cuenta"]!=$referenciaCuenta)
+						{
+							$diferencia=$sumaDebe-$sumaHaber;
+							$arrayCuentas[$i][]=$referenciaCuenta;
+							$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+							$arrayCuentas[$i][]=$sumaDebe;
+							$arrayCuentas[$i][]=$sumaHaber;
+							if($diferencia>0)
+							{
+								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=0;	
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
+							else
+							{
+								$arrayCuentas[$i][]=0;
+								$arrayCuentas[$i][]=$diferencia;
+								if($referenciaCuenta>30000000)
+								{
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=$diferencia;
+								}
+								else
+								{
+									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=0;
+								}
+							}
+							$referenciaCuenta=$data[$key]["cuenta"];
+							$referenciaDescripcionCuenta=$data[$key]["descripcion_cuenta"];
+							$sumaDebe=0;
+							$sumaHaber=0;
+							$i++;
+						}
+						//columna debito
+						$sumaDebe += $data[$key]["debe"];
+						//columna Credito
+						$sumaHaber += $data[$key]["haber"];
+					}
+					//para el ultimo caso
+					$diferencia=$sumaDebe-$sumaHaber;
+					$arrayCuentas[$i][]=$data[$key]["cuenta"];
+					$arrayCuentas[$i][]=$data[$key]["descripcion_cuenta"];
+					$arrayCuentas[$i][]=$sumaDebe;
+					$arrayCuentas[$i][]=$sumaHaber;
+					if($diferencia>0)
+					{
+						$arrayCuentas[$i][]=$diferencia;
+						$arrayCuentas[$i][]=0;	
+						if($referenciaCuenta>30000000)
+						{
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=$diferencia;
+							$arrayCuentas[$i][]=0;
+						}
+						else
+						{
+							$arrayCuentas[$i][]=$diferencia;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+						}
+					}
+					else
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=$diferencia;
+						if($referenciaCuenta>30000000)
+						{
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=$diferencia;
+						}
+						else
+						{
+							$arrayCuentas[$i][]=$diferencia;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+						}
+					
+					}
+					$_SESSION['arrayCuentas']=$arrayCuentas;
+				}
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelBalanceGeneral";</script>';			
+
+			}
+	}
 	public function actionCargaCuentas()
 	{
 		$rutEmpresa=$_POST['rut'];

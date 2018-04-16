@@ -139,13 +139,13 @@
     $rawDataHaber=@$_SESSION['arrayHaber'];
     $rawDataSaldos=@$_SESSION['arraySaldos'];
     $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
-    $acumuladoDebe=$_SESSION['arrayTotalAcDebe'];
-    $acumuladoHaber=$_SESSION['arrayTotalAcHaber'];
-    $acumuladoSaldos=$_SESSION['arrayTotalAcSaldo'];
-    $saldoAnteriorD=$_SESSION['saldoAnteriorD'];
-
-    $saldoAnteriorH=$_SESSION['saldoAnteriorH'];
-    $saldoAnteriorS=$_SESSION['saldoAnteriorS'];
+    $acumuladoDebe=@$_SESSION['arrayTotalAcDebe'];
+    $acumuladoHaber=@$_SESSION['arrayTotalAcHaber'];
+    $acumuladoSaldos=@$_SESSION['arrayTotalAcSaldo'];
+    
+    $saldoAnteriorD=@$_SESSION['saldoAnteriorD'];
+    $saldoAnteriorH=@$_SESSION['saldoAnteriorH'];
+    $saldoAnteriorS=@$_SESSION['saldoAnteriorS'];
 
     //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 

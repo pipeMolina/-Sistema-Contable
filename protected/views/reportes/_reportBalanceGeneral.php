@@ -73,7 +73,7 @@
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelBalanceGeneral&id=1').'" id="formulario5" method="post" name="formulario5">';   
+                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelBalanceGeneral').'" id="formulario5" method="post" name="formulario5">';   
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
                         echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelBalanceGeneral')),
@@ -97,6 +97,7 @@
 <br></br>
 <?php
         $rawData = @$_SESSION['arrayCuentas'];
+        
      if (!empty($rawData)) 
         {
           echo '<table class="table table-striped table-hover">
@@ -115,30 +116,25 @@
                     </tr>
                   </thead>
                   <tbody>';
+                  $codigoCuenta=0;
                     for($i=0;$i<count($rawData);$i++)
                     {
                       for($j=0;$j<count($rawData[$i]);$j++)
                       {
+                        /*Se almacena el codigo cuenta para distinguir los tipos de cuentas */
+                        $codigoCuenta=$rawData[$i][0];
                          echo '<tr>
                                       <td>'. $rawData[$i][$j++].'</td>
                                       <td> '.$rawData[$i][$j++].' </td>
                                       <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
                                       <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>';
-                                      if($rawData[$i][$j]>0)
-                                      {
-                                        //Valores columna Deudor y Activos respectivamente
-                                        echo    '<td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>
-                                                 <td></td>
-                                                 <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>'; 
-                                      }
-                                      else
-                                      {
-                                        //valores columna Acreedor y Pasivos respectivamente
-                                          echo '<td></td>
-                                                <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>
-                                                <td></td>
-                                                <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>'; 
-                                      }
+                                      
                            echo '</tr>';
                       }
                     } 

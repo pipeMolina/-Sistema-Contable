@@ -106,9 +106,18 @@
 
 
  <script type="text/javascript">  
-	      function total(n,obj)
+
+	      function total(n,obj,fila)
 	      {
-	      	if(n==1)
+	      	console.log(fila);
+	      
+    		if (!/^([0-9])*$/.test(obj))
+    		{
+    			$('#validaDebe'+1+'').html("la wea no es numero");
+    			$('#validaDebe'+1+'').addClass('bg-warning');
+    		}
+
+	      	else if(n==1)
 	      	{
 	      		document.getElementById('hiddenD').value = parseInt(obj)+parseInt(document.getElementById('hiddenD').value);
            	   	$("#totalDebe").html(document.getElementById('hiddenD').value);
@@ -118,6 +127,7 @@
 	      		document.getElementById('hiddenH').value = parseInt(obj)+parseInt(document.getElementById('hiddenH').value);
            	   	$("#totalHaber").html(document.getElementById('hiddenH').value);
 	      	}
+
 
 	      }  
  $(document).ready(function(){ 
@@ -145,8 +155,8 @@
 	      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
 	           //alert('row'+i);
 	           var dropDown = $("<select id='resultado"+i+"' name=\"Cuenta[]\" class=\"form-control\"/>");
-	           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);"))?>');
-	           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value);"));?>');
+	           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value,1);"))?><div id="validaDebe'+i+'"></div>');
+	           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
 	           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
 	           divDropDownList.append(dropDown);
 	           divDebe.append(debe);
@@ -182,7 +192,7 @@
 			var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
 			var sumaDebe=$("#hiddenD").val();
 			var sumaHaber=$("#hiddenH").val();
-			alert(sumaDebe);
+			
 			if(sumaDebe==sumaHaber)
 			{
 	      		$.ajax(

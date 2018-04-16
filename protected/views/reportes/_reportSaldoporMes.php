@@ -72,7 +72,7 @@
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterLibroMayor').'" id="formulario" method="post" name="formulario">';
+                         echo '<form action=<"'.CController::createUrl('reportes/filterSaldoporMes').'" id="formulario" method="post" name="formulario">';
                          echo '<input id="hiddenC" type="hidden" name="hiddenC" value="'.@$_SESSION['filtro']['cuenta'].'">';   
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
@@ -90,11 +90,11 @@
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
-                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelLibroMayor').'" id="formulario5" method="post" name="formulario5">';
+                         echo '<form action=<"'.CController::createUrl('reportes/filterExcelSaldoporMes').'" id="formulario5" method="post" name="formulario5">';
                          echo '<input id="hiddenC" type="hidden" name="hiddenC" value="'.@$_SESSION['filtro']['cuenta'].'">';   
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
-                         echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelLibroMayor')),
+                         echo CHtml::ajaxSubmitButton('Exportar a Excel',CHtml::normalizeUrl(array('reportes/filterExcelSaldoporMes')),
                             array(
                                 'type'=>'POST',
                                 'update' => '#print-total',
@@ -114,43 +114,11 @@
 <h2 align= "center"><small><?php echo 'Año:'.@$_SESSION['filtro']['periodo'].' Cuenta:'.@$_SESSION['filtro']['cuenta'].''?></small></h2>
 <br></br>
   <?php 
-    $rawData=@$_SESSION['data'];
-    $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
-    $rawDataDebe=@$_SESSION['arrayDebe'];
-    $rawDataHaber=@$_SESSION['arrayHaber'];
-    $rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];
-    var_dump($rawDataTotalSaldos);
+   
+    $rawData=@$_SESSION['arraySaldoMes'];
+
     if (!empty($rawData)) 
     {
-      $arrayComprobante=array();
-      $arrayListaComprobantes=array();
-      $referencia=$rawData[0]["mes"];
-      $fila=0;
-      $columna=0;
-      foreach ($rawData as $key => $value) 
-      {
-        if($rawData[$key]["mes"]!=$referencia )
-        {
-          $referencia=$rawData[$key]["mes"];
-          $arrayListaComprobantes[]=$arrayComprobante;
-          $arrayComprobante=array();
-          $fila++;
-          $columna=0;      
-       
-        }
-        $arrayComprobante[]=$rawData[$key]["razonsocial_empresa"];
-        $arrayComprobante[]=$rawData[$key]["cuenta"];
-        $arrayComprobante[]=$rawData[$key]["descripcion_cuenta"];
-        $arrayComprobante[]=$rawData[$key]["mes"];
-        $arrayComprobante[]=$rawData[$key]["debe"];
-        $arrayComprobante[]=$rawData[$key]["haber"];
-        $arrayComprobante[]=$rawDataArrayListaSaldos[$fila][$columna];
-        $columna++;
-      }
-      $arrayListaComprobantes[]=$arrayComprobante;
-      for($i=0;$i<count($arrayListaComprobantes);$i++)
-      {
-
            echo '<table class="table table-striped table-hover">
                     <thead>
                       <tr> 
@@ -161,17 +129,26 @@
                         <th>Total Acumulado</th>
                       </tr>
                     </thead>
-                    <td></td>
-                       <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
-                              <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
-          
-                 </table>';    
+                  <tbody>';
+      for($i=1;$i<count($rawData);$i++)
+      {
+        for($j=0;$j<count($rawData[$i]);$j++)
+        {
+          echo '<tr>';
+              echo   '<td>'. $rawData[$i][$j++].'</td>
+                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                       <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                       <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
+                       <td> '.number_format($rawData[$i][$j], 0, ",", ".").' </td>';
+          echo '</tr>';
+          }   
       }
+            echo    '</tbody>';
+            echo '</table>'; 
     }
     else
     {
       echo "No se encontraron datos con los valores indicados";
-      $_SESSION['arrayListaSaldos']='';
     }
 
   ?>

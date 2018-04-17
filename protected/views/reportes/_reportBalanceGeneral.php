@@ -97,7 +97,11 @@
 <br></br>
 <?php
         $rawData = @$_SESSION['arrayCuentas'];
-        
+        $rawDataTAc = @$_SESSION['arrayTotalAcumulado'];
+        $rawDataTG=@$_SESSION['arrayTotalGeneral'];
+        $rawDataPE=@$_SESSION['perdidaEjercicio'];
+        $rawDataSI=@$_SESSION['sumasIguales'];
+
      if (!empty($rawData)) 
         {
           echo '<table class="table table-striped table-hover">
@@ -138,6 +142,70 @@
                            echo '</tr>';
                       }
                     } 
+                    /*Total Acumulado*/
+                    for($i=0;$i<count($rawDataTAc);$i++)
+                    {
+                      echo'<tr>
+                            <td>Total Acumulado</td>
+                            <td></td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
+                          </tr>';
+                    }
+                    /*Total Acumulado*/
+                    for($i=0;$i<count($rawDataTG);$i++)
+                    {
+                      echo'<tr>
+                            <td>Total General</td>
+                            <td></td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
+                          </tr>';
+                    }
+                    /*Perdida de Ejercicio*/
+                    for($i=0;$i<count($rawDataPE);$i++)
+                    {
+                      echo'<tr>
+                            <td>Perdida Ejercicio</td>
+                            <td></td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                          </tr>';
+                    }
+                    /*Sumas Iguales*/
+                    for($i=0;$i<count($rawDataSI);$i++)
+                    {
+                      echo'<tr>
+                            <td>Sumas Iguales</td>
+                            <td></td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
+                          </tr>';
+                    }
             echo '</tbody>';
           echo '</table>';    
         }

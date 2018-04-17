@@ -113,7 +113,7 @@
 	      
     		if (!/^([0-9])*$/.test(obj))
     		{
-    			$('#validaDebe'+1+'').html("la wea no es numero");
+    			$('#validaDebe'+1+'').html("Se permite solo numeros");
     			$('#validaDebe'+1+'').addClass('bg-warning');
     		}
 

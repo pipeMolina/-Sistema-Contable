@@ -127,8 +127,6 @@ class ComprobanteContable extends CActiveRecord
         $dataReader = $command->queryAll();
         
         return $dataReader;
-         //WHERE cc.rut_empresa="'.$rutEmpresa.'" AND DAY(cc.fecha_comprobante)='.$dia.' AND MONTH(cc.fecha_comprobante)='.$mes.' AND YEAR(cc.fecha_comprobante)='.$periodo.';';
-
 	}
 	/*Consultar el ultimo Comprobante ingresado*/
 	public function cargaUltimoComprobante()
@@ -169,6 +167,25 @@ class ComprobanteContable extends CActiveRecord
                 INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
                 INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
                 '.$cadena.' ORDER BY cuenta;';
+
+        $connection = Yii::app()->db;
+        $command = $connection->createCommand($sql);
+        $dataReader = $command->queryAll();
+
+        return $dataReader;
+	}
+	/*Carga cuentas de perdida y Ganancia de un año, consulta diseñada para la vista Estado Resultado*/
+	public function cargaCuentasEstadoResultado($cadena)
+	{
+		$sql='SELECT e.razonsocial_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,tcuenta.ID_TIPOCUENTA,lc.cuenta,c.descripcion_cuenta,cc.glosa_comprobante,lc.debe,lc.haber
+ 				FROM COMPROBANTE_CONTABLE AS cc
+                INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
+                INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA
+                INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
+                INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
+                INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
+                INNER JOIN TIPO_CUENTA AS tcuenta ON c.ID_TIPOCUENTA=tcuenta.ID_TIPOCUENTA
+                '.$cadena.' AND tcuenta.ID_TIPOCUENTA BETWEEN 30000000 AND 40000000 ORDER BY cuenta;';
 
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);

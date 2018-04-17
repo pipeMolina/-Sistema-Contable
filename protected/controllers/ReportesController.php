@@ -657,18 +657,18 @@ public function accessRules()
 							else
 							{
 								$arrayCuentas[$i][]=0;
-								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=substr($diferencia,1);
 								if($referenciaCuenta>30000000)
 								{
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=substr($diferencia,1);
 								}
 								else
 								{
-									$arrayCuentas[$i][]=$diferencia;
 									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=substr($diferencia,1);
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
 								}
@@ -691,46 +691,111 @@ public function accessRules()
 					$arrayCuentas[$i][]=$sumaDebe;
 					$arrayCuentas[$i][]=$sumaHaber;
 					if($diferencia>0)
-							{
-								$arrayCuentas[$i][]=$diferencia;
-								$arrayCuentas[$i][]=0;	
-								if($referenciaCuenta>30000000)
-								{
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=$diferencia;
-									$arrayCuentas[$i][]=0;
-								}
-								else
-								{
-									$arrayCuentas[$i][]=$diferencia;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-								}
-							}
-							else
-							{
-								$arrayCuentas[$i][]=0;
-								$arrayCuentas[$i][]=$diferencia;
-								if($referenciaCuenta>30000000)
-								{
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=$diferencia;
-								}
-								else
-								{
-									$arrayCuentas[$i][]=$diferencia;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=0;
-								}
-							}
-					$_SESSION['arrayCuentas']=$arrayCuentas;
+					{
+						$arrayCuentas[$i][]=$diferencia;
+						$arrayCuentas[$i][]=0;	
+						if($referenciaCuenta>30000000)
+						{
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=$diferencia;
+							$arrayCuentas[$i][]=0;
+						}
+						else
+						{
+							$arrayCuentas[$i][]=$diferencia;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+							$arrayCuentas[$i][]=0;
+						}
+					}
+					else
+					{
+					$arrayCuentas[$i][]=0;
+					$arrayCuentas[$i][]=substr($diferencia,1);
+					if($referenciaCuenta>30000000)
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia,1);
+					}
+					else
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia,1);
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=0;
+					}
 				}
-				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
+				$tAcumulado1=0;
+				$tAcumulado2=0;
+				$tAcumulado3=0;
+				$tAcumulado4=0;
+				$tAcumulado5=0;
+				$tAcumulado6=0;
+				$tAcumulado7=0;
+				$tAcumulado8=0;
+
+				for($i = 0;$i < count($arrayCuentas);$i++)
+				{
+					$tAcumulado1 += $arrayCuentas[$i][2];
+					$tAcumulado2 += $arrayCuentas[$i][3];
+					$tAcumulado3 += $arrayCuentas[$i][4];
+					$tAcumulado4 += $arrayCuentas[$i][5];
+					$tAcumulado5 += $arrayCuentas[$i][6];
+					$tAcumulado6 += $arrayCuentas[$i][7];
+					$tAcumulado7 += $arrayCuentas[$i][8];
+					$tAcumulado8 += $arrayCuentas[$i][9];
+				}
+				$arrayTotalAcumulado = array($tAcumulado1,$tAcumulado2,$tAcumulado3,$tAcumulado4,$tAcumulado5,$tAcumulado6,$tAcumulado7,$tAcumulado8);
+				$arrayTotalGeneral=$arrayTotalAcumulado;
+				$perdidaEjercicio=array();
+				$diferenciaPerdida=0;
+				$col1=0;
+				$col2=0;
+				for ($i=0; $i < count($arrayTotalGeneral) ; $i++) 
+				{
+					$col1=$arrayTotalGeneral[$i];
+					$col2=$arrayTotalGeneral[++$i];
+					$diferenciaPerdida=$col1-$col2;
+
+					if($diferenciaPerdida==0)
+					{
+						$perdidaEjercicio[]=0;
+						$perdidaEjercicio[]=0;
+					} 
+					else
+					{
+						if($col1<$col2)
+						{
+							$perdidaEjercicio[]=substr($diferenciaPerdida, 1);
+							$perdidaEjercicio[]=0;
+						}
+						else
+						{
+							$perdidaEjercicio[]=0;	
+							$perdidaEjercicio[]=$diferenciaPerdida;
+						}
+					}
+				}
+				$sumasIguales=array();
+				for ($i=0; $i < count($perdidaEjercicio); $i++) 
+				{ 
+					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
+				}
+
+				
+				$_SESSION['arrayCuentas']=$arrayCuentas;
+				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
+				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
+				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
+				$_SESSION['sumasIguales']=$sumasIguales;
+
+
+
+			}
+			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
 
 			}
 	}
@@ -740,9 +805,7 @@ public function accessRules()
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
 		$cadena='';
-		/*Mantiene Valores del filtrado al recargar la pagina*/
-		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
-		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+
 		if(empty($empresa))
 		{
 			echo '<script language="JavaScript" type="text/javascript">
@@ -802,18 +865,18 @@ public function accessRules()
 							else
 							{
 								$arrayCuentas[$i][]=0;
-								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=substr($diferencia,1);
 								if($referenciaCuenta>30000000)
 								{
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
-									$arrayCuentas[$i][]=$diferencia;
+									$arrayCuentas[$i][]=substr($diferencia,1);
 								}
 								else
 								{
-									$arrayCuentas[$i][]=$diferencia;
 									$arrayCuentas[$i][]=0;
+									$arrayCuentas[$i][]=substr($diferencia,1);
 									$arrayCuentas[$i][]=0;
 									$arrayCuentas[$i][]=0;
 								}
@@ -856,29 +919,372 @@ public function accessRules()
 					}
 					else
 					{
+					$arrayCuentas[$i][]=0;
+					$arrayCuentas[$i][]=substr($diferencia,1);
+					if($referenciaCuenta>30000000)
+					{
 						$arrayCuentas[$i][]=0;
-						$arrayCuentas[$i][]=$diferencia;
-						if($referenciaCuenta>30000000)
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia,1);
+					}
+					else
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia,1);
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=0;
+					}
+				}
+				$tAcumulado1=0;
+				$tAcumulado2=0;
+				$tAcumulado3=0;
+				$tAcumulado4=0;
+				$tAcumulado5=0;
+				$tAcumulado6=0;
+				$tAcumulado7=0;
+				$tAcumulado8=0;
+
+				for($i = 0;$i < count($arrayCuentas);$i++)
+				{
+					$tAcumulado1 += $arrayCuentas[$i][2];
+					$tAcumulado2 += $arrayCuentas[$i][3];
+					$tAcumulado3 += $arrayCuentas[$i][4];
+					$tAcumulado4 += $arrayCuentas[$i][5];
+					$tAcumulado5 += $arrayCuentas[$i][6];
+					$tAcumulado6 += $arrayCuentas[$i][7];
+					$tAcumulado7 += $arrayCuentas[$i][8];
+					$tAcumulado8 += $arrayCuentas[$i][9];
+				}
+				$arrayTotalAcumulado = array($tAcumulado1,$tAcumulado2,$tAcumulado3,$tAcumulado4,$tAcumulado5,$tAcumulado6,$tAcumulado7,$tAcumulado8);
+				$arrayTotalGeneral=$arrayTotalAcumulado;
+				$perdidaEjercicio=array();
+				$diferenciaPerdida=0;
+				$col1=0;
+				$col2=0;
+				for ($i=0; $i < count($arrayTotalGeneral) ; $i++) 
+				{
+					$col1=$arrayTotalGeneral[$i];
+					$col2=$arrayTotalGeneral[++$i];
+					$diferenciaPerdida=$col1-$col2;
+
+					if($diferenciaPerdida==0)
+					{
+						$perdidaEjercicio[]=0;
+						$perdidaEjercicio[]=0;
+					} 
+					else
+					{
+						if($col1<$col2)
 						{
-							$arrayCuentas[$i][]=0;
-							$arrayCuentas[$i][]=0;
-							$arrayCuentas[$i][]=0;
-							$arrayCuentas[$i][]=$diferencia;
+							$perdidaEjercicio[]=substr($diferenciaPerdida, 1);
+							$perdidaEjercicio[]=0;
 						}
 						else
 						{
-							$arrayCuentas[$i][]=$diferencia;
-							$arrayCuentas[$i][]=0;
-							$arrayCuentas[$i][]=0;
-							$arrayCuentas[$i][]=0;
+							$perdidaEjercicio[]=0;	
+							$perdidaEjercicio[]=$diferenciaPerdida;
 						}
-					
 					}
-					$_SESSION['arrayCuentas']=$arrayCuentas;
 				}
-				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelBalanceGeneral";</script>';			
+				$sumasIguales=array();
+				for ($i=0; $i < count($perdidaEjercicio); $i++) 
+				{ 
+					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
+				}
+
+				
+				$_SESSION['arrayCuentas']=$arrayCuentas;
+				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
+				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
+				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
+				$_SESSION['sumasIguales']=$sumasIguales;
+
+
 
 			}
+			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelBalanceGeneral";</script>';				
+
+			}
+	}
+	public function actionFilterEstadoResultado()
+	{
+		@session_start();
+		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
+		$cadena='';
+		/*Mantiene Valores del filtrado al recargar la pagina*/
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+		if(empty($empresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+		else
+			{
+				$cadena = 'WHERE cc.rut_empresa="'.$_POST['hiddenE'].'"';
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				}
+				
+				$data = ComprobanteContable::model()->cargaCuentasEstadoResultado($cadena);
+				//se guardaran las cuentas con sus respectivos valores
+				$arrayCuentas=array();
+				if(!empty($data))
+				{
+					//controla el cambio de Cuenta
+					$referenciaCuenta=$data[0]["cuenta"];
+					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$diferencia=0;
+					//indice de las filas del arrayCuentas[]
+					$i=0;
+					foreach ($data as $key => $value) 
+					{
+						if($data[$key]["cuenta"]!=$referenciaCuenta)
+						{
+							$diferencia=$sumaDebe-$sumaHaber;
+							$arrayCuentas[$i][]=$referenciaCuenta;
+							$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+							$arrayCuentas[$i][]=$sumaDebe;
+							$arrayCuentas[$i][]=$sumaHaber;
+							if($diferencia>0)
+							{
+								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=0;
+							}
+							else
+							{
+								$arrayCuentas[$i][]=0;
+								$arrayCuentas[$i][]=substr($diferencia, 1);
+							}
+
+							$referenciaCuenta=$data[$key]["cuenta"];
+							$referenciaDescripcionCuenta=$data[$key]["descripcion_cuenta"];
+							$sumaDebe=0;
+							$sumaHaber=0;
+							$i++;
+						}
+								//columna debito
+						$sumaDebe += $data[$key]["debe"];
+								//columna Credito
+						$sumaHaber += $data[$key]["haber"];
+					}
+					$diferencia=$sumaDebe-$sumaHaber;
+					$arrayCuentas[$i][]=$referenciaCuenta;
+					$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+					$arrayCuentas[$i][]=$sumaDebe;
+					$arrayCuentas[$i][]=$sumaHaber;
+					if($diferencia>0)
+					{
+						$arrayCuentas[$i][]=$diferencia;
+						$arrayCuentas[$i][]=0;
+					}
+					else
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia, 1);
+					}
+				$tAcumulado1=0;
+				$tAcumulado2=0;
+				$tAcumulado3=0;
+				$tAcumulado4=0;
+
+				for($i = 0;$i < count($arrayCuentas);$i++)
+				{
+					$tAcumulado1 += $arrayCuentas[$i][2];
+					$tAcumulado2 += $arrayCuentas[$i][3];
+					$tAcumulado3 += $arrayCuentas[$i][4];
+					$tAcumulado4 += $arrayCuentas[$i][5];
+				}
+				$arrayTotalAcumulado = array($tAcumulado1,$tAcumulado2,$tAcumulado3,$tAcumulado4);
+				$arrayTotalGeneral=$arrayTotalAcumulado;
+				$perdidaEjercicio=array();
+				$diferenciaPerdida=0;
+				$col1=0;
+				$col2=0;
+				for ($i=0; $i < count($arrayTotalGeneral) ; $i++) 
+				{
+					$col1=$arrayTotalGeneral[$i];
+					$col2=$arrayTotalGeneral[++$i];
+					$diferenciaPerdida=$col1-$col2;
+
+					if($diferenciaPerdida==0)
+					{
+						$perdidaEjercicio[]=0;
+						$perdidaEjercicio[]=0;
+					} 
+					else
+					{
+						if($col1<$col2)
+						{
+							$perdidaEjercicio[]=substr($diferenciaPerdida, 1);
+							$perdidaEjercicio[]=0;
+						}
+						else
+						{
+							$perdidaEjercicio[]=0;	
+							$perdidaEjercicio[]=$diferenciaPerdida;
+						}
+					}
+				}
+				$sumasIguales=array();
+				for ($i=0; $i < count($perdidaEjercicio); $i++) 
+				{ 
+					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
+				}
+
+				$_SESSION['arrayCuentas']=$arrayCuentas;
+				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
+				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
+				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
+				$_SESSION['sumasIguales']=$sumasIguales;
+
+
+			}
+
+			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/estadoResultado";</script>';			
+
+		}
+
+	}
+	public function actionFilterExcelEstadoResultado()
+	{
+		@session_start();
+		$periodo=$_POST['hiddenP'];
+		$empresa=$_POST['hiddenE'];
+		$cadena='';
+		if(empty($empresa))
+		{
+			echo '<script language="JavaScript" type="text/javascript">
+						alert("Debe elegir Empresa");
+			</script>';
+		}
+		else
+			{
+				$cadena = 'WHERE cc.rut_empresa="'.$_POST['hiddenE'].'"';
+				if(isset($periodo) && !empty($periodo))
+				{
+					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				}
+				
+				$data = ComprobanteContable::model()->cargaCuentasEstadoResultado($cadena);
+				//se guardaran las cuentas con sus respectivos valores
+				$arrayCuentas=array();
+				if(!empty($data))
+				{
+					//controla el cambio de Cuenta
+					$referenciaCuenta=$data[0]["cuenta"];
+					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
+					$sumaDebe=0;
+					$sumaHaber=0;
+					$diferencia=0;
+					//indice de las filas del arrayCuentas[]
+					$i=0;
+					foreach ($data as $key => $value) 
+					{
+						if($data[$key]["cuenta"]!=$referenciaCuenta)
+						{
+							$diferencia=$sumaDebe-$sumaHaber;
+							$arrayCuentas[$i][]=$referenciaCuenta;
+							$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+							$arrayCuentas[$i][]=$sumaDebe;
+							$arrayCuentas[$i][]=$sumaHaber;
+							if($diferencia>0)
+							{
+								$arrayCuentas[$i][]=$diferencia;
+								$arrayCuentas[$i][]=0;
+							}
+							else
+							{
+								$arrayCuentas[$i][]=0;
+								$arrayCuentas[$i][]=substr($diferencia, 1);
+							}
+
+							$referenciaCuenta=$data[$key]["cuenta"];
+							$referenciaDescripcionCuenta=$data[$key]["descripcion_cuenta"];
+							$sumaDebe=0;
+							$sumaHaber=0;
+							$i++;
+						}
+								//columna debito
+						$sumaDebe += $data[$key]["debe"];
+								//columna Credito
+						$sumaHaber += $data[$key]["haber"];
+					}
+					$diferencia=$sumaDebe-$sumaHaber;
+					$arrayCuentas[$i][]=$referenciaCuenta;
+					$arrayCuentas[$i][]=$referenciaDescripcionCuenta;
+					$arrayCuentas[$i][]=$sumaDebe;
+					$arrayCuentas[$i][]=$sumaHaber;
+					if($diferencia>0)
+					{
+						$arrayCuentas[$i][]=$diferencia;
+						$arrayCuentas[$i][]=0;
+					}
+					else
+					{
+						$arrayCuentas[$i][]=0;
+						$arrayCuentas[$i][]=substr($diferencia, 1);
+					}
+				$tAcumulado1=0;
+				$tAcumulado2=0;
+				$tAcumulado3=0;
+				$tAcumulado4=0;
+
+				for($i = 0;$i < count($arrayCuentas);$i++)
+				{
+					$tAcumulado1 += $arrayCuentas[$i][2];
+					$tAcumulado2 += $arrayCuentas[$i][3];
+					$tAcumulado3 += $arrayCuentas[$i][4];
+					$tAcumulado4 += $arrayCuentas[$i][5];
+				}
+				$arrayTotalAcumulado = array($tAcumulado1,$tAcumulado2,$tAcumulado3,$tAcumulado4);
+				$arrayTotalGeneral=$arrayTotalAcumulado;
+				$perdidaEjercicio=array();
+				$diferenciaPerdida=0;
+				$col1=0;
+				$col2=0;
+				for ($i=0; $i < count($arrayTotalGeneral) ; $i++) 
+				{
+					$col1=$arrayTotalGeneral[$i];
+					$col2=$arrayTotalGeneral[++$i];
+					$diferenciaPerdida=$col1-$col2;
+
+					if($diferenciaPerdida==0)
+					{
+						$perdidaEjercicio[]=0;
+						$perdidaEjercicio[]=0;
+					} 
+					else
+					{
+						if($col1<$col2)
+						{
+							$perdidaEjercicio[]=substr($diferenciaPerdida, 1);
+							$perdidaEjercicio[]=0;
+						}
+						else
+						{
+							$perdidaEjercicio[]=0;	
+							$perdidaEjercicio[]=$diferenciaPerdida;
+						}
+					}
+				}
+				$_SESSION['arrayCuentas']=$arrayCuentas;
+				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
+				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
+				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
+
+			}
+
+			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelEstadoResultado";</script>';			
+
+		}
+
 	}
 	public function actionCargaCuentas()
 	{

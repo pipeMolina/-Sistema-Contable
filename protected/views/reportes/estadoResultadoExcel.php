@@ -1,5 +1,5 @@
 <?php 
-    $nombreArchivo = "Reportes-balanceGeneral";
+    $nombreArchivo = "Reportes-EstadoResultado";
     header("content-type: application/vnd.ms-excel");
     header("content-disposition: attachment; filename=".$nombreArchivo.".xls");
     header("cache-control: no-cache, must-revalidate");
@@ -13,16 +13,16 @@
   }
 </style>
 <?php @session_start();?>
-<h2 align="center">Balance General:</h2>
+<h2 align="center">Estado Resultado de Perdida y/o Ganancia:</h2>
 <h2 align= "center"><small><?php echo 'Empresa:'.@$_SESSION['filtro']['empresa'].' Periodo:'.@$_SESSION['filtro']['periodo'].''?></small></h2>
 <br></br>
 <?php
-        $rawData = @$_SESSION['arrayCuentas'];
-        $rawDataTAc = @$_SESSION['arrayTotalAcumulado'];
-        $rawDataTG=@$_SESSION['arrayTotalGeneral'];
-        $rawDataPE=@$_SESSION['perdidaEjercicio'];
-        $rawDataSI=@$_SESSION['sumasIguales'];
-
+       $rawData = @$_SESSION['arrayCuentas'];
+       $rawDataTAc = @$_SESSION['arrayTotalAcumulado']; 
+       $rawDataTG = @$_SESSION['arrayTotalGeneral'];
+       $perdidaEjercicio = @$_SESSION['perdidaEjercicio'];
+       $rawDataSI=@$_SESSION['sumasIguales'];
+        
      if (!empty($rawData)) 
         {
           echo '<table class="table table-striped table-hover">
@@ -32,10 +32,6 @@
                       <th></th>
                       <th>Debito</th>
                       <th>Credito</th>
-                      <th>Deudor</th>
-                      <th>Acreedor</th>
-                      <th>Activos</th>
-                      <th>Pasivos</th>
                       <th>Perdida</th>
                       <th>Ganancia</th>
                     </tr>
@@ -54,13 +50,9 @@
                                       <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
                                       <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
                                       <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
-                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
-                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
-                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
-                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
-                                      <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>';
+                                      <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>';
                                       
-                           echo '</tr>';
+                          echo '</tr>';
                       }
                     } 
                     /*Total Acumulado*/
@@ -69,10 +61,6 @@
                       echo'<tr style="background-color: #FFFF00;">
                             <td>Total Acumulado</td>
                             <td></td>
-                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataTAc[$i++], 0, ",", ".").' </td>
@@ -89,38 +77,26 @@
                             <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataTG[$i++], 0, ",", ".").' </td>
                           </tr>';
                     }
-                    /*Perdida de Ejercicio*/
-                    for($i=0;$i<count($rawDataPE);$i++)
+                    /*Perdida del ejercicio*/
+                    for($i=0;$i<count($rawDataTAc);$i++)
                     {
                       echo'<tr style="background-color: #FFFF00;">
                             <td>Perdida Ejercicio</td>
                             <td></td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataPE[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($perdidaEjercicio[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($perdidaEjercicio[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($perdidaEjercicio[$i++], 0, ",", ".").' </td>
+                            <td>'.number_format($perdidaEjercicio[$i++], 0, ",", ".").' </td>
                           </tr>';
                     }
                     /*Sumas Iguales*/
-                    for($i=0;$i<count($rawDataSI);$i++)
+                    for($i=0;$i<count($rawDataTAc);$i++)
                     {
                       echo'<tr style="background-color: #FFFF00;">
                             <td>Sumas Iguales</td>
                             <td></td>
-                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
-                            <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
                             <td>'.number_format($rawDataSI[$i++], 0, ",", ".").' </td>
@@ -132,6 +108,5 @@
         }
         else
           echo "No se encontraron datos con los valores indicados";
+?>traron datos con los valores indicados";
 ?>
-</div>
-</div>

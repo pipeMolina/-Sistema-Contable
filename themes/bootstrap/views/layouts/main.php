@@ -19,9 +19,6 @@
 	  $cs = Yii::app()->getClientScript();
 	  Yii::app()->clientScript->registerCoreScript('jquery');
 	?>
-    <?php
-    	$cs->registerScriptFile($baseUrl.'/js/bootstrap-datepicker.min.js');  
-	 ?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -46,9 +43,9 @@
 				//array('label'=>'Linea Contable', 'url'=>array('/lineaContable/index')),
 				//array('label'=>'Tipo Cuenta', 'url'=>array('/TipoCuenta/index')),
 				array('label'=>'Reportes', 'url'=>array('/reportes/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Ciudad', 'url'=>array('/Ciudad/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Region', 'url'=>array('/Region/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Usuario', 'url'=>array('/Usuario/index'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Ciudad', 'url'=>array('/Ciudad/index'),'visible'=>Yii::app()->user->Administrador()),
+				array('label'=>'Region', 'url'=>array('/Region/index'),'visible'=>Yii::app()->user->Administrador()),
+				array('label'=>'Usuario', 'url'=>array('/Usuario/index'),'visible'=>Yii::app()->user->Administrador()),
 				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Cerrar Sesion ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

@@ -7,7 +7,6 @@ class ComprobanteContableController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $formLinea;
 
 	/**
 	 * @return array action filters
@@ -28,13 +27,18 @@ class ComprobanteContableController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+			
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
+				'expression'=>'$user->Administrador()',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
-				'users'=>array('molina'),
+				'expression'=>'$user->Contador()',
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
+				'expression'=>'$user->Secretario()',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),										
@@ -126,12 +130,7 @@ class ComprobanteContableController extends Controller
 				$sql3='DELETE FROM comprobante_contable WHERE NUMERO_COMPROBANTE="'.$numeroComprobante.'"';
 				Yii::app()->db->createCommand($sql3)->execute();
 				
-					$msje="Problemas con las Lineas Contables";
-			echo '<div class="alert alert-danger">'.json_encode($msje).'</div>';
-
 			}
-			//echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
-			
 			
 			exit;
 

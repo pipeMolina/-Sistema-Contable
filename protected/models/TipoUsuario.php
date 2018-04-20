@@ -29,7 +29,7 @@ class TipoUsuario extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ID_TIPOUSUARIO', 'required'),
-			array('ID_TIPOUSUARIO', 'numerical', 'integerOnly'=>true),
+			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
 			array('NOMBRE_TIPOSUARIO', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

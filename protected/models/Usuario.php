@@ -32,7 +32,7 @@ class Usuario extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('RUT_PERSONA, ID_TIPOUSUARIO', 'required'),
-			array('ID_TIPOUSUARIO', 'numerical', 'integerOnly'=>true),
+			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
 			array('RUT_PERSONA', 'length', 'max'=>12),
 			array('LOGIN_USUARIO', 'length', 'max'=>20),
 			array('PASS_USUARIO', 'length', 'max'=>50),

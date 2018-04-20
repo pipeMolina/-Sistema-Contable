@@ -28,13 +28,17 @@ class EmpresaController extends Controller
 	{
 		return array(
 			
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+			array('allow',
+				'actions'=>array('index','view','create','update','delete','admin'),
+				'expression'=>'$user->Administrador()',
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view'),
-				'users'=>array('molina'),
+			array('allow',
+				'actions'=>array('index','view','create','update','delete','admin'),
+				'expression'=>'$user->Contador()',
+			),
+			array('allow',
+				'actions'=>array('index','view','admin'),
+				'expression'=>'$user->Secretario()',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),										

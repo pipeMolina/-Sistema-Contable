@@ -76,14 +76,14 @@
 						<?php echo $form->labelEx($modelLinea,'CUENTA'); ?>
 					</div>
 					<div class="col-lg-3"><br>
-						<?php echo $form->labelEx($modelLinea,'DEBE'); ?>
-	                    <?php echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> 
+					<?php echo $form->labelEx($modelLinea,'DEBE'); ?><div id="totalDebe"></div>
+                    <?php echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> 
 
-					</div>
-					<div class="col-lg-3"><br>
-						<?php echo $form->labelEx($modelLinea,'HABER'); ?>
-						<?php echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>
-					</div>
+				</div>
+				<div class="col-lg-3"><br>
+					<?php echo $form->labelEx($modelLinea,'HABER'); ?><div id="totalHaber"></div>
+					<?php echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>
+				</div>
 				</div>
 				<!--Aqui se agregan los campos de texto mediante JQuery-->
 			</table>
@@ -111,12 +111,16 @@
 	   	if(n==1)
 	   	{
 	   		document.getElementById('hiddenD').value = parseInt(obj)+parseInt(document.getElementById('hiddenD').value);
+	   		document.getElementById('totalDebe').value = document.getElementById('hiddenD').value ;
+
        	   	$('#validaDebe'+1+'').empty();
        	   	$('#validaDebe'+1+'').removeClass("alert-danger");
 	   	}
 	  	else
 	   	{
 	   		document.getElementById('hiddenH').value = parseInt(obj)+parseInt(document.getElementById('hiddenH').value);
+	   		document.getElementById('totalHaber').value = document.getElementById('hiddenH').value ;
+
 	   	}
 	}  
  $(document).ready(function(){ 

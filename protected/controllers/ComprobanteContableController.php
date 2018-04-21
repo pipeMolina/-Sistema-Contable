@@ -95,8 +95,8 @@ class ComprobanteContableController extends Controller
 			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
 			$glosa=$_POST['ComprobanteContable']['GLOSA_COMPROBANTE'];
 			$cuenta=$_POST['Cuenta'];
-			$debe=$_POST['LineaContable']['DEBE'];
-			$haber=$_POST['LineaContable']['HABER'];
+			$debe=$_POST['Debe'];
+			$haber=$_POST['Haber'];
 
 			$sql='INSERT INTO comprobante_contable(ID_TIPOCOMP,RUT_EMPRESA,FECHA_COMPROBANTE,GLOSA_COMPROBANTE)
 				   VALUES ('.$tipoComprobante.',"'.$rutEmpresa.'","'.$_POST['FECHA_COMPROBANTE'].'","'.$glosa.'")';

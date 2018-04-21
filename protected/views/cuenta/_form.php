@@ -27,7 +27,12 @@
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
 			<?php  	
-				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan",'empty'=>'Seleccione Empresa',"onchange"=>"treePanel()"));
+				$id=1;
+				$criteria=new CDbCriteria();
+				//$criteria->select='ID_PLANCUENTA,DESCRIPCION_PLANCUENTA';
+				$criteria->addCondition('ID_PLANCUENTA>:id');
+				$criteria->params=array(':id'=>$id);
+				echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll($criteria), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control","id"=>"idplan",'empty'=>'Seleccione Empresa',"onchange"=>"treePanel()"));
 				
 			?>
 			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control","disabled"=>"")); ?>-->

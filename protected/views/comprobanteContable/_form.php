@@ -77,12 +77,12 @@
 					</div>
 					<div class="col-lg-3"><br>
 					<?php echo $form->labelEx($modelLinea,'DEBE'); ?><div id="totalDebe"></div>
-                    <?php echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> 
+                    <!--<?php //echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> -->
 
 				</div>
 				<div class="col-lg-3"><br>
 					<?php echo $form->labelEx($modelLinea,'HABER'); ?><div id="totalHaber"></div>
-					<?php echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>
+					<!--<?php //echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>-->
 				</div>
 				</div>
 				<!--Aqui se agregan los campos de texto mediante JQuery-->
@@ -106,31 +106,33 @@
 
  <script type="text/javascript">  
 
-	function total(n,obj)
+	/*function total(n,obj)
 	{ 	
 	   	if(n==1)
 	   	{
 	   		document.getElementById('hiddenD').value = parseInt(obj)+parseInt(document.getElementById('hiddenD').value);
-	   		document.getElementById('totalDebe').value = document.getElementById('hiddenD').value ;
+	   		$("#totalDebe").html(document.getElementById('hiddenD').value);
 
-       	   	$('#validaDebe'+1+'').empty();
-       	   	$('#validaDebe'+1+'').removeClass("alert-danger");
+       	   	$('#validaDebe'+i+'').empty();
+       	   	$('#validaDebe'+i+'').removeClass("alert-danger");
 	   	}
 	  	else
 	   	{
 	   		document.getElementById('hiddenH').value = parseInt(obj)+parseInt(document.getElementById('hiddenH').value);
-	   		document.getElementById('totalHaber').value = document.getElementById('hiddenH').value ;
+	   		$("#totalHaber").html(document.getElementById('hiddenH').value);
 
 	   	}
-	}  
+	} */ 
  $(document).ready(function(){ 
  	  /*Variables Globales*/
  	  var i=0;
       var sumaDebe=0;
       var sumaHaber=0;
+      var resultado=0;
+      var valueDebe=0;
+      var valueHaber=0;
       /*Accion para el boton agregar*/
       $("#add").click(function(){ 
-            
       	   var rutEmpresa=$("#rutEmpresa").val();
            if (rutEmpresa == "") 
            {
@@ -139,25 +141,48 @@
            } 
            else if(i>0)
            {
-		       if (!/^([0-9])*$/.test($("#debe1").val()))
+           	   valueDebe=$("#debe"+i+'').val();
+           	   valueHaber=$("#haber"+i+'').val();
+           	   if($("#dropDown"+i+'').val() == "")
+           	   {
+           	   		$("#validaDropDown"+i+'').html("Debe elegir cuenta");
+		    		$("#validaDropDown"+i+'').addClass("alert-danger");
+           	   }
+		       else if (!/^([0-9])*$/.test(valueDebe))
 		    	{
-		    		$('#validaDebe'+1+'').html("Se permite solo numeros");
-		    		$('#validaDebe'+1+'').addClass("alert-danger");
+		    		$("#validaDebe"+i+'').html("Se permite solo numeros");
+		    		$("#validaDebe"+i+'').addClass("alert-danger");
+		    	}	 
+		    	 else if(!/^([0-9])*$/.test(valueHaber))
+		    	{
+		    		$("#validaHaber"+i+'').html("Se permite solo numeros");
+		    		$("#validaHaber"+i+'').addClass("alert-danger");
 		    	} 
 		    	else
 		    	{
 		    		$("#mensaje").empty();
            	   		$("#mensaje").removeClass("alert alert-dismissible alert-warning");
+
+           	   		$("#validaDropDown"+i+'').empty();
+		    		$("#validaDropDown"+i+'').removeClass("alert-danger");
+           	   		
+           	   		$("#validaDebe"+i+'').empty();
+           	   		$("#validaDebe"+i+'').removeClass("alert-danger");
+           	   		
+           	   		$("#validaHaber"+i+'').empty();
+           	   		$("#validaHaber"+i+'').removeClass("alert-danger");
            	   		i++;
-           	   		var divrow=$('<div id="row'+i+'"></div>');
+           	   	   var divrow=$('<div id="row'+i+'"></div>');
 		      	   var divDropDownList=$('<div class=\"col-lg-4\" ><br></div>');
 		      	   var divDebe=$('<div class=\"col-lg-3\" ><br></div>');
 		      	   var divHaber=$('<div class=\"col-lg-3\" ><br></div>');
 		      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
 		           //alert('row'+i);
-		           var dropDown = $("<select id='resultado"+i+"' name=\"Cuenta[]\" class=\"form-control\"/>");
-		           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
-		           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
+		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
+		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
+		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
+		           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
+		           //var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
 		           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
 		           divDropDownList.append(dropDown);
 		           divDebe.append(debe);
@@ -177,7 +202,7 @@
 			               	dataType:"html",
 			               	success: function(data)
 			               	{
-			               		$('#resultado'+i+'').html(data);
+			               		$('#dropDown'+i+'').html(data);
 			               	}
 			            });
 		    	}
@@ -189,16 +214,18 @@
            	  /*Agregando filas para el primer caso*/
            	   $("#mensaje").empty();
            	   $("#mensaje").removeClass("alert alert-dismissible alert-warning");
-           	   i++;
+			   i++;
 	      	   var divrow=$('<div id="row'+i+'"></div>');
 	      	   var divDropDownList=$('<div class=\"col-lg-4\" ><br></div>');
 	      	   var divDebe=$('<div class=\"col-lg-3\" ><br></div>');
 	      	   var divHaber=$('<div class=\"col-lg-3\" ><br></div>');
 	      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
 	           //alert('row'+i);
-	           var dropDown = $("<select id='resultado"+i+"' name=\"Cuenta[]\" class=\"form-control\"/>");
-	           var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
-	           var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
+	           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
+	           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
+		       var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
+	           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
+	           //var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
 	           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
 	           divDropDownList.append(dropDown);
 	           divDebe.append(debe);
@@ -208,7 +235,7 @@
 	           divrow.append(divDebe);
 	           divrow.append(divHaber);
 	           divrow.append(divEliminar);
-				$("#dynamic_field").append(divrow);
+			   $("#dynamic_field").append(divrow);
 				var url = "<?php echo CController::createUrl('ComprobanteContable/CargaCuentasJs'); ?>";
 		        $.ajax(
 		            {
@@ -218,7 +245,7 @@
 		               	dataType:"html",
 		               	success: function(data)
 		               	{
-		               		$('#resultado'+i+'').html(data);
+		               		$('#dropDown'+i+'').html(data);
 		               	}
 		            });
            	} 
@@ -233,18 +260,26 @@
       /*Accion para el boton guardar*/
       $("#submit").click(function(){
 
-			var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
-			var sumaDebe=$("#hiddenD").val();
-			var sumaHaber=$("#hiddenH").val();
-           	var tipoComprobante=$("#tipoComprobante").val();
-	 
+			//var sumaDebe=$("#hiddenD").val();
+			//var sumaHaber=$("#hiddenH").val();
+           	var tipoComprobante = $("#tipoComprobante").val();
+           	var x = i;
+           	while(x > 0)
+           	{
+           		sumaDebe += parseInt($("#debe"+x+'').val());
+           		sumaHaber += parseInt($("#haber"+x+'').val());
+           		x--;
+           	}
+	 		resultado = sumaDebe - sumaHaber;
             if(tipoComprobante == "")
            	{
+           		$(".panel-primary").animate({scrollTop:0},'slow');
            		$("#mensaje").html("Debe elegir Tipo");
 				$("#mensaje").addClass("alert alert-dismissible alert-warning");
            	}
-			else if(sumaDebe==sumaHaber)
+			else if(resultado == 0)
 			{
+				var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
 	      		$.ajax(
 			            {
 			               	type:"POST",
@@ -255,6 +290,8 @@
 				               	$("#mensaje").empty();
 	           	   				$("#mensaje").removeClass("alert alert-dismissible alert-warning");
 	           	   				$("#mensaje").html(data);
+	           	   				$("#hiddenD").val("0");
+	           	   				$("#hiddenH").val("0");
 	      						/*Se eliminan las lineas contables*/
 					      		while(i>0)
 					      		{
@@ -266,7 +303,7 @@
 			}
 			else
 			{
-				$(".form").animate({scrollTop:0},'slow');
+				$(".panel-primary").animate({scrollTop:0},'slow');
 				$("#mensaje").html("Problemas con las lineas");
 				$("#mensaje").addClass("alert alert-danger");
 			}

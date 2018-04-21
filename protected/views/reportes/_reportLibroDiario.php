@@ -187,7 +187,7 @@
                     <thead>
                       <tr>
                         <th>Cuenta</th>
-                        <th>Descripcion</th>
+                        <th>Descripción</th>
                         <th>Glosa</th>
                         <th>Debe</th>
                         <th>Haber</th>

@@ -13,7 +13,6 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
-<?php// $row_id = "modelLinea-" . $key ?>
 
 	<p class="note">Campos con <span class="required">*</span> son obligatorios.</p>
 
@@ -70,23 +69,22 @@
 			</div>
 			<br></br>
 		</div>
+		<div>
 			<table class="table" id="dynamic_field">
 				<div class="form-group">
 					<div class="col-lg-4"><br>
 						<?php echo $form->labelEx($modelLinea,'CUENTA'); ?>
 					</div>
 					<div class="col-lg-3"><br>
-					<?php echo $form->labelEx($modelLinea,'DEBE'); ?><div id="totalDebe"></div>
-                    <!--<?php //echo '<input id="hiddenD" type="hidden" name="hiddenD" value="0">';  ?> -->
-
-				</div>
-				<div class="col-lg-3"><br>
-					<?php echo $form->labelEx($modelLinea,'HABER'); ?><div id="totalHaber"></div>
-					<!--<?php //echo '<input id="hiddenH" type="hidden" name="hiddenH" value="0">';  ?>-->
-				</div>
+						<?php echo $form->labelEx($modelLinea,'DEBE'); ?>
+					</div>
+					<div class="col-lg-3"><br>
+						<?php echo $form->labelEx($modelLinea,'HABER'); ?>
+					</div>
 				</div>
 				<!--Aqui se agregan los campos de texto mediante JQuery-->
 			</table>
+		</div>
 
 		<div class="form-group">
 			<div class="col-lg-3">

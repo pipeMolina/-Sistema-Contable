@@ -3,14 +3,15 @@
 /* @var $data Usuario */
 ?>
 
-<div class="view">
+<div class="list-group">
+<div  class="list-group-item">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('RUT_PERSONA')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->RUT_PERSONA), array('view', 'id'=>$data->RUT_PERSONA)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ID_TIPOUSUARIO')); ?>:</b>
-	<?php echo CHtml::encode($data->ID_TIPOUSUARIO); ?>
+	<?php echo CHtml::encode($data->iDTIPOUSUARIO->NOMBRE_TIPOUSUARIO); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('LOGIN_USUARIO')); ?>:</b>
@@ -22,4 +23,5 @@
 	<br />
 
 
+</div>
 </div>

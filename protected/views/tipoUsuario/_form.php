@@ -21,14 +21,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ID_TIPOUSUARIO'); ?>
-		<?php echo $form->textField($model,'ID_TIPOUSUARIO'); ?>
+		<?php echo $form->textField($model,'ID_TIPOUSUARIO',array('size'=>2,'maxlength'=>2)); ?>
 		<?php echo $form->error($model,'ID_TIPOUSUARIO'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'NOMBRE_TIPOSUARIO'); ?>
-		<?php echo $form->textField($model,'NOMBRE_TIPOSUARIO',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'NOMBRE_TIPOSUARIO'); ?>
+		<?php echo $form->labelEx($model,'NOMBRE_TIPOUSUARIO'); ?>
+		<?php echo $form->textField($model,'NOMBRE_TIPOUSUARIO',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'NOMBRE_TIPOUSUARIO'); ?>
 	</div>
 
 	<div class="row buttons">

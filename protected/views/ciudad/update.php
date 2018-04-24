@@ -3,7 +3,7 @@
 /* @var $model Ciudad */
 
 $this->breadcrumbs=array(
-	'Ciudads'=>array('index'),
+	'Ciudad'=>array('index'),
 	$model->ID_CIUDAD=>array('view','id'=>$model->ID_CIUDAD),
 	'Modificar',
 );

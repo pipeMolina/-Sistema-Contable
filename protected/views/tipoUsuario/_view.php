@@ -9,8 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->ID_TIPOUSUARIO), array('view', 'id'=>$data->ID_TIPOUSUARIO)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('NOMBRE_TIPOSUARIO')); ?>:</b>
-	<?php echo CHtml::encode($data->NOMBRE_TIPOSUARIO); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('NOMBRE_TIPOUSUARIO')); ?>:</b>
+	<?php echo CHtml::encode($data->NOMBRE_TIPOUSUARIO); ?>
 	<br />
 
 

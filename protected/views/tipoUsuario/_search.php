@@ -13,12 +13,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'ID_TIPOUSUARIO'); ?>
-		<?php echo $form->textField($model,'ID_TIPOUSUARIO'); ?>
+		<?php echo $form->textField($model,'ID_TIPOUSUARIO',array('size'=>2,'maxlength'=>2)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'NOMBRE_TIPOSUARIO'); ?>
-		<?php echo $form->textField($model,'NOMBRE_TIPOSUARIO',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->label($model,'NOMBRE_TIPOUSUARIO'); ?>
+		<?php echo $form->textField($model,'NOMBRE_TIPOUSUARIO',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row buttons">

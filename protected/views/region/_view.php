@@ -3,7 +3,8 @@
 /* @var $data Region */
 ?>
 
-<div class="view">
+<div class="list-group">
+<div  class="list-group-item">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ID_REGION')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->ID_REGION), array('view', 'id'=>$data->ID_REGION)); ?>
@@ -14,4 +15,5 @@
 	<br />
 
 
+</div>
 </div>

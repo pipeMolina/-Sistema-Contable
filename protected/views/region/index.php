@@ -13,7 +13,7 @@ $this->menu=array(
 ?>
 
 <div class="panel panel-primary">
-	<div class="panel-heading text-center">Region</div>
+	<div class="panel-heading text-center">Región</div>
 	<div class="panel-body">
 		<?php $this->widget('zii.widgets.CListView', array(
 			'dataProvider'=>$dataProvider,

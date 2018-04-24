@@ -23,8 +23,16 @@ $this->menu=array(
 			'data'=>$model,
 			'attributes'=>array(
 				'RUT_EMPRESA',
-				'ID_CIUDAD',
-				'ID_PLANCUENTA',
+				//'ID_CIUDAD',
+				array(
+	   					'name'=>'ID_CIUDAD',
+	   					'value'=>$model->iDCIUDAD->NOMBRE_CIUDAD,
+  					),
+				//'ID_PLANCUENTA',
+				array(
+	   					'name'=>'ID_PLANCUENTA',
+	   					'value'=>$model->iDPLANCUENTA->DESCRIPCION_PLANCUENTA,
+  					),
 				'RAZONSOCIAL_EMPRESA',
 				'GIRO_EMPRESA',
 				'TELEFONO_EMPRESA',

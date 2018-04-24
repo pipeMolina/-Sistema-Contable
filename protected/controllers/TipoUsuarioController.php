@@ -27,15 +27,43 @@ class TipoUsuarioController extends Controller
 	public function accessRules()
 	{
 		return array(
-			
+			//R
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'expression'=>'$user->M4() || $user->F3()',
+			),
+			//RU
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','admin','index','view'),
-				'expression'=>'$user->Administrador()',
+				'actions'=>array('index','view','update'),
+				'expression'=>'$user->M3() || $user->OP2() ',
+				
 			),
+			//CRU
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update','admin','index','view'),
+				'expression'=>'$user->OP1() || $user->M2() || $user->F2()',
+				
+			),
+			//CRUD todos los permisos otorgados a las cuentas indicadas
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update','admin','delete','index','view'),
+				'expression'=>'$user->G1() || $user->M1() || $user->F1()',
+
+			),
+			//CRUD todos los permisos otorgados por default a las cuentas tipo administrador
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update','admin','delete','index','view'),
+				'expression'=>'$user->A1() || $user->A2()',
+			),
+			
 			array('deny',  // deny all users
-				'users'=>array('*'),										
+				'users'=>array('*'),
 			),
-			);
+			
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
 	}
 	
 

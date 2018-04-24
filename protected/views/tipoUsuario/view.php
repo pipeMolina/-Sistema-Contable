@@ -22,6 +22,6 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'ID_TIPOUSUARIO',
-		'NOMBRE_TIPOSUARIO',
+		'NOMBRE_TIPOUSUARIO',
 	),
 )); ?>

@@ -51,18 +51,21 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 				array(
    					'name'=>'ID_PLANCUENTA',
    					'value'=>'$data->iDPLANCUENTA->DESCRIPCION_PLANCUENTA',
+   					'filter'=> CHtml::listData(PlanCuenta::model()->findAll(array('order'=>'DESCRIPCION_PLANCUENTA')),'ID_PLANCUENTA','DESCRIPCION_PLANCUENTA')
   				),
 				'DESCRIPCION_CUENTA',
-				'ID_CUENTA',
+				'CODIGO_CUENTA',
 				//'ID_TIPOCUENTA',
 				array(
    					'name'=>'ID_TIPOCUENTA',
    					'value'=>'$data->iDTIPOCUENTA->NOMBRE_TIPOCUENTA',
+   					'filter'=> CHtml::listData(TipoCuenta::model()->findAll(array('order'=>'NOMBRE_TIPOCUENTA')),'ID_TIPOCUENTA','NOMBRE_TIPOCUENTA')
   				),
 				//'ID_SUBTIPOCUENTA',
 				array(
    					'name'=>'ID_SUBTIPOCUENTA',
    					'value'=>'$data->iDSUBTIPOCUENTA->NOMBRE_SUBTIPOCUENTA',
+   					'filter'=> CHtml::listData(SubtipoCuenta::model()->findAll(array('order'=>'NOMBRE_SUBTIPOCUENTA')),'ID_SUBTIPOCUENTA','NOMBRE_SUBTIPOCUENTA')
   				),
 				array(
 					'class'=>'CButtonColumn',

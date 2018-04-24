@@ -49,8 +49,20 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'RUT_EMPRESA',
-		'ID_CIUDAD',
-		'ID_PLANCUENTA',
+		array(
+				'name'  => "ID_CIUDAD",
+				'header'=> 'Ciudad',
+				'value' => '$data->iDCIUDAD->NOMBRE_CIUDAD',
+				'filter'=> CHtml::listData(Ciudad::model()->findAll(array('order'=>'NOMBRE_CIUDAD')),'ID_CIUDAD','NOMBRE_CIUDAD'),
+			),
+		//'ID_CIUDAD',
+		array(
+				'name'  => "ID_PLANCUENTA",
+				'header'=> 'PlanCuenta',
+				'value' => '$data->iDPLANCUENTA->DESCRIPCION_PLANCUENTA',
+				'filter'=> CHtml::listData(PlanCuenta::model()->findAll(array('order'=>'DESCRIPCION_PLANCUENTA')),'ID_PLANCUENTA','DESCRIPCION_PLANCUENTA'),
+			),
+		//'ID_PLANCUENTA',
 		'RAZONSOCIAL_EMPRESA',
 		'GIRO_EMPRESA',
 		'TELEFONO_EMPRESA',

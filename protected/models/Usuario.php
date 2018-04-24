@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'usuario':
  * @property string $RUT_PERSONA
- * @property integer $ID_TIPOUSUARIO
+ * @property string $ID_TIPOUSUARIO
  * @property string $LOGIN_USUARIO
  * @property string $PASS_USUARIO
  *
@@ -32,8 +32,8 @@ class Usuario extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('RUT_PERSONA, ID_TIPOUSUARIO', 'required'),
-			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
 			array('RUT_PERSONA', 'length', 'max'=>12),
+			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
 			array('LOGIN_USUARIO', 'length', 'max'=>20),
 			array('PASS_USUARIO', 'length', 'max'=>50),
 			// The following rule is used by search().
@@ -87,7 +87,7 @@ class Usuario extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('RUT_PERSONA',$this->RUT_PERSONA,true);
-		$criteria->compare('ID_TIPOUSUARIO',$this->ID_TIPOUSUARIO);
+		$criteria->compare('ID_TIPOUSUARIO',$this->ID_TIPOUSUARIO,true);
 		$criteria->compare('LOGIN_USUARIO',$this->LOGIN_USUARIO,true);
 		$criteria->compare('PASS_USUARIO',$this->PASS_USUARIO,true);
 
@@ -105,15 +105,5 @@ class Usuario extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	public function validatePassword($password)
-	{
-		return $this->hashPassword($password)===$this->PASS_USUARIO;
-	}
- 
-	public function hashPassword($password)
-	{
-		return md5($password);
 	}
 }

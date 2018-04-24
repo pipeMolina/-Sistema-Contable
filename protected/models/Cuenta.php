@@ -65,12 +65,12 @@ class Cuenta extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			//'ID_CUENTA' => 'Codigo Cuenta',
-			'CODIGO_CUENTA'=>'Codigo Cuenta',
-			'ID_TIPOCUENTA' => 'Tipo cuenta',
-			'ID_PLANCUENTA' => 'Plan cuenta',
-			'ID_SUBTIPOCUENTA' => 'Subtipo cuenta',
-			'DESCRIPCION_CUENTA' => 'Descripcion Cuenta',
+			'ID_CUENTA' => 'Id',
+			'CODIGO_CUENTA'=>'Codigo',
+			'ID_TIPOCUENTA' => 'Tipo',
+			'ID_PLANCUENTA' => 'Plan Cuenta',
+			'ID_SUBTIPOCUENTA' => 'Subtipo',
+			'DESCRIPCION_CUENTA' => 'Descripcion',
 		);
 	}
 

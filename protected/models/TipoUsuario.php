@@ -4,8 +4,8 @@
  * This is the model class for table "tipo_usuario".
  *
  * The followings are the available columns in table 'tipo_usuario':
- * @property integer $ID_TIPOUSUARIO
- * @property string $NOMBRE_TIPOSUARIO
+ * @property string $ID_TIPOUSUARIO
+ * @property string $NOMBRE_TIPOUSUARIO
  *
  * The followings are the available model relations:
  * @property Usuario[] $usuarios
@@ -30,10 +30,10 @@ class TipoUsuario extends CActiveRecord
 		return array(
 			array('ID_TIPOUSUARIO', 'required'),
 			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
-			array('NOMBRE_TIPOSUARIO', 'length', 'max'=>20),
+			array('NOMBRE_TIPOUSUARIO', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID_TIPOUSUARIO, NOMBRE_TIPOSUARIO', 'safe', 'on'=>'search'),
+			array('ID_TIPOUSUARIO, NOMBRE_TIPOUSUARIO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +56,7 @@ class TipoUsuario extends CActiveRecord
 	{
 		return array(
 			'ID_TIPOUSUARIO' => 'Id Tipousuario',
-			'NOMBRE_TIPOSUARIO' => 'Nombre Tiposuario',
+			'NOMBRE_TIPOUSUARIO' => 'Nombre Tipousuario',
 		);
 	}
 
@@ -78,8 +78,8 @@ class TipoUsuario extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ID_TIPOUSUARIO',$this->ID_TIPOUSUARIO);
-		$criteria->compare('NOMBRE_TIPOSUARIO',$this->NOMBRE_TIPOSUARIO,true);
+		$criteria->compare('ID_TIPOUSUARIO',$this->ID_TIPOUSUARIO,true);
+		$criteria->compare('NOMBRE_TIPOUSUARIO',$this->NOMBRE_TIPOUSUARIO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

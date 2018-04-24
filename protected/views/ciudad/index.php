@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Ciudads',
+	'Ciudad',
 );
 
 $this->menu=array(
@@ -22,4 +22,4 @@ $this->menu=array(
 		)); ?>
 	</div>
 </div>
-<a href="#" class="btn btn-success">Default</a>
+

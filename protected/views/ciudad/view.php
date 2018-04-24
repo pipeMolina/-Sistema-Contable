@@ -23,7 +23,12 @@ $this->menu=array(
 			'data'=>$model,
 			'attributes'=>array(
 				'ID_CIUDAD',
-				'ID_REGION',
+				//'ID_REGION',
+				array(
+					'name'  => "ID_REGION",
+					'value' => $model->iDREGION->NOMBRE_REGION,
+					'filter'=> CHtml::listData(Region::model()->findAll(array('order'=>'NOMBRE_REGION')),'ID_REGION','NOMBRE_REGION'),
+				),
 				'NOMBRE_CIUDAD',
 			),
 		)); ?>

@@ -55,8 +55,8 @@ class Region extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID_REGION' => 'Id Region',
-			'NOMBRE_REGION' => 'Nombre Region',
+			'ID_REGION' => 'Id',
+			'NOMBRE_REGION' => 'Nombre',
 		);
 	}
 

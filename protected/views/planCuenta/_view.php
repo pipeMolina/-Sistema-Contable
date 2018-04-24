@@ -18,11 +18,11 @@
 
  <div class="list-group">
     <div  class="list-group-item">
-      <b><?php echo CHtml::encode($data->getAttributeLabel('ID_PLANCUENTA')); ?>
+      <b><?php echo CHtml::encode($data->getAttributeLabel('ID_PLANCUENTA')); ?>:</b>
         <?php echo CHtml::link(CHtml::encode($data->ID_PLANCUENTA), array('view', 'id'=>$data->ID_PLANCUENTA)); ?></td>
       <br />
 
-      <b><?php echo CHtml::encode($data->getAttributeLabel('DESCRIPCION_PLANCUENTA')); ?>
+      <b><?php echo CHtml::encode($data->getAttributeLabel('DESCRIPCION_PLANCUENTA')); ?>:</b>
         <?php echo CHtml::encode($data->DESCRIPCION_PLANCUENTA); ?>
       <br />
     </div>

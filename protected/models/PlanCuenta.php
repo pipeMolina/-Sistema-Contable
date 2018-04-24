@@ -56,8 +56,8 @@ class PlanCuenta extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID_PLANCUENTA' => 'Id Plan de Cuenta',
-			'DESCRIPCION_PLANCUENTA' => 'Descripcion Plan de Cuenta',
+			'ID_PLANCUENTA' => 'Id',
+			'DESCRIPCION_PLANCUENTA' => 'Descripcion',
 		);
 	}
 

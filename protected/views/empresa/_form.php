@@ -54,8 +54,8 @@
 	<div class="form-group">
 		<div class="col-md-6">
 			<?php echo $form->labelEx($model,'ID_PLANCUENTA'); ?>
-			<?php echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("class"=>"form-control",'empty' => 'Elige Plan de Cuentas')); ?>
-			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control")); ?>-->
+			<?php echo $form->dropDownList($model,'ID_PLANCUENTA',CHtml::listData(plancuenta::model()->findAll(), 'ID_PLANCUENTA', 'DESCRIPCION_PLANCUENTA'), array("empty"=>"Primero debe crear Plan de Cuentas","disabled" => "disabled","class"=>"form-control")); ?>
+			<!--<?php //echo $form->textField($model,'ID_PLANCUENTA',array("class"=>"form-control","readonly"=>"true","placeholder"=>"Debe crear Plan de Cuentas")); ?>-->
 			<?php echo $form->error($model,'ID_PLANCUENTA'); ?>
 		</div>
 

@@ -12,15 +12,16 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('class'=>'form-horizontal'),
 )); ?>
 
-	<p class="note">Campos con <span class="required">*</span> son obligatorios.</p>
 
 
 	<?php echo $form->errorSummary($model,$modelLinea); ?>
 <div div class="panel panel-primary">
 <div class="panel-heading text-center"><h1 class="panel-title">Crear Comprobante Contable</h1></div>
 	<div class="panel-body">
+	<legend><p class="note">Campos con <span class="required">*</span> son obligatorios.</p></legend>
 		<div id="mensaje"></div>
 		<div class="form-group">
 			<div class="col-lg-5"> 
@@ -70,18 +71,18 @@
 			<br></br>
 		</div>
 		<div>
-			<table class="table" id="dynamic_field">
-				<div class="form-group">
-					<div class="col-lg-4"><br>
-						<?php echo $form->labelEx($modelLinea,'CUENTA'); ?>
-					</div>
-					<div class="col-lg-3"><br>
-						<?php echo $form->labelEx($modelLinea,'DEBE'); ?>
-					</div>
-					<div class="col-lg-3"><br>
-						<?php echo $form->labelEx($modelLinea,'HABER'); ?>
-					</div>
+			<div class="form-group">
+				<div class="col-lg-4">
+					<?php echo $form->labelEx($modelLinea,'CUENTA'); ?>
 				</div>
+				<div class="col-lg-3">
+					<?php echo $form->labelEx($modelLinea,'DEBE'); ?>
+				</div>
+				<div class="col-lg-3">
+					<?php echo $form->labelEx($modelLinea,'HABER'); ?>
+				</div>
+			</div>
+			<table class="table" id="dynamic_field">
 				<!--Aqui se agregan los campos de texto mediante JQuery-->
 			</table>
 		</div>
@@ -170,11 +171,12 @@
            	   		$("#validaHaber"+i+'').empty();
            	   		$("#validaHaber"+i+'').removeClass("alert-danger");
            	   		i++;
-           	   	   var divrow=$('<div id="row'+i+'"></div>');
-		      	   var divDropDownList=$('<div class=\"col-lg-4\" ><br></div>');
-		      	   var divDebe=$('<div class=\"col-lg-3\" ><br></div>');
-		      	   var divHaber=$('<div class=\"col-lg-3\" ><br></div>');
-		      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
+
+           	   	   var lineas=$('<div class="form-group" id="grupoLineas'+i+'"></div>');
+		      	   var divDropDownList=$('<div class=\"col-lg-4\" id="row'+i+'"></div>');
+		      	   var divDebe=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
+		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
+		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
 		           //alert('row'+i);
 		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
 		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
@@ -186,11 +188,12 @@
 		           divDebe.append(debe);
 		           divHaber.append(haber);
 		           divEliminar.append(eliminar);
-		           divrow.append(divDropDownList);
-		           divrow.append(divDebe);
-		           divrow.append(divHaber);
-		           divrow.append(divEliminar);
-					$("#dynamic_field").append(divrow);
+		           lineas.append(divDropDownList);
+		           lineas.append(divDebe);
+		           lineas.append(divHaber);
+		           lineas.append(divEliminar);
+
+					$("#dynamic_field").append(lineas);
 					var url = "<?php echo CController::createUrl('ComprobanteContable/CargaCuentasJs'); ?>";
 			        $.ajax(
 			            {
@@ -213,27 +216,27 @@
            	   $("#mensaje").empty();
            	   $("#mensaje").removeClass("alert alert-dismissible alert-warning");
 			   i++;
-	      	   var divrow=$('<div id="row'+i+'"></div>');
-	      	   var divDropDownList=$('<div class=\"col-lg-4\" ><br></div>');
-	      	   var divDebe=$('<div class=\"col-lg-3\" ><br></div>');
-	      	   var divHaber=$('<div class=\"col-lg-3\" ><br></div>');
-	      	   var divEliminar=$('<div class=\"col-lg-2\" ><br></div>');
-	           //alert('row'+i);
-	           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
-	           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
-		       var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
-	           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
-	           //var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
-	           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
-	           divDropDownList.append(dropDown);
-	           divDebe.append(debe);
-	           divHaber.append(haber);
-	           divEliminar.append(eliminar);
-	           divrow.append(divDropDownList);
-	           divrow.append(divDebe);
-	           divrow.append(divHaber);
-	           divrow.append(divEliminar);
-			   $("#dynamic_field").append(divrow);
+	      	   var lineas=$('<div class="form-group" id="grupoLineas'+i+'"></div>');
+		      	   var divDropDownList=$('<div class=\"col-lg-4\" id="row'+i+'"></div>');
+		      	   var divDebe=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
+		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
+		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
+		           //alert('row'+i);
+		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
+		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
+		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
+		           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
+		           //var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
+		           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
+		           divDropDownList.append(dropDown);
+		           divDebe.append(debe);
+		           divHaber.append(haber);
+		           divEliminar.append(eliminar);
+		           lineas.append(divDropDownList);
+		           lineas.append(divDebe);
+		           lineas.append(divHaber);
+		           lineas.append(divEliminar);
+			   $("#dynamic_field").append(lineas);
 				var url = "<?php echo CController::createUrl('ComprobanteContable/CargaCuentasJs'); ?>";
 		        $.ajax(
 		            {
@@ -251,7 +254,7 @@
      /*Accion para el boton borrar*/
       $(document).on("click", ".btn_remove", function(){  
            var button_id = $(this).attr("id");   
-           $("#row"+button_id+'').remove();
+           $("#grupoLineas"+button_id+'').remove();
            i--;  
       });
 
@@ -293,7 +296,7 @@
 	      						/*Se eliminan las lineas contables*/
 					      		while(i>0)
 					      		{
-					      			$("#row"+i+'').remove(); 
+					      			$("#grupoLineas"+i+'').remove(); 
 					      			i--;
 					      		}
 			               	}

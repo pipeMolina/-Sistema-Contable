@@ -58,9 +58,9 @@ class Ciudad extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID_CIUDAD' => 'Id Ciudad',
-			'ID_REGION' => 'Id Region',
-			'NOMBRE_CIUDAD' => 'Nombre Ciudad',
+			'ID_CIUDAD' => 'Id',
+			'ID_REGION' => 'Región',
+			'NOMBRE_CIUDAD' => 'Nombre',
 		);
 	}
 

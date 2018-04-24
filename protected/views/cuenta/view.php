@@ -23,9 +23,21 @@ $this->menu=array(
 			'data'=>$model,
 			'attributes'=>array(
 				'ID_CUENTA',
-				'ID_TIPOCUENTA',
-				'ID_PLANCUENTA',
-				'ID_SUBTIPOCUENTA',
+				//'ID_TIPOCUENTA',
+				array(
+					'name'  => "ID_TIPOCUENTA",
+					'value' => $model->iDTIPOCUENTA->NOMBRE_TIPOCUENTA,
+					),
+				//'ID_PLANCUENTA',
+				array(
+						'name'  => "ID_PLANCUENTA",
+						'value' => $model->iDPLANCUENTA->DESCRIPCION_PLANCUENTA,
+					),
+				//'ID_SUBTIPOCUENTA',
+				array(
+					'name'  => "ID_SUBTIPOCUENTA",
+					'value' => $model->iDSUBTIPOCUENTA->NOMBRE_SUBTIPOCUENTA,
+					),
 				'DESCRIPCION_CUENTA',
 			),
 		)); ?>

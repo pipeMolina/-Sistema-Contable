@@ -12,6 +12,50 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+/*Side Nav*/
+.sidebar-nav {
+  padding:0!important;
+}
+
+.sidebar-nav ul{
+  padding:0;
+  margin:0;
+}
+
+.sidebar-nav ul li{
+  list-style: none;
+}
+
+.sidebar-nav ul > li > a, .sidebar-nav ul > li > a:hover, .sidebar-nav ul > li > span {
+  padding:9px 15px;
+    margin-bottom:3px;
+    display:block;
+    color: #777777;
+}
+
+.sidebar-nav ul > li > a, .sidebar-nav ul > li > a:hover {
+  
+  background-color: #F1F1F1;
+  background-image: -moz-linear-gradient(top, #F1F1F1, #DBDBDB);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#DBDBDB), to(#DBDBDB));
+  background-image: -webkit-linear-gradient(top, #F1F1F1, #DBDBDB);
+  background-image: -o-linear-gradient(top, #F1F1F1, #DBDBDB);
+  background-image: linear-gradient(to bottom, #F1F1F1, #DBDBDB);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffF1F1F1', endColorstr='#ffDBDBDB', GradientType=0);
+  
+  -webkit-box-shadow:#F9F9F9 0 1px 0 inset;
+  border:1px solid #DDDDDD;
+  border-radius:3px;
+  box-shadow:#F9F9F9 0 1px 0 inset;
+  text-decoration:none;
+  
+  
+}
+
+
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -6778,6 +6822,10 @@ button.close {
           filter: none;
   border: 1px solid #345578;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+.fixed-top
+{
+  margin: 0px;
 }
 .navbar-inverse .badge {
   background-color: #fff;

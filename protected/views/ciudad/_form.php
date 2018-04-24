@@ -28,7 +28,8 @@
 		</div>
 		<div class="col-md-6">
 			<?php echo $form->labelEx($model,'ID_REGION'); ?>
-			<?php echo $form->textField($model,'ID_REGION',array("class"=>"form-control")); ?>
+			<?php echo $form->dropDownList($model,'ID_REGION',CHtml::listData(Region::model()->findAll(), 'ID_REGION', 'NOMBRE_REGION'), array("class"=>"form-control","empty" => "Elige Region")); ?>
+			<!--<?php //echo $form->textField($model,'ID_REGION',array("class"=>"form-control")); ?>-->
 			<?php echo $form->error($model,'ID_REGION'); ?>
 		</div>
 	</div>

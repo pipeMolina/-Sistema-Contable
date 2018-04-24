@@ -3,7 +3,7 @@
 /* @var $model Ciudad */
 
 $this->breadcrumbs=array(
-	'Ciudads'=>array('index'),
+	'Ciudad'=>array('index'),
 	'Administrar',
 );
 
@@ -49,7 +49,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'filter'=>$model,
 			'columns'=>array(
 				'ID_CIUDAD',
-				'ID_REGION',
+				//'ID_REGION',
+				array(
+					'name'  => "ID_REGION",
+					'header'=> 'region',
+					'value' => '$data->iDREGION->NOMBRE_REGION',
+					'filter'=> CHtml::listData(Region::model()->findAll(array('order'=>'NOMBRE_REGION')),'ID_REGION','NOMBRE_REGION'),
+				),
 				'NOMBRE_CIUDAD',
 				array(
 					'class'=>'CButtonColumn',

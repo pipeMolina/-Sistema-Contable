@@ -105,13 +105,13 @@ class Empresa extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'RUT_EMPRESA' => 'Rut Empresa',
+			'RUT_EMPRESA' => 'Rut',
 			'ID_CIUDAD' => 'Ciudad',
 			'ID_PLANCUENTA' => 'Plan de cuenta',
-			'RAZONSOCIAL_EMPRESA' => 'Razón Social Empresa',
-			'GIRO_EMPRESA' => 'Giro Empresa',
-			'TELEFONO_EMPRESA' => 'Telefono Empresa',
-			'CORREO' => 'Correo Empresa',
+			'RAZONSOCIAL_EMPRESA' => 'Razón Social',
+			'GIRO_EMPRESA' => 'Giro',
+			'TELEFONO_EMPRESA' => 'Telefono',
+			'CORREO' => 'Correo',
 		);
 	}
 

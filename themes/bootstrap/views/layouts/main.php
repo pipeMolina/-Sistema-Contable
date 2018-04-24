@@ -4,33 +4,34 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap.css"  />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap.min.css" />
-	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.css" />-->
-	<!--<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-theme.min.css" />-->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-treepanel.css" />
 	
-
-
 	<?php
 	  $baseUrl = Yii::app()->theme->baseUrl; 
 	  $cs = Yii::app()->getClientScript();
 	  Yii::app()->clientScript->registerCoreScript('jquery');
+	?>
+	<?php 
+		$cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
+		$cs->registerCssFile($baseUrl.'/css/bootstrap.css');
+		$cs->registerCssFile($baseUrl.'/css/bootstrap-treepanel.css');
+
+
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
 
-<div class="navbar navbar-default">
-  <div class="container-fluid">
+<div class="navbar navbar-inverse fixed-top">
+  <div class="container">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="<?php echo Yii::app()->homeUrl; ?>"> <?php echo Yii::app()->name ?> </a>
 	</div>
-
-	<div class="collapse navbar-collapse">
+   </div>
+</div>
+<div class="navbar navbar-default">
+  <div class="container">
+	<div class="navbar-collapse">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				//array('label'=>'Home', 'url'=>array('/site/index')),
@@ -49,7 +50,7 @@
 				array('label'=>'Iniciar Sesion', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Cerrar Sesion ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-			'htmlOptions'=>array('class'=>'nav navbar-nav'),
+			'htmlOptions'=>array('class'=>'nav navbar-nav pull-right'),
 		)); ?>
 	</div>
   </div>
@@ -64,9 +65,11 @@
 			<?php endif?>
 			
 	</div>
-	<?php echo $content; ?>
-	
 </div>
+<div class="container">
+	<?php echo $content; ?>
+</div>
+	
 <div class="footer text-center" >
 		Sistema Contable <?php echo date('Y'); ?>.<br/>			
 		Carlos Molina.<br/>

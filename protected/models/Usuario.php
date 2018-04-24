@@ -61,10 +61,10 @@ class Usuario extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'RUT_PERSONA' => 'Rut Persona',
-			'ID_TIPOUSUARIO' => 'Id Tipousuario',
-			'LOGIN_USUARIO' => 'Login Usuario',
-			'PASS_USUARIO' => 'Pass Usuario',
+			'RUT_PERSONA' => 'Rut',
+			'ID_TIPOUSUARIO' => 'Tipo',
+			'LOGIN_USUARIO' => 'Login',
+			'PASS_USUARIO' => 'Contraseña',
 		);
 	}
 
@@ -105,5 +105,15 @@ class Usuario extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password)===$this->PASS_USUARIO;
+	}
+ 
+	public function hashPassword($password)
+	{
+		return md5($password);
 	}
 }

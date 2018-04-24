@@ -23,7 +23,11 @@ $this->menu=array(
 			'data'=>$model,
 			'attributes'=>array(
 				'RUT_PERSONA',
-				'ID_TIPOUSUARIO',
+				//'ID_TIPOUSUARIO',
+				array(
+					'name'  => "ID_TIPOUSUARIO",
+					'value' => $model->iDTIPOUSUARIO->NOMBRE_TIPOUSUARIO,
+				),
 				'LOGIN_USUARIO',
 				'PASS_USUARIO',
 			),

@@ -31,7 +31,8 @@
     <div class="form-group">
 		<div class="col-md-12">
 			<?php echo $form->labelEx($model,'ID_TIPOUSUARIO'); ?>
-			<?php echo $form->textField($model,'ID_TIPOUSUARIO',array("class"=>"form-control")); ?>
+			<?php echo $form->dropDownList($model,'ID_TIPOUSUARIO',CHtml::listData(TipoUsuario::model()->findAll(), 'ID_TIPOUSUARIO', 'NOMBRE_TIPOUSUARIO'), array("class"=>"form-control","empty" => "Elige Tipo")); ?>
+			<!--<?php //echo $form->textField($model,'ID_TIPOUSUARIO',array("class"=>"form-control")); ?>-->
 			<?php echo $form->error($model,'ID_TIPOUSUARIO'); ?>
 		</div>
 	</div>

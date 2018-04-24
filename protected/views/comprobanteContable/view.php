@@ -16,17 +16,26 @@ $this->menu=array(
 );
 ?>
 
-<h1> ComprobanteContable #<?php echo $model->NUMERO_COMPROBANTE; ?></h1>
+<div class="panel panel-primary">
+	<div class="panel-heading text-center">Numero Comprobante #<?php echo $model->NUMERO_COMPROBANTE; ?></div>
+	<div class="panel-body">
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'NUMERO_COMPROBANTE',
-		'ID_TIPOCOMP',
+		//'ID_TIPOCOMP',
+		array(
+				'name'  => "ID_TIPOCOMP",
+				'value' => $model->iDTIPOCOMP->NOMBRE_TIPOCOMP,
+			),
 		'RUT_EMPRESA',
 		'FECHA_COMPROBANTE',
 		'GLOSA_COMPROBANTE',
 	),
 )); 
 ?>
+</div>
+</div>
+
 

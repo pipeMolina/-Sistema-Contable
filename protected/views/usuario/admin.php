@@ -47,7 +47,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'filter'=>$model,
 			'columns'=>array(
 				'RUT_PERSONA',
-				'ID_TIPOUSUARIO',
+				//'ID_TIPOUSUARIO',
+				array(
+					'name'  => "ID_TIPOUSUARIO",
+					'header'=> 'Tipo',
+					'value' => '$data->iDTIPOUSUARIO->NOMBRE_TIPOUSUARIO',
+					'filter'=> CHtml::listData(TipoUsuario::model()->findAll(array('order'=>'NOMBRE_TIPOUSUARIO')),'ID_TIPOUSUARIO','NOMBRE_TIPOUSUARIO'),
+				),
 				'LOGIN_USUARIO',
 				'PASS_USUARIO',
 				array(

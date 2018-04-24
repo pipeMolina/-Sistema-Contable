@@ -42,20 +42,20 @@
 	<div class="form-group">
 		<div class="col-lg-5"> 
 			<?php echo $form->labelEx($model,'RUT_EMPRESA'); ?>
-			<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control","id"=>"rutEmpresa","onchange"=>"treePanel()","empty" => "Elige Empresa")); ?>
+			<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control","id"=>"rutEmpresa","disabled" => "disabled","onchange"=>"treePanel()","empty" => "Elige Empresa")); ?>
 			<?php //echo $form->textField($model,'RUT_EMPRESA',array("class"=>"form-control",'size'=>12,'maxlength'=>12)); ?>
 			<?php echo $form->error($model,'RUT_EMPRESA'); ?>
 		</div>
 		<div class="col-lg-4"> 
 			<?php echo $form->labelEx($model,'ID_TIPOCOMP'); ?>
-			<?php echo $form->dropDownList($model,'ID_TIPOCOMP',CHtml::listData(TipoComprobante::model()->findAll(), 'ID_TIPOCOMP', 'NOMBRE_TIPOCOMP'), array("class"=>"form-control","empty" => "Elige Tipo Comprobante")); ?>
+			<?php echo $form->dropDownList($model,'ID_TIPOCOMP',CHtml::listData(TipoComprobante::model()->findAll(), 'ID_TIPOCOMP', 'NOMBRE_TIPOCOMP'), array("class"=>"form-control","empty" => "Elige Tipo Comprobante","disabled" => "disabled")); ?>
 			<?php //echo $form->textField($model,'ID_TIPOCOMP',array("class"=>"form-control")); ?>
 			<?php echo $form->error($model,'ID_TIPOCOMP'); ?>
 		</div>
 
 		<div class="col-lg-3">
 			<?php echo $form->labelEx($model,'FECHA_COMPROBANTE'); ?>	
-			<?php echo $form->hiddenField($model,'FECHA_COMPROBANTE');?>
+			<?php echo $form->TextField($model,'FECHA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50,"disabled" => "disabled"));?>
 			<?php echo $form->error($model,'FECHA_COMPROBANTE'); ?>
 		</div>
 	</div>
@@ -63,7 +63,7 @@
 	<div class="form-group">
 		<div class="col-lg-12">
 			<?php echo $form->labelEx($model,'GLOSA_COMPROBANTE'); ?>
-			<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50)); ?>
+			<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control","disabled"=>"disabled",'size'=>50,'maxlength'=>50)); ?>
 			<?php echo $form->error($model,'GLOSA_COMPROBANTE'); ?>
 		</div>
 	</div>

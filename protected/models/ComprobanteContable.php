@@ -65,10 +65,10 @@ class ComprobanteContable extends CActiveRecord
 	{
 		return array(
 			'NUMERO_COMPROBANTE' => 'Numero Comprobante',
-			'ID_TIPOCOMP' => 'Tipo Comprobante',
+			'ID_TIPOCOMP' => 'Tipo',
 			'RUT_EMPRESA' => 'Rut Empresa',
-			'FECHA_COMPROBANTE' => 'Fecha Comprobante',
-			'GLOSA_COMPROBANTE' => 'Glosa Comprobante',
+			'FECHA_COMPROBANTE' => 'Fecha',
+			'GLOSA_COMPROBANTE' => 'Glosa',
 		);
 	}
 

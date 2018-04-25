@@ -110,9 +110,9 @@
  	  var i=0;
       var sumaDebe=0;
       var sumaHaber=0;
-      var resultado=0;
       var valueDebe=0;
       var valueHaber=0;
+      var resultado=0;
       /*Accion para el boton agregar*/
       $("#add").click(function(){ 
       	   var rutEmpresa=$("#rutEmpresa").val();
@@ -206,17 +206,21 @@
 	           	}
 	           	x--;
            	}
-           	if(activar==1)
-           	{
-	           	while(z > 0)
-	           	{
-	           		sumaDebe += parseInt($("#debe"+z+'').val());
-	           		sumaHaber += parseInt($("#haber"+z+'').val());
-	           		z--;
-	           	}	
-	 			resultado = sumaDebe - sumaHaber;
-           	}	
-	 		console.log(activar);
+	 		//console.log(activar);
+         	if(activar==1)
+         	{
+			   	while(z > 0)
+			    {
+	         		sumaDebe += parseInt($("#debe"+z+'').val());
+			    	sumaHaber += parseInt($("#haber"+z+'').val());
+			    	z--;
+			    }	
+		 		resultado = sumaDebe - sumaHaber;	
+	 			console.log(resultado);
+	 			console.log(sumaDebe);
+	 			console.log(sumaHaber);
+
+         	}
 			if(resultado == 0 && activar==1)
 			{
 				var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
@@ -241,6 +245,8 @@
 			}
 			else
 			{
+				sumaDebe=0;
+				sumaHaber=0;
 				$("#mensaje").html("Problemas con las lineas");
 				$("#mensaje").addClass("alert alert-danger");
 			}

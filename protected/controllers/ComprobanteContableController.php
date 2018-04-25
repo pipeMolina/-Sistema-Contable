@@ -159,7 +159,7 @@ class ComprobanteContableController extends Controller
 		{
 			$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
 			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
-			$fecha=$_POST['ComprobanteContable']['FECHA_COMPROBANTE'];
+			//$fecha=$_POST['ComprobanteContable']['FECHA_COMPROBANTE'];
 			$glosa=$_POST['ComprobanteContable']['GLOSA_COMPROBANTE'];
 			$cuenta=$_POST['LineaContable']['CUENTA'];
 			$debe=$_POST['LineaContable']['DEBE'];

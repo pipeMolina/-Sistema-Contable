@@ -68,21 +68,14 @@ class CuentaController extends Controller
 		$model=new Cuenta;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-				if(isset($_POST['Cuenta']))
+		if(isset($_POST['Cuenta']))
+		{
+			$model->attributes=$_POST['Cuenta'];
+				if($model->save())
 				{
-					$model->attributes=$_POST['Cuenta'];
-
-					if($model->save())
-						{
-							if(isset($_POST['otro']))
-							{
-								$this->redirect(array('create','id'=>$model->ID_PLANCUENTA));
-								
-							}
-							else
-							$this->redirect(array('view','id'=>$model->ID_CUENTA));
-						}		
-				}
+ 					$this->redirect(array('view','id'=>$model->ID_CUENTA));
+				}		
+		}
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -97,7 +90,7 @@ class CuentaController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

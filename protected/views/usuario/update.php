@@ -19,6 +19,6 @@ $this->menu=array(
 <div class="panel panel-primary">
 	<div class="panel-heading text-center">Modificar Usuario <?php echo $model->RUT_PERSONA; ?></div>
 	<div class="panel-body">
-		<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+		<?php $this->renderPartial('_form', array('model'=>$model,'modelPersona'=>$modelPersona)); ?>
 	</div>
 </div>

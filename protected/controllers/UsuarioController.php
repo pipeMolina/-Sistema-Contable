@@ -56,28 +56,48 @@ class UsuarioController extends Controller
 	public function actionCreate()
 	{
 		$model=new Usuario;
-		$modelpersona=new Persona;
+		$modelPersona=new Persona;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Usuario']))
+		/*if(isset($_POST['Persona'],$_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
 			$modelpersona->RUT_PERSONA=$_POST['Usuario']['RUT_PERSONA'];
-			$modelpersona->save();
+			$modelpersona->save();*/
 			/*Encriptar contraseña*/
-			$pass = $model->PASS_USUARIO;
+			/*$pass = $model->PASS_USUARIO;
 			$shaPass = sha1($pass);
 			$md5Pass = md5($shaPass);
 			$model->PASS_USUARIO = $md5Pass;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->RUT_PERSONA));
+		}*/
+		if(isset($_POST['Persona'],$_POST['Usuario']))
+		{
+			$model->attributes=$_POST['Usuario'];
+			$modelPersona->attributes=$_POST['Persona'];
+			$modelPersona->RUT_PERSONA=$_POST['Usuario']['RUT_PERSONA'];//para que valide
+        	$valid=$model->validate();
+        	$valid=$modelPersona->validate() && $valid;
+			if($valid)
+			{
+				if($modelPersona->save())
+				{
+					$model->RUT_PERSONA=$model->RUT_PERSONA;
+					$model->PASS_USUARIO=md5($model->PASS_USUARIO); //agregar esta linea antes del save() lo mismo en la funcion de modificar actionUpdate()
+					if($model->save())
+					{
+						$this->redirect(array('view','id'=>$model->RUT_PERSONA));
+					}
+				}
+			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
-			'modelPersona'=>$modelpersona,
+			'modelPersona'=>$modelPersona,
 		));
 	}
 
@@ -90,18 +110,33 @@ class UsuarioController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		$modelPersona=Persona::model()->find('RUT_PERSONA=:id',array(':id'=>$id));
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Usuario']))
+		if(isset($_POST['Persona'],$_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->RUT_PERSONA));
+			$modelPersona->attributes=$_POST['Persona'];
+			$modelPersona->RUT_PERSONA=$_POST['Usuario']['RUT_PERSONA'];//para que valide
+        	$valid=$model->validate();
+        	$valid=$modelPersona->validate() && $valid;
+        	if($valid)
+        	{
+				if($modelPersona->save())
+				{
+					$model->RUT_PERSONA=$model->RUT_PERSONA;
+					$model->PASS_USUARIO=md5($model->PASS_USUARIO); //agregar esta linea antes del save() lo mismo en la funcion de modificar actionUpdate()
+					if($model->save())
+					{
+						$this->redirect(array('view','id'=>$model->RUT_PERSONA));
+					}
+				}
+        	}
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'modelPersona'=>$modelPersona
 		));
 	}
 
@@ -113,6 +148,7 @@ class UsuarioController extends Controller
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
+		$modelPersona=Persona::model()->deleteByPk($id);
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

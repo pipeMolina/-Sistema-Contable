@@ -45,12 +45,20 @@
 			<?php echo $form->error($modelPersona,'TELEFONO_PERSONA'); ?>
 		</div>
 		<div class="col-md-6">
+			<?php echo $form->labelEx($modelPersona,'CORREO_PERSONA'); ?>
+			<?php echo $form->textField($modelPersona,'CORREO_PERSONA',array("class"=>"form-control")); ?>
+			<?php echo $form->error($modelPersona,'CORREO_PERSONA'); ?>
+		</div>
+
+	</div>
+	
+	<div class="form-group">
+		<div class="col-md-6">
 			<?php echo $form->labelEx($model,'ID_TIPOUSUARIO'); ?>
 			<?php echo $form->dropDownList($model,'ID_TIPOUSUARIO',CHtml::listData(TipoUsuario::model()->findAll(), 'ID_TIPOUSUARIO', 'NOMBRE_TIPOUSUARIO'), array("class"=>"form-control","empty" => "Elige Tipo")); ?>
 			<!--<?php //echo $form->textField($model,'ID_TIPOUSUARIO',array("class"=>"form-control")); ?>-->
 			<?php echo $form->error($model,'ID_TIPOUSUARIO'); ?>
 		</div>
-
 	</div>
 
 	<div class="form-group">

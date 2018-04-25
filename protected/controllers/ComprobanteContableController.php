@@ -154,9 +154,10 @@ class ComprobanteContableController extends Controller
 		$model=$this->loadModel($id);
 		
 		$modelLinea=LineaContable::model()->findAllByAttributes(array('NUMERO_COMPROBANTE'=>$id));
-
 		if(isset($_POST['ComprobanteContable']))
 		{
+		var_dump($_POST);
+		die();
 			$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
 			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
 			//$fecha=$_POST['ComprobanteContable']['FECHA_COMPROBANTE'];

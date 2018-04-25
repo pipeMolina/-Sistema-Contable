@@ -141,7 +141,7 @@ class ComprobanteContable extends CActiveRecord
 	/*Carga Comprobantes por cuenta segun año, consulta diseñada para la vista libroMayor*/
 	public function cargarComprobantesCuenta($cadena)
 	{
-		$sql = 'SELECT  e.razonsocial_empresa,lc.cuenta,c.descripcion_cuenta,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,cc.numero_comprobante,tc.nombre_tipocomp,cc.glosa_comprobante,lc.debe,lc.haber
+		$sql = 'SELECT DISTINCT  e.razonsocial_empresa,lc.cuenta,c.descripcion_cuenta,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,cc.numero_comprobante,tc.nombre_tipocomp,cc.glosa_comprobante,lc.debe,lc.haber
  				FROM COMPROBANTE_CONTABLE AS cc 
  				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
                 INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
@@ -159,7 +159,7 @@ class ComprobanteContable extends CActiveRecord
 	/*Carga todas las cuentas anualmente, consulta diseñada para la vista Balance8Columnas*/
 	public function cargaCuentasBalance($cadena)
 	{
-		$sql='SELECT  e.razonsocial_empresa,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,lc.cuenta,c.descripcion_cuenta,lc.debe,lc.haber
+		$sql='SELECT DISTINCT  e.razonsocial_empresa,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,lc.cuenta,c.descripcion_cuenta,lc.debe,lc.haber
  				FROM COMPROBANTE_CONTABLE AS cc 
  				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
                 INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
@@ -177,7 +177,7 @@ class ComprobanteContable extends CActiveRecord
 	/*Carga cuentas de perdida y Ganancia de un año, consulta diseñada para la vista Estado Resultado*/
 	public function cargaCuentasEstadoResultado($cadena)
 	{
-		$sql='SELECT e.razonsocial_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,tcuenta.ID_TIPOCUENTA,lc.cuenta,c.descripcion_cuenta,cc.glosa_comprobante,lc.debe,lc.haber
+		$sql='SELECT DISTINCT e.razonsocial_empresa,cc.numero_comprobante,DAY(cc.fecha_comprobante) AS dia,MONTH(cc.fecha_comprobante) AS mes,YEAR(cc.fecha_comprobante) AS Año,tc.nombre_tipocomp,tcuenta.ID_TIPOCUENTA,lc.cuenta,c.descripcion_cuenta,cc.glosa_comprobante,lc.debe,lc.haber
  				FROM COMPROBANTE_CONTABLE AS cc
                 INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
                 INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA

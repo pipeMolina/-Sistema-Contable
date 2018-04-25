@@ -51,30 +51,6 @@
 			<?php echo $form->error($model,'CORREO_PERSONA'); ?>
 		</div>
 	</div>
-	
-	<div class="form-group">
-		<div class="col-md-12">
-			<?php echo $form->labelEx($modelusuario,'ID_TIPOUSUARIO'); ?>
-			<?php echo $form->textField($modelusuario,'ID_TIPOUSUARIO',array("class"=>"form-control")); ?>
-			<?php echo $form->error($modelusuario,'ID_TIPOUSUARIO'); ?>
-		</div>
-	</div>
-
-	<div class="form-group">
-     	<div class="col-md-12">
-			<?php echo $form->labelEx($modelusuario,'LOGIN_USUARIO'); ?>
-			<?php echo $form->textField($modelusuario,'LOGIN_USUARIO',array("class"=>"form-control",'size'=>20,'maxlength'=>20)); ?>
-			<?php echo $form->error($modelusuario,'LOGIN_USUARIO'); ?>
-		</div>
-	</div>
-
-	<div class="form-group">
-     	<div class="col-md-12">
-			<?php echo $form->labelEx($modelusuario,'PASS_USUARIO'); ?>
-			<?php echo $form->textField($modelusuario,'PASS_USUARIO',array("class"=>"form-control",'size'=>20,'maxlength'=>20)); ?>
-			<?php echo $form->error($modelusuario,'PASS_USUARIO'); ?>
-		</div>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>

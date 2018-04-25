@@ -64,12 +64,20 @@ class UsuarioController extends Controller
 		if(isset($_POST['Usuario']))
 		{
 			$model->attributes=$_POST['Usuario'];
+			$modelpersona->RUT_PERSONA=$_POST['Usuario']['RUT_PERSONA'];
+			$modelpersona->save();
+			/*Encriptar contraseña*/
+			$pass = $model->PASS_USUARIO;
+			$shaPass = sha1($pass);
+			$md5Pass = md5($shaPass);
+			$model->PASS_USUARIO = $md5Pass;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->RUT_PERSONA));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'modelPersona'=>$modelpersona,
 		));
 	}
 

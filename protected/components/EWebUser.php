@@ -15,7 +15,7 @@ class EWebUser extends CWebUser{
         return false;
 
     }
-    function Contador(){ //Administrador
+    function Contador(){ //Contador
 
         $user = $this->loadUser();
 
@@ -26,7 +26,7 @@ class EWebUser extends CWebUser{
         return false;
 
     }
-    function Secretario(){ //Administrador
+    function Secretario(){ //Secretario
 
         $user = $this->loadUser();
 

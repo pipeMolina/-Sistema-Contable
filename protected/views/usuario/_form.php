@@ -17,7 +17,7 @@
 
 )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($model,$modelPersona); ?>
 
 	<legend><p class="note">Campos con <span class="required">*</span> son obligatorios.</p></legend>
     
@@ -27,14 +27,30 @@
 			<?php echo $form->textField($model,'RUT_PERSONA',array("class"=>"form-control",'size'=>12,'maxlength'=>12)); ?>
 			<?php echo $form->error($model,'RUT_PERSONA'); ?>
 		</div>
+		<div class="col-md-4">
+			<?php echo $form->labelEx($modelPersona,'NOMBRE_PERSONA'); ?>
+			<?php echo $form->textField($modelPersona,'NOMBRE_PERSONA',array("class"=>"form-control",'size'=>20,'maxlength'=>20)); ?>
+			<?php echo $form->error($modelPersona,'NOMBRE_PERSONA'); ?>
+		</div>
+		<div class="col-md-4">
+			<?php echo $form->labelEx($modelPersona,'APELLIDO_PERSONA'); ?>
+			<?php echo $form->textField($modelPersona,'APELLIDO_PERSONA',array("class"=>"form-control",'size'=>20,'maxlength'=>20)); ?>
+			<?php echo $form->error($modelPersona,'APELLIDO_PERSONA'); ?>
+		</div>
 	</div>
     <div class="form-group">
-		<div class="col-md-12">
+		<div class="col-md-6">
+			<?php echo $form->labelEx($modelPersona,'TELEFONO_PERSONA'); ?>
+			<?php echo $form->textField($modelPersona,'TELEFONO_PERSONA',array("class"=>"form-control")); ?>
+			<?php echo $form->error($modelPersona,'TELEFONO_PERSONA'); ?>
+		</div>
+		<div class="col-md-6">
 			<?php echo $form->labelEx($model,'ID_TIPOUSUARIO'); ?>
 			<?php echo $form->dropDownList($model,'ID_TIPOUSUARIO',CHtml::listData(TipoUsuario::model()->findAll(), 'ID_TIPOUSUARIO', 'NOMBRE_TIPOUSUARIO'), array("class"=>"form-control","empty" => "Elige Tipo")); ?>
 			<!--<?php //echo $form->textField($model,'ID_TIPOUSUARIO',array("class"=>"form-control")); ?>-->
 			<?php echo $form->error($model,'ID_TIPOUSUARIO'); ?>
 		</div>
+
 	</div>
 
 	<div class="form-group">

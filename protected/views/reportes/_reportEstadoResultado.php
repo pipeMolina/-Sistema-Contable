@@ -12,7 +12,7 @@
 <?php
 	$this->breadcrumbs=array(
 		'Reportes'=>array('index'),
-		'BalanceGeneral',
+		'EstadoResultado',
 	);
 ?>
 <?php @session_start();?>
@@ -101,17 +101,18 @@
        $rawDataTG = @$_SESSION['arrayTotalGeneral'];
        $perdidaEjercicio = @$_SESSION['perdidaEjercicio'];
        $rawDataSI=@$_SESSION['sumasIguales'];
-        
+       unset($_SESSION['arrayCuentas']);
+
      if (!empty($rawData)) 
-        {
+      {
           echo '<table class="table table-striped table-hover">
                   <thead>
                     <tr>
                       <th>Cuenta</th>
                       <th></th>
-                      <th>Debito</th>
-                      <th>Credito</th>
-                      <th>Perdida</th>
+                      <th>Débito</th>
+                      <th>Crédito</th>
+                      <th>Pérdida</th>
                       <th>Ganancia</th>
                     </tr>
                   </thead>
@@ -183,9 +184,13 @@
                           </tr>';
                     }
             echo '</tbody>';
-          echo '</table>';    
-        }
+            echo '</table>';
+              
+      }
         else
           echo "No se encontraron datos con los valores indicados";
+          @$_SESSION['filtro']['empresa'] = "";
+          @$_SESSION['filtro']['periodo'] = "";
 ?>
+</div>
 </div>

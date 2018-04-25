@@ -1,47 +1,47 @@
 <script type="text/javascript">
-    function Asignate(target){
-        var choose = target.value;
-        if(target.id == 'filterD'){
+    function Asignate(obj){
+        var choose = obj.value;
+        if(obj.id == 'filterD'){
             document.getElementById('hiddenD').value = choose;
         }
-        if(target.id == 'filterM'){
+        if(obj.id == 'filterM'){
             document.getElementById('hiddenM').value = choose;
         }
-        if(target.id == 'filterP'){
+        if(obj.id == 'filterP'){
             document.getElementById('hiddenP').value = choose;
         }
-        if(target.id == 'filterE'){
+        if(obj.id == 'filterE'){
             document.getElementById('hiddenE').value = choose;
         }
     }
 </script>
 <?php
-	$this->breadcrumbs=array(
-		'Reportes'=>array('index'),
-		'LibroDiario',
-	);
+  $this->breadcrumbs=array(
+    'Reportes'=>array('index'),
+    'LibroDiario',
+  );
 ?>
 <?php @session_start();?>
-
 <div class="row-fluid">
   <div>
-    	<table>
-    		<tr>
+      <table>
+        <tr>
               <td style="min-width:200px;" align="center">
                         <?php echo "Empresa";?>
               </td>
-	            <td style="min-width:100px;" align="center">
-	                    <?php echo "Año";?>
-	            </td>
+              <td style="min-width:100px;" align="center">
+                      <?php echo "Año";?>
+              </td>
               <td style="min-width:100px;" align="center">
                       <?php echo "Mes";?>
               </td>
               <td style="min-width:100px;" align="center">
                         <?php echo "Día";?>
               </td>
-        	</tr>
-        	<tr>
-	            <td valign="top" align="center" class="col-lg-4">
+        </tr>
+
+          <tr>
+              <td valign="top" align="center" class="col-lg-4">
                       <?php  
                         echo '<form action=<"'.CController::createUrl('reportes/filterEmp').'" id="formulario4" method="post" name="formulario4">';
                           echo CHtml::dropDownList('filterE',@$_SESSION['filtro']['empresa'],CHtml::listData(Empresa::model()->findAll(array('order'=>'RAZONSOCIAL_EMPRESA')),'RUT_EMPRESA','RAZONSOCIAL_EMPRESA'),array(
@@ -133,8 +133,8 @@
                     
                     ?>        
                 </td>
-	        </tr>
-    	</table>
+          </tr>
+      </table>
     </div>
 </br>
 <div id="print-total">
@@ -145,6 +145,7 @@
         $rawData = @$_SESSION['data'];
         $rawDataDebe = @$_SESSION['arrayDebe'];
         $rawDataHaber = @$_SESSION['arrayHaber'];
+        unset($_SESSION['data']);
         if (!empty($rawData)) 
         {
             $arrayComprobante=array();
@@ -220,157 +221,10 @@
       }
         else
           echo "No se encontraron datos con los valores indicados";
-         @$_SESSION['data']='';
-         @$_SESSION['arrayDebe']='';
-         @$_SESSION['arrayHaber']='';
+         @$_SESSION['filtro']['periodo'] = '';
+         @$_SESSION['filtro']['dia'] = '';
+         @$_SESSION['filtro']['mes'] = '';
+         @$_SESSION['filtro']['empresa'] = '';
 ?>
 </div>
 </div>
-<?php
-/*
-array (size=11)
-  0 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10301002' (length=8)
-      'descripcion_cuenta' => string 'Impuesto Renta' (length=14)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '501268' (length=6)
-      'haber' => string '0' (length=1)
-  1 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10101001' (length=8)
-      'descripcion_cuenta' => string 'Caja' (length=4)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '83879' (length=5)
-      'haber' => string '0' (length=1)
-  2 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10201002' (length=8)
-      'descripcion_cuenta' => string 'Instalaciones' (length=13)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '44286' (length=5)
-      'haber' => string '0' (length=1)
-  3 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10201001' (length=8)
-      'descripcion_cuenta' => string 'Muebles y Utiles' (length=16)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '41200' (length=5)
-      'haber' => string '0' (length=1)
-  4 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '20100001' (length=8)
-      'descripcion_cuenta' => string 'I.V.A' (length=5)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '22532' (length=5)
-      'haber' => string '0' (length=1)
-  5 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10301001' (length=8)
-      'descripcion_cuenta' => string 'Cuenta Particular' (length=17)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '19312' (length=5)
-      'haber' => string '0' (length=1)
-  6 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '1' (length=1)
-      'dia' => string '5' (length=1)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10101002' (length=8)
-      'descripcion_cuenta' => string 'Mercaderias' (length=11)
-      'glosa_comprobante' => string 'Cancela Remun. por pagar y cotiz. previsionales' (length=47)
-      'debe' => string '0' (length=1)
-      'haber' => string '712477' (length=6)
-  7 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '2' (length=1)
-      'dia' => string '12' (length=2)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10101001' (length=8)
-      'descripcion_cuenta' => string 'Caja' (length=4)
-      'glosa_comprobante' => string 'Cancela Impuestos y honorarios' (length=30)
-      'debe' => string '23428' (length=5)
-      'haber' => string '0' (length=1)
-  8 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '2' (length=1)
-      'dia' => string '12' (length=2)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Egreso' (length=6)
-      'cuenta' => string '10201001' (length=8)
-      'descripcion_cuenta' => string 'Muebles y Utiles' (length=16)
-      'glosa_comprobante' => string 'Cancela Impuestos y honorarios' (length=30)
-      'debe' => string '0' (length=1)
-      'haber' => string '23428' (length=5)
-  9 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '3' (length=1)
-      'dia' => string '12' (length=2)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Traspaso' (length=8)
-      'cuenta' => string '10201002' (length=8)
-      'descripcion_cuenta' => string 'Instalaciones' (length=13)
-      'glosa_comprobante' => string 'Ajustes Credito Fiscal' (length=22)
-      'debe' => string '188' (length=3)
-      'haber' => string '0' (length=1)
-  10 => 
-    array (size=11)
-      'razonsocial_empresa' => string 'Carlos Manuel Molina Gallardo' (length=29)
-      'numero_comprobante' => string '3' (length=1)
-      'dia' => string '12' (length=2)
-      'mes' => string '12' (length=2)
-      'Año' => string '2016' (length=4)
-      'nombre_tipocomp' => string 'Traspaso' (length=8)
-      'cuenta' => string '10101002' (length=8)
-      'descripcion_cuenta' => string 'Mercaderias' (length=11)
-      'glosa_comprobante' => string 'Ajustes Credito Fiscal' (length=22)
-      'debe' => string '0' (length=1)
-      'haber' => string '188' (length=3)
-*/
-?>  

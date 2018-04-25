@@ -2,97 +2,29 @@
  class ReportesController extends Controller
  {
 
- 	//public $layout='//layouts/column2';
-
+public function filters()
+{
+	return array(
+		'accessControl', // perform access control for CRUD operations
+		'postOnly + delete', // we only allow deletion via POST request
+	);
+}
  
 public function accessRules()
-	{
+{
 		return array(
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index',
-					'filterLibroDiario',
-					'filterExcelLibroDiario',
-					'exportarExcelLibroDiario',
-					'libroMayor',
-					'filterLibroMayor',
-					'filterExcelLibroMayor',
-					'exportarExcelLibroMayor',
-					'libroDiario',
-					'balanceGeneral',
-					'filterBalanceGeneral',
-					'filterExcelBalanceGeneral',
-					'exportarExcelBalanceGeneral',
-					'saldoporMes',
-					'filterSaldoporMes',
-					'filterExcelSaldoporMes',
-					'exportarExcelSaldoPorMes',
-					'estadoResultado',
-					'filterEstadoResultado',
-					'filterExcelEstadoResultado',
-					'exportarExcelEstadoResultado',
-					'cargaCuentas',
-					),
+				'actions'=>array('index','filterLibroDiario','filterExcelLibroDiario','exportarExcelLibroDiario','libroMayor','filterLibroMayor','filterExcelLibroMayor','exportarExcelLibroMayor','libroDiario','balanceGeneral','filterBalanceGeneral','filterExcelBalanceGeneral','exportarExcelBalanceGeneral','saldoporMes','filterSaldoporMes','filterExcelSaldoporMes','exportarExcelSaldoPorMes','estadoResultado','filterEstadoResultado','filterExcelEstadoResultado','exportarExcelEstadoResultado','cargaCuentas'),
 				'expression'=>'$user->Administrador()',
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index',
-					'filterLibroDiario',
-					'filterExcelLibroDiario',
-					'exportarExcelLibroDiario',
-					'libroMayor',
-					'filterLibroMayor',
-					'filterExcelLibroMayor',
-					'exportarExcelLibroMayor',
-					'libroDiario',
-					'balanceGeneral',
-					'filterBalanceGeneral',
-					'filterExcelBalanceGeneral',
-					'exportarExcelBalanceGeneral',
-					'saldoporMes',
-					'filterSaldoporMes',
-					'filterExcelSaldoporMes',
-					'exportarExcelSaldoPorMes',
-					'estadoResultado',
-					'filterEstadoResultado',
-					'filterExcelEstadoResultado',
-					'exportarExcelEstadoResultado',
-					'cargaCuentas',
-					),
-				'expression'=>'$user->Contador()',
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index',
-					'filterLibroDiario',
-					'filterExcelLibroDiario',
-					'exportarExcelLibroDiario',
-					'libroMayor',
-					'filterLibroMayor',
-					'filterExcelLibroMayor',
-					'exportarExcelLibroMayor',
-					'libroDiario',
-					'balanceGeneral',
-					'filterBalanceGeneral',
-					'filterExcelBalanceGeneral',
-					'exportarExcelBalanceGeneral',
-					'saldoporMes',
-					'filterSaldoporMes',
-					'filterExcelSaldoporMes',
-					'exportarExcelSaldoPorMes',
-					'estadoResultado',
-					'filterEstadoResultado',
-					'filterExcelEstadoResultado',
-					'exportarExcelEstadoResultado',
-					'cargaCuentas',
-					),
-				'expression'=>'$user->Secretario()',
-			),
+				),
+			
 			array('deny',  // deny all users
 				'users'=>array('*'),										
-			),
-			);
-	}
-	public function actionIndex()
+				),
+		);
+}
+public function actionIndex()
 	{
 		$this->render('index');
 	}
@@ -141,8 +73,11 @@ public function accessRules()
 	public function actionFilterLibroDiario()
 	{
 		@session_start();
+		$data='';
+		$arrayDebe='';
+		$arrayHaber='';
 		$dia=$_POST['hiddenD'];
-		$mes = $_POST['hiddenM'];
+		$mes=$_POST['hiddenM'];
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
 		/*Mantiene Valores del filtrado al recargar la pagina*/
@@ -150,6 +85,8 @@ public function accessRules()
 		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
 		@$_SESSION['filtro']['mes']=$_POST['hiddenM'];
 		@$_SESSION['filtro']['dia']=$_POST['hiddenD'];
+
+		
 		$cadena='';
 		$filtroP=false;
 		$filtroM=false;
@@ -180,8 +117,6 @@ public function accessRules()
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
 		
 			
-				if(!empty($data))
-				{
 					//controla el cambio de comprobante
 					$referencia=$data[0]["numero_comprobante"];
 					
@@ -208,7 +143,7 @@ public function accessRules()
 					$_SESSION['data']=$data;
 					$_SESSION['arrayDebe']=$arrayDebe;
 					$_SESSION['arrayHaber']=$arrayHaber;
-				}
+
 					echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';			
 				
 			}
@@ -641,6 +576,7 @@ public function accessRules()
 	public function actionFilterBalanceGeneral()
 	{
 		@session_start();
+		$data='';
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
 		$cadena='';
@@ -664,8 +600,7 @@ public function accessRules()
 				$data = ComprobanteContable::model()->cargaCuentasBalance($cadena);
 				//se guardaran las cuentas con sus respectivos valores
 				$arrayCuentas=array();
-				if(!empty($data))
-				{
+				
 				    //controla el cambio de Cuenta
 					$referenciaCuenta=$data[0]["cuenta"];
 					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
@@ -834,16 +769,13 @@ public function accessRules()
 					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
 				}
 
-				
+				$_SESSION['data']=$data;
 				$_SESSION['arrayCuentas']=$arrayCuentas;
 				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
 				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
 				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
 				$_SESSION['sumasIguales']=$sumasIguales;
 
-
-
-			}
 			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
 
 			}
@@ -851,6 +783,7 @@ public function accessRules()
 	public function actionFilterExcelBalanceGeneral()
 	{
 		@session_start();
+		$data='';
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
 		$cadena='';
@@ -872,8 +805,7 @@ public function accessRules()
 				$data = ComprobanteContable::model()->cargaCuentasBalance($cadena);
 				//se guardaran las cuentas con sus respectivos valores
 				$arrayCuentas=array();
-				if(!empty($data))
-				{
+				
 				    //controla el cambio de Cuenta
 					$referenciaCuenta=$data[0]["cuenta"];
 					$referenciaDescripcionCuenta=$data[0]["descripcion_cuenta"];
@@ -1049,9 +981,6 @@ public function accessRules()
 				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
 				$_SESSION['sumasIguales']=$sumasIguales;
 
-
-
-			}
 			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelBalanceGeneral";</script>';				
 
 			}
@@ -1345,6 +1274,6 @@ public function accessRules()
         {
         	echo CHtml::tag('option',array('value'=>$value),CHtml::encode($key),true);
         }
-	}
+	}	
 }
 ?>

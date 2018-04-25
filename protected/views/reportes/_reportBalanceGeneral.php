@@ -1,10 +1,10 @@
 <script type="text/javascript">
-    function Asignate(target){
-        var choose = target.value;
-        if(target.id == 'filterP'){
+    function Asignate(obj){
+        var choose = obj.value;
+        if(obj.id == 'filterP'){
             document.getElementById('hiddenP').value = choose;
         }
-        if(target.id == 'filterE'){
+        if(obj.id == 'filterE'){
             document.getElementById('hiddenE').value = choose;
         }
     }
@@ -101,6 +101,7 @@
         $rawDataTG=@$_SESSION['arrayTotalGeneral'];
         $rawDataPE=@$_SESSION['perdidaEjercicio'];
         $rawDataSI=@$_SESSION['sumasIguales'];
+        unset($_SESSION['arrayCuentas']);
 
      if (!empty($rawData)) 
         {
@@ -109,13 +110,13 @@
                     <tr>
                       <th>Cuenta</th>
                       <th></th>
-                      <th>Debito</th>
-                      <th>Credito</th>
+                      <th>Débito</th>
+                      <th>Crédito</th>
                       <th>Deudor</th>
                       <th>Acreedor</th>
                       <th>Activos</th>
                       <th>Pasivos</th>
-                      <th>Perdida</th>
+                      <th>Pérdida</th>
                       <th>Ganancia</th>
                     </tr>
                   </thead>
@@ -211,6 +212,9 @@
         }
         else
           echo "No se encontraron datos con los valores indicados";
+        @$_SESSION['filtro']['empresa']="";
+        @$_SESSION['filtro']['periodo']="";
+
 ?>
 </div>
 </div>

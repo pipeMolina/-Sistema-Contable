@@ -1,13 +1,13 @@
 <script type="text/javascript">
-    function Asignate(target){
-        var choose = target.value;
-        if(target.id == 'filterC'){
+    function Asignate(obj){
+        var choose = obj.value;
+        if(obj.id == 'filterC'){
             document.getElementById('hiddenC').value = choose;
         }
-        if(target.id == 'filterP'){
+        if(obj.id == 'filterP'){
             document.getElementById('hiddenP').value = choose;
         }
-        if(target.id == 'filterE'){
+        if(obj.id == 'filterE'){
             document.getElementById('hiddenE').value = choose;
         }
     }
@@ -116,6 +116,7 @@
   <?php 
    
     $rawData=@$_SESSION['arraySaldoMes'];
+    unset($_SESSION['arraySaldoMes']);
 
     if (!empty($rawData)) 
     {
@@ -123,8 +124,8 @@
                     <thead>
                       <tr> 
                         <th>Mes</th>
-                        <th>Debito</th>
-                        <th>Credito</th>
+                        <th>Débito</th>
+                        <th>Crédito</th>
                         <th>Saldo del Mes</th>
                         <th>Total Acumulado</th>
                       </tr>
@@ -149,6 +150,9 @@
     else
     {
       echo "No se encontraron datos con los valores indicados";
+      @$_SESSION['filtro']['empresa']="";
+      @$_SESSION['filtro']['cuenta']="";
+      @$_SESSION['filtro']['periodo']="";
     }
 
   ?>

@@ -145,9 +145,9 @@ class ComprobanteContable extends CActiveRecord
  				FROM COMPROBANTE_CONTABLE AS cc 
  				INNER JOIN LINEA_CONTABLE AS lc ON cc.NUMERO_COMPROBANTE=lc.NUMERO_COMPROBANTE
                 INNER JOIN TIPO_COMPROBANTE AS tc ON cc.ID_TIPOCOMP=tc.ID_TIPOCOMP
+                INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA
                 INNER JOIN PLAN_CUENTA AS pc ON e.id_plancuenta=pc.id_plancuenta
                 INNER JOIN CUENTA AS c ON lc.cuenta=c.codigo_cuenta
-                INNER JOIN EMPRESA AS e ON cc.RUT_EMPRESA=e.RUT_EMPRESA
                 '.$cadena.' order by MONTH(cc.fecha_comprobante),DAY(cc.fecha_comprobante)';
 
         $connection = Yii::app()->db;

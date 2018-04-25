@@ -3,9 +3,10 @@
         'Reportes',
     );
 ?>
-<div class="container-fluid">
+<div class="form">
 <?php
-    
+if(Yii::app()->user->administrador() || Yii::app()->user->Contador() || Yii::app()->user->Secretario())
+{    
 echo '<h1 align="center">Libros Contables</h1>
 <br>';
         echo '<div class="row">';
@@ -31,7 +32,7 @@ echo '<h1 align="center">Libros Contables</h1>
                 echo CHtml::link('
                     <div class="col-lg-6" style="background-color: #F2F5A9;" align="center">
                         <img src="'.Yii::app()->baseUrl.'/images/icons/librodiario.png" class="img-circle" alt="Libro Diario"  width="15%" />
-                        <div><h4>Balance Genenal</h4></div>
+                        <div><h4>Balance General</h4></div>
                     </div>', array('reportes/balanceGeneral'));
         echo '</div>';
         echo '<div class="row">';        
@@ -41,5 +42,6 @@ echo '<h1 align="center">Libros Contables</h1>
                         <div><h4>Estado Resultado</h4></div>
                     </div>', array('reportes/estadoResultado'));
         echo '</div>';
+}
 ?>
 </div>

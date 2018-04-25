@@ -3,6 +3,7 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
+
 <div class="jumbotron">
 	<div class="row">
 		<div class="col-lg-6" align="center">
@@ -38,4 +39,5 @@ $this->pageTitle=Yii::app()->name;
 		</div>
 	</div>
 </div>
+
 

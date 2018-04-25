@@ -1,16 +1,13 @@
 <script type="text/javascript">
-    function Asignate(target){
-        var choose = target.value;
-        if(target.id == 'filterC'){
+    function Asignate(obj){
+        var choose = obj.value;
+        if(obj.id == 'filterC'){
             document.getElementById('hiddenC').value = choose;
         }
-        if(target.id == 'filterM'){
-            document.getElementById('hiddenM').value = choose;
-        }
-        if(target.id == 'filterP'){
+        if(obj.id == 'filterP'){
             document.getElementById('hiddenP').value = choose;
         }
-        if(target.id == 'filterE'){
+        if(obj.id == 'filterE'){
             document.getElementById('hiddenE').value = choose;
         }
     }
@@ -18,7 +15,7 @@
 <?php
   $this->breadcrumbs=array(
     'Reportes'=>array('index'),
-    'LibroDiario',
+    'LibroMayor',
   );
 ?>
 <?php @session_start();?>
@@ -35,9 +32,6 @@
               </td>
               <td style="min-width:100px;" align="center">
                       <?php echo "Año";?>
-              </td>
-              <td style="min-width:100px;" align="center">
-                      <?php echo "Mes";?>
               </td>
           </tr>
           <tr>
@@ -75,24 +69,11 @@
                         echo '</form>';
                     ?>        
                 </td>
-               <td valign="top" align="center" class="col-lg-2">
-                      <?php /* Filtrado por Mes */ 
-                          echo '<form action=<"'.CController::createUrl('reportes/filterMonth').'" id="formulario1" method="post" name="formulario1">';
-                          $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
-                          echo CHtml::dropDownList('filterM',@$_SESSION['filtro']['mes'],$meses,array(
-                                'empty'=>"Seleccione Mes",
-                                'onchange' => 'Asignate(this)',
-                                'class'=>'form-control'
-                                ));
-                          echo '</form>';
-                      ?>
-              </td>
                 <td valign="top" align="center" class="col-lg-1">
                     <?php
                     
                          echo '<form action=<"'.CController::createUrl('reportes/filterLibroMayor').'" id="formulario" method="post" name="formulario">';
                          echo '<input id="hiddenC" type="hidden" name="hiddenC" value="'.@$_SESSION['filtro']['cuenta'].'">';   
-                         echo '<input id="hiddenM" type="hidden" name="hiddenM" value="'.@$_SESSION['filtro']['mes'].'">';
                          echo '<input id="hiddenP" type="hidden" name="hiddenP" value="'.@$_SESSION['filtro']['periodo'].'">';   
                          echo '<input id="hiddenE" type="hidden" name="hiddenE" value="'.@$_SESSION['filtro']['empresa'].'">'; 
                          echo CHtml::ajaxSubmitButton('Buscar',CHtml::normalizeUrl(array('reportes/filterLibroMayor')),
@@ -146,6 +127,8 @@
     $saldoAnteriorD=@$_SESSION['saldoAnteriorD'];
     $saldoAnteriorH=@$_SESSION['saldoAnteriorH'];
     $saldoAnteriorS=@$_SESSION['saldoAnteriorS'];
+
+    unset($_SESSION['data']);
 
     //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 
@@ -209,14 +192,14 @@
                     </thead>
                     <thead>
                       <tr>
-                        <th>Dia</th>
+                        <th>Día</th>
                         <th>Mes</th>
-                        <th>periodo</th>
-                        <th>Numero</th>
+                        <th>Período</th>
+                        <th>Número</th>
                         <th>Tipo</th>
                         <th>Documento Glosa</th>
-                        <th>Debito</th>
-                        <th>credito</th>
+                        <th>Débito</th>
+                        <th>Crédito</th>
                         <th>Saldo</th>
                       </tr>
                     </thead>
@@ -265,10 +248,10 @@
       }
     }
     else
-    {
       echo "No se encontraron datos con los valores indicados";
-      $_SESSION['arrayListaSaldos']='';
-        }
+      $_SESSION['filtro']['empresa']="";
+      $_SESSION['filtro']['periodo']="";
+      $_SESSION['filtro']['cuenta']="";
 
   ?>
   

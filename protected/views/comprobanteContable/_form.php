@@ -274,7 +274,7 @@
 	 		resultado = sumaDebe - sumaHaber;
             if(tipoComprobante == "")
            	{
-           		$(".panel-primary").animate({scrollTop:0},'slow');
+           		$(".panel panel-primary").animate({scrollTop:0},'500');
            		$("#mensaje").html("Debe elegir Tipo");
 				$("#mensaje").addClass("alert alert-dismissible alert-warning");
            	}

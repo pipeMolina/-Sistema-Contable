@@ -55,6 +55,7 @@ class ComprobanteContable extends CActiveRecord
 			'lineacontable' => array(self::HAS_MANY, 'LineaContable', 'NUMERO_COMPROBANTE'),
 			'iDTIPOCOMP' => array(self::BELONGS_TO, 'TipoComprobante', 'ID_TIPOCOMP'),
 			'rUTEMPRESA' => array(self::BELONGS_TO, 'Empresa', 'RUT_EMPRESA'),
+			
 		);
 	}
 

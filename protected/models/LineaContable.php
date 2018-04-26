@@ -50,6 +50,7 @@ class LineaContable extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'nUMEROCOMPROBANTE' => array(self::BELONGS_TO, 'ComprobanteContable', 'NUMERO_COMPROBANTE'),
+			'iDCUENTA'=>array(self::HAS_MANY, 'Cuenta', 'CODIGO_CUENTA'),
 		);
 	}
 

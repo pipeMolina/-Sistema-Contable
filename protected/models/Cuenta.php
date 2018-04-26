@@ -56,6 +56,7 @@ class Cuenta extends CActiveRecord
 			'iDSUBTIPOCUENTA' => array(self::BELONGS_TO, 'SubtipoCuenta', 'ID_SUBTIPOCUENTA'),
 			'iDTIPOCUENTA' => array(self::BELONGS_TO, 'TipoCuenta', 'ID_TIPOCUENTA'),
 			'iDPLANCUENTA' => array(self::BELONGS_TO, 'PlanCuenta', 'ID_PLANCUENTA'),
+			'iDCUENTA'=>array(self::HAS_MANY, 'LineaContable', 'CUENTA'),
 		);
 	}
 

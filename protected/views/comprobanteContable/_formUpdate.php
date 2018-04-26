@@ -27,7 +27,7 @@
 			<input id="numero-comprobante" type="hidden" value="<?php echo $model->NUMERO_COMPROBANTE;?>" />
 			<div class="col-lg-5"> 
 				<?php echo $form->labelEx($model,'RUT_EMPRESA'); ?>
-				<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control","id"=>"rutEmpresa")); ?>
+				<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control")); ?>
 				<?php //echo $form->textField($model,'RUT_EMPRESA',array("class"=>"form-control",'size'=>12,'maxlength'=>12)); ?>
 				<?php echo $form->error($model,'RUT_EMPRESA'); ?>
 			</div>
@@ -85,20 +85,16 @@
 			<?php 
 			for($i=0;$i<count($modelLinea);$i++)
 			{
-				var_dump($modelLinea[$i]['CUENTA']);
 			?>
 			<div class="form-group">
 				<div class="col-lg-4">
-					<select id="<?php echo "dropDown".$i;?>" name="CUENTA[]" value="<?php echo $modelLinea[$i]['CUENTA']?>" class="form-control"></select>
+					<?php echo $form->dropDownList($modelLinea[$i],'CUENTA',CHtml::listData(Cuenta::model()->findAll(), 'CODIGO_CUENTA', 'DESCRIPCION_CUENTA'),array("class"=>"form-control","disabled"=>"disabled")); ?>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "validaDebe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control">
+					<input type="text" id="<?php echo "validaDebe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control"><div id="<?php echo "validaDebe".$i;?>"></div>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "validaHaber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control">
-				</div>
-				<div class="col-lg-2">
-					<button type="button" name="remove" id="<?php echo $i;?>" class="btn btn_remove btn-danger">x</button>
+					<input type="text" id="<?php echo "validaHaber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control"><div id="<?php echo "validaHaber".$i;?>"></div>
 				</div>
 			</div>
 			<?php 
@@ -132,141 +128,17 @@
       var resultado=0;
       var valueDebe=0;
       var valueHaber=0;
-      var modelLinea=[];
-      /*Accion para el boton agregar*/
-      $("#add").click(function(){ 
-      	   var rutEmpresa=$("#rutEmpresa").val();
-           if(i>0)
-           {
-           	   valueDebe=$("#validaDebe"+i+'').val();
-           	   valueHaber=$("#validaHaber"+i+'').val();
-           	   if($("#dropDown"+i+'').val() == "")
-           	   {
-           	   		$("#validaDropDown"+i+'').html("Debe elegir cuenta");
-		    		$("#validaDropDown"+i+'').addClass("alert-danger");
-           	   }
-		       else if (!/^([0-9])*$/.test(valueDebe))
-		    	{
-		    		$("#validaDebe"+i+'').html("Se permite solo numeros");
-		    		$("#validaDebe"+i+'').addClass("alert-danger");
-		    	}	 
-		    	 else if(!/^([0-9])*$/.test(valueHaber))
-		    	{
-		    		$("#validaHaber"+i+'').html("Se permite solo numeros");
-		    		$("#validaHaber"+i+'').addClass("alert-danger");
-		    	} 
-		    	else
-		    	{
-		    		$("#mensaje").empty();
-           	   		$("#mensaje").removeClass("alert alert-dismissible alert-warning");
-
-           	   		$("#validaDropDown"+i+'').empty();
-		    		$("#validaDropDown"+i+'').removeClass("alert-danger");
-           	   		
-           	   		$("#validaDebe"+i+'').empty();
-           	   		$("#validaDebe"+i+'').removeClass("alert-danger");
-           	   		
-           	   		$("#validaHaber"+i+'').empty();
-           	   		$("#validaHaber"+i+'').removeClass("alert-danger");
-           	   		i++;
-
-           	   	   var lineas=$('<div class="form-group" id="grupoLineas'+i+'"></div>');
-		      	   var divDropDownList=$('<div class=\"col-lg-4\" id="row'+i+'"></div>');
-		      	   var divDebe=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
-		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
-		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
-		           //alert('row'+i);
-		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
-		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
-		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
-		           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
-		           divDropDownList.append(dropDown);
-		           divDebe.append(debe);
-		           divHaber.append(haber);
-		           divEliminar.append(eliminar);
-		           lineas.append(divDropDownList);
-		           lineas.append(divDebe);
-		           lineas.append(divHaber);
-		           lineas.append(divEliminar);
-
-					$("#dynamic_field").append(lineas);
-					var url = "<?php echo CController::createUrl('ComprobanteContable/CargaCuentasJs'); ?>";
-			        $.ajax(
-			            {
-			               	type:"POST",
-			                url: url,
-			               	data:"id="+$("#rutEmpresa").val(),
-			               	dataType:"html",
-			               	success: function(data)
-			               	{
-			               		$('#dropDown'+i+'').html(data);
-			               	}
-			            });
-		    	}
-           }	
-      
-    		else 
-    		{
-
-           	  /*Agregando filas para el primer caso*/
-           	   $("#mensaje").empty();
-           	   $("#mensaje").removeClass("alert alert-dismissible alert-warning");
-			   i++;
-	      	   var lineas=$('<div class="form-group" id="grupoLineas'+i+'"></div>');
-		      	   var divDropDownList=$('<div class=\"col-lg-4\" id="row'+i+'"></div>');
-		      	   var divDebe=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
-		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
-		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
-		           //alert('row'+i);
-		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
-		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
-		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
-		           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
-		           divDropDownList.append(dropDown);
-		           divDebe.append(debe);
-		           divHaber.append(haber);
-		           divEliminar.append(eliminar);
-		           lineas.append(divDropDownList);
-		           lineas.append(divDebe);
-		           lineas.append(divHaber);
-		           lineas.append(divEliminar);
-			   $("#dynamic_field").append(lineas);
-				var url = "<?php echo CController::createUrl('ComprobanteContable/CargaCuentasJs'); ?>";
-		        $.ajax(
-		            {
-		               	type:"POST",
-		                url: url,
-		               	data:"id="+$("#rutEmpresa").val(),
-		               	dataType:"html",
-		               	success: function(data)
-		               	{
-		               		$('#dropDown'+i+'').html(data);
-		               	}
-		            });
-           	} 
-      }); 
-     /*Accion para el boton borrar*/
-      $(document).on("click", ".btn_remove", function(){  
-           var button_id = $(this).attr("id");   
-           $("#grupoLineas"+button_id+'').remove();
-           i--;  
-      });
 
       /*Accion para el boton Actualizar*/
       $("#update").click(function(){
 
 	 	  var i=$("#hiddenI").val();
-	 	  console.log(i);
 			var id='<?php echo $model->NUMERO_COMPROBANTE; ?>';
-           	var tipoComprobante = $("#tipoComprobante").val();
            	var x = i-1;
            	while(x >= 0)
            	{
            		sumaDebe += parseInt($("#validaDebe"+x+'').val());
            		sumaHaber += parseInt($("#validaHaber"+x+'').val());
-	 			console.log(sumaDebe);
-	 			console.log(sumaHaber);
-	 			console.log(x);
            		x--;
            	}
 	 		resultado = sumaDebe - sumaHaber;
@@ -305,21 +177,5 @@
  }); 
 
  </script>
-<script>
-	function treePanel()
-    {
-		var url = "<?php echo CController::createUrl('ComprobanteContable/Tree'); ?>";
-            $.ajax(
-                {
-                	type:"POST",
-                	url: url,
-               		data:"id="+$("#rutEmpresa").val(),
-               		dataType:"html",
-               		success: function(data)
-               		{
-               			$("#resultado").html(data);
-               		}
-               	});
-    }
-</script>
+
 

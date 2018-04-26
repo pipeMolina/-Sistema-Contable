@@ -90,6 +90,7 @@ class CuentaController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		var_dump($model);
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

@@ -130,7 +130,7 @@
 		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
 		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
 		           //alert('row'+i);
-		           var dropDown = $("<select id='dropDown"+i+"' name=\"Cuenta[]\" class=\"form-control\"/><div id='validaDropDown"+i+"'></div>");
+		           var dropDown = $("<select id='dropDown"+i+"' name=Cuenta[] class='form-control'/><div id='validaDropDown"+i+"'></div>");
 		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
 		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
 		           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');

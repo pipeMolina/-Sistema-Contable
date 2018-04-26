@@ -56,7 +56,17 @@
 		</div>
 		<div class="col-md-4">
 			<?php echo $form->labelEx($model,'ID_SUBTIPOCUENTA'); ?>
-			<?php echo $form->dropDownList($model,'ID_SUBTIPOCUENTA', array(),
+			<?php echo  empty($model->ID_SUBTIPOCUENTA) ? $form->dropDownList($model,'ID_SUBTIPOCUENTA',array(),
+				array(
+					'class'=>'form-control',
+					"ajax"=>array(
+							'type' =>'POST' , 
+							'url'=>CController::createUrl('cuenta/setCodigo'),
+							'update'=>'#codigo',
+							)
+				)
+					
+			) : $form->dropDownList($model,'ID_SUBTIPOCUENTA',CHtml::listData(SubtipoCuenta::model()->findAll(), 'ID_SUBTIPOCUENTA', 'NOMBRE_SUBTIPOCUENTA'),
 				array(
 					'class'=>'form-control',
 					"ajax"=>array(

@@ -156,29 +156,27 @@ class ComprobanteContableController extends Controller
 		$modelLinea=LineaContable::model()->findAllByAttributes(array('NUMERO_COMPROBANTE'=>$id));
 		if(isset($_POST['ComprobanteContable']))
 		{
-		var_dump($_POST);
-		die();
+		
 			$rutEmpresa=$_POST['ComprobanteContable']['RUT_EMPRESA'];
 			$tipoComprobante=$_POST['ComprobanteContable']['ID_TIPOCOMP'];
-			//$fecha=$_POST['ComprobanteContable']['FECHA_COMPROBANTE'];
+			$fecha=$_POST['FECHA_COMPROBANTE'];
 			$glosa=$_POST['ComprobanteContable']['GLOSA_COMPROBANTE'];
 			$cuenta=$_POST['LineaContable']['CUENTA'];
-			$debe=$_POST['LineaContable']['DEBE'];
-			$haber=$_POST['LineaContable']['HABER'];
+			$debe=$_POST['Debe'];
+			$haber=$_POST['Haber'];
 			$i=0;
 			$linea=0;
 			$sql='UPDATE comprobante_contable SET ID_TIPOCOMP='.$tipoComprobante.', RUT_EMPRESA="'.$rutEmpresa.'",FECHA_COMPROBANTE="'.$fecha.'",GLOSA_COMPROBANTE="'.$glosa.'" WHERE NUMERO_COMPROBANTE='.$id.';';
 			Yii::app()->db->createCommand($sql)->execute();
-			
-			var_dump($cuenta[0],$debe[0],$haber[0],$cuenta[1],$debe[1],$haber[1]);
-			die();
 			foreach ($modelLinea as $key => $value) 
 			{
 				$linea=$modelLinea[$key]['ID_LINEACONTABLE'];
 				$sql2='UPDATE linea_contable SET NUMERO_COMPROBANTE="'.$id.'", DEBE='.$debe[$i].', HABER='.$haber[$i].', CUENTA='.$cuenta[$i].' WHERE ID_LINEACONTABLE="'.$linea.'";';
+				
 				Yii::app()->db->createCommand($sql2)->execute();
 				$i++;
 			}
+			
 			$msje="Se ingreso satisfactoriamente el Comprobante";
 
 

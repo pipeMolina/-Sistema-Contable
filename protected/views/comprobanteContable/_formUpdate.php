@@ -85,16 +85,17 @@
 			<?php 
 			for($i=0;$i<count($modelLinea);$i++)
 			{
+				var_dump($modelLinea[$i]['CUENTA']);
 			?>
 			<div class="form-group">
 				<div class="col-lg-4">
-					<?php echo $form->dropDownList($modelLinea[$i],'CUENTA['.$i.']',CHtml::listData(Cuenta::model()->findAll(), 'CODIGO_CUENTA', 'DESCRIPCION_CUENTA'),array("class"=>"form-control","id"=>"validaDropDown".$i)); ?>
+					<select id="<?php echo "dropDown".$i;?>" name="CUENTA[]" value="<?php echo $modelLinea[$i]['CUENTA']?>" class="form-control"></select>
 				</div>
 				<div class="col-lg-3">
-					<?php echo $form->textField($modelLinea[$i],'DEBE['.$i.']',array("class"=>"form-control","id"=>"validaDebe".$i))?>
+					<input type="text" id="<?php echo "validaDebe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control">
 				</div>
 				<div class="col-lg-3">
-					<?php echo $form->textField($modelLinea[$i],'HABER['.$i.']',array("class"=>"form-control","id"=>"validaHaber".$i));?>
+					<input type="text" id="<?php echo "validaHaber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control">
 				</div>
 				<div class="col-lg-2">
 					<button type="button" name="remove" id="<?php echo $i;?>" class="btn btn_remove btn-danger">x</button>
@@ -137,8 +138,8 @@
       	   var rutEmpresa=$("#rutEmpresa").val();
            if(i>0)
            {
-           	   valueDebe=$("#debe"+i+'').val();
-           	   valueHaber=$("#haber"+i+'').val();
+           	   valueDebe=$("#validaDebe"+i+'').val();
+           	   valueHaber=$("#validaHaber"+i+'').val();
            	   if($("#dropDown"+i+'').val() == "")
            	   {
            	   		$("#validaDropDown"+i+'').html("Debe elegir cuenta");
@@ -258,11 +259,14 @@
 	 	  console.log(i);
 			var id='<?php echo $model->NUMERO_COMPROBANTE; ?>';
            	var tipoComprobante = $("#tipoComprobante").val();
-           	var x = i;
-           	while(x > 0)
+           	var x = i-1;
+           	while(x >= 0)
            	{
-           		sumaDebe += parseInt($("#debe"+x+'').val());
-           		sumaHaber += parseInt($("#haber"+x+'').val());
+           		sumaDebe += parseInt($("#validaDebe"+x+'').val());
+           		sumaHaber += parseInt($("#validaHaber"+x+'').val());
+	 			console.log(sumaDebe);
+	 			console.log(sumaHaber);
+	 			console.log(x);
            		x--;
            	}
 	 		resultado = sumaDebe - sumaHaber;
@@ -287,7 +291,9 @@
 			            });				
 			}
 			else
-			{
+			{	
+				sumaDebe=0;
+				sumaHaber=0;
 				$(".panel-primary").animate({scrollTop:0},'slow');
 				$("#mensaje").html("Problemas con las lineas");
 				$("#mensaje").addClass("alert alert-danger");

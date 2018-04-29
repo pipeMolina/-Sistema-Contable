@@ -33,7 +33,7 @@ class ComprobanteContable extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ID_TIPOCOMP, RUT_EMPRESA', 'required'),
+			array('ID_TIPOCOMP,FECHA_COMPROBANTE, RUT_EMPRESA', 'required'),
 			array('ID_TIPOCOMP', 'numerical', 'integerOnly'=>true),
 			array('RUT_EMPRESA', 'length', 'max'=>12),
 			array('GLOSA_COMPROBANTE', 'length', 'max'=>50),

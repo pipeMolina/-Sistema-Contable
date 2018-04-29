@@ -16,7 +16,7 @@ public function accessRules()
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','filterLibroDiario','filterExcelLibroDiario','exportarExcelLibroDiario','libroMayor','filterLibroMayor','filterExcelLibroMayor','exportarExcelLibroMayor','libroDiario','balanceGeneral','filterBalanceGeneral','filterExcelBalanceGeneral','exportarExcelBalanceGeneral','saldoporMes','filterSaldoporMes','filterExcelSaldoporMes','exportarExcelSaldoPorMes','estadoResultado','filterEstadoResultado','filterExcelEstadoResultado','exportarExcelEstadoResultado','cargaCuentas'),
-				'expression'=>'$user->Administrador()',
+				'expression'=>'$user->Administrador() || $user->Contador()',
 				),
 			
 			array('deny',  // deny all users
@@ -255,12 +255,14 @@ public function actionIndex()
 					
 					$sumaDebe=0;
 					$sumaHaber=0;
+
 					$totalSaldos=0;
-					$arrayDebe;
-					$arrayHaber;
 					$totalAcDebe=0;
 					$totalAcHaber=0;
 					$totalAcSaldo=0;
+					
+					$arrayDebe;
+					$arrayHaber;
 					$arrayTotalAcDebe=array();
 					$arrayTotalAcHaber=array();
 					$arrayTotalAcTotal=array();
@@ -283,7 +285,8 @@ public function actionIndex()
 						}
 						$diferencia =$data[$key]["debe"]-$data[$key]["haber"];
 						$valorSaldo+=$diferencia;
-						$arraySaldos[]=$valorSaldo;
+						/*Se extrae valor negativo de columna saldo*/
+						$arraySaldos[]=substr($valorSaldo,1);
 
 						$sumaDebe += $data[$key]["debe"];
 						$sumaHaber += $data[$key]["haber"];

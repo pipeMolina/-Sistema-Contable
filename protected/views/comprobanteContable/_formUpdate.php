@@ -27,13 +27,13 @@
 			<input id="numero-comprobante" type="hidden" value="<?php echo $model->NUMERO_COMPROBANTE;?>" />
 			<div class="col-lg-5"> 
 				<?php echo $form->labelEx($model,'RUT_EMPRESA'); ?>
-				<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control")); ?>
+				<?php echo $form->dropDownList($model,'RUT_EMPRESA',CHtml::listData(Empresa::model()->findAll(), 'RUT_EMPRESA', 'GIRO_EMPRESA'), array("class"=>"form-control",'disabled'=>'disabled',)); ?>
 				<?php //echo $form->textField($model,'RUT_EMPRESA',array("class"=>"form-control",'size'=>12,'maxlength'=>12)); ?>
 				<?php echo $form->error($model,'RUT_EMPRESA'); ?>
 			</div>
 			<div class="col-lg-4"> 
 				<?php echo $form->labelEx($model,'ID_TIPOCOMP'); ?>
-				<?php echo $form->dropDownList($model,'ID_TIPOCOMP',CHtml::listData(TipoComprobante::model()->findAll(), 'ID_TIPOCOMP', 'NOMBRE_TIPOCOMP'), array("class"=>"form-control","id"=>"tipoComprobante")); ?>
+				<?php echo $form->dropDownList($model,'ID_TIPOCOMP',CHtml::listData(TipoComprobante::model()->findAll(), 'ID_TIPOCOMP', 'NOMBRE_TIPOCOMP'), array("class"=>"form-control","id"=>"tipoComprobante",'disabled'=>'disabled',)); ?>
 				<?php //echo $form->textField($model,'ID_TIPOCOMP',array("class"=>"form-control")); ?>
 				<?php echo $form->error($model,'ID_TIPOCOMP'); ?>
 			</div>
@@ -54,7 +54,8 @@
 						    ),
 						    'htmlOptions'=>array(
 						        'class'=>'form-control',
-						        'id'=>'fecha_comp'
+						        'id'=>'fecha_comp',
+						    
 						    ),
 						));
 				?>
@@ -66,7 +67,7 @@
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $form->labelEx($model,'GLOSA_COMPROBANTE'); ?>
-				<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50)); ?>
+				<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50,'readonly'=>true)); ?>
 				<?php echo $form->error($model,'GLOSA_COMPROBANTE'); ?>
 			</div>
 		</div>
@@ -91,10 +92,10 @@
 					<?php echo $form->dropDownList($modelLinea[$i],'CUENTA',CHtml::listData(Cuenta::model()->findAll(), 'CODIGO_CUENTA', 'DESCRIPCION_CUENTA'),array("class"=>"form-control","disabled"=>"disabled")); ?>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "validaDebe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control"><div id="<?php echo "validaDebe".$i;?>"></div>
+					<input type="text" id="<?php echo "debe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control"><div id="<?php echo "validaDebe".$i;?>"></div>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "validaHaber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control"><div id="<?php echo "validaHaber".$i;?>"></div>
+					<input type="text" id="<?php echo "haber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control"><div id="<?php echo "validaHaber".$i;?>"></div>
 				</div>
 			</div>
 			<?php 
@@ -132,15 +133,40 @@
       /*Accion para el boton Actualizar*/
       $("#update").click(function(){
 
-	 	  var i=$("#hiddenI").val();
-			var id='<?php echo $model->NUMERO_COMPROBANTE; ?>';
+	 	    var i=$("#hiddenI").val();
+			var id = '<?php echo $model->NUMERO_COMPROBANTE; ?>';
            	var x = i-1;
-           	while(x >= 0)
+           	var z = i-1;
+           	var activar = 1;
+           	while(x>0)
            	{
-           		sumaDebe += parseInt($("#validaDebe"+x+'').val());
-           		sumaHaber += parseInt($("#validaHaber"+x+'').val());
-           		x--;
+	           	var dropDown=$('#dropDown'+x+'').val();
+	           	var valueDebe=$('#debe'+x+'').val();
+	           	var valueHaber=$('#haber'+x+'').val();
+	            if(!/^([0-9])*$/.test(valueDebe))
+	           	{
+	           		$('#validaDebe'+x+'').html("Se permite solo números");
+	           		activar=0;
+	           	}else if(!/^([0-9])*$/.test(valueHaber))
+	           	{
+	           		$('#validaHaber'+x+'').html("Se permite solo números");
+	           		activar=0;
+	           	}else
+	           	{
+	           		$('#validaDebe'+x+'').empty();
+	           		$('#validaHaber'+x+'').empty();
+	           	}
+	           	x--;
            	}
+           	if(activar==1)
+         	{
+	           	while(z >= 0)
+	           	{
+	           		sumaDebe += parseInt($("#debe"+z+'').val());
+	           		sumaHaber += parseInt($("#haber"+z+'').val());
+	           		z--;
+	           	}
+            }
 	 		resultado = sumaDebe - sumaHaber;
 		    if(resultado == 0)
 			{
@@ -153,7 +179,7 @@
 			               	success: function(data)
 			               	{
 				               	$("#mensaje").empty();
-	           	   				$("#mensaje").removeClass("alert alert-dismissible alert-warning");
+	           	   				$("#mensaje").removeClass("alert alert-danger");
 	           	   				$("#mensaje").html(data);
 	           	   				
 	           	   				$(".panel-primary").animate({scrollTop:0},'slow');

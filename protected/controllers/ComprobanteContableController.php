@@ -155,14 +155,16 @@ class ComprobanteContableController extends Controller
 		$modelLinea=LineaContable::model()->findAllByAttributes(array('NUMERO_COMPROBANTE'=>$id));
 		if(isset($_POST['ComprobanteContable']))
 		{
-			foreach ($modelLinea as $key => $value) {
+			foreach ($modelLinea as $key => $value)
+			{
 				$arrayCuenta[]=$modelLinea[$key]['CUENTA'];
 			}
+			$fecha=$_POST['FECHA_COMPROBANTE'];
 			$debe=$_POST['DEBE'];
 			$haber=$_POST['HABER'];
 			$i=0;
 			$linea=0;
-			$sql='UPDATE comprobante_contable SET ID_TIPOCOMP='.$model->ID_TIPOCOMP.', RUT_EMPRESA="'.$model->RUT_EMPRESA.'",FECHA_COMPROBANTE="'.$model->FECHA_COMPROBANTE.'",GLOSA_COMPROBANTE="'.$model->GLOSA_COMPROBANTE.'" WHERE NUMERO_COMPROBANTE='.$id.';';
+			$sql='UPDATE comprobante_contable SET ID_TIPOCOMP='.$model->ID_TIPOCOMP.', RUT_EMPRESA="'.$model->RUT_EMPRESA.'",FECHA_COMPROBANTE="'.$fecha.'",GLOSA_COMPROBANTE="'.$model->GLOSA_COMPROBANTE.'" WHERE NUMERO_COMPROBANTE='.$id.';';
 			Yii::app()->db->createCommand($sql)->execute();
 			foreach ($modelLinea as $key => $value) 
 			{
@@ -172,8 +174,8 @@ class ComprobanteContableController extends Controller
 				Yii::app()->db->createCommand($sql2)->execute();
 				$i++;
 			}
-			
 			$msje="Se ingreso satisfactoriamente el Comprobante";
+			echo '<div class="alert alert-success">'.json_encode($msje).'</div>';
 			exit;
 
 		}

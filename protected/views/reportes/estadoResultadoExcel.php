@@ -14,7 +14,7 @@
 </style>
 <?php @session_start();?>
 <h2 align="center">Estado Resultado de Perdida y/o Ganancia:</h2>
-<h2 align= "center"><small><?php echo 'Empresa:'.@$_SESSION['filtro']['empresa'].' Periodo:'.@$_SESSION['filtro']['periodo'].''?></small></h2>
+
 <br></br>
 <?php
        $rawData = @$_SESSION['arrayCuentas'];

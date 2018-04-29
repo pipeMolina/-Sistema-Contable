@@ -25,7 +25,7 @@
       <table>
         <tr>
               <td style="min-width:200px;" align="center">
-                        <?php echo "Empresa";?>
+                        <?php echo "Rut Empresa";?>
               </td>
               <td style="min-width:100px;" align="center">
                         <?php echo "Cuenta";?>

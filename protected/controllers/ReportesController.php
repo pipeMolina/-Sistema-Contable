@@ -16,7 +16,7 @@ public function accessRules()
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','filterLibroDiario','filterExcelLibroDiario','exportarExcelLibroDiario','libroMayor','filterLibroMayor','filterExcelLibroMayor','exportarExcelLibroMayor','libroDiario','balanceGeneral','filterBalanceGeneral','filterExcelBalanceGeneral','exportarExcelBalanceGeneral','saldoporMes','filterSaldoporMes','filterExcelSaldoporMes','exportarExcelSaldoPorMes','estadoResultado','filterEstadoResultado','filterExcelEstadoResultado','exportarExcelEstadoResultado','cargaCuentas'),
-				'expression'=>'$user->Administrador() || $user->Contador()',
+				'expression'=>'$user->Administrador() || $user->Contador() || $user->Secretario',
 				),
 			
 			array('deny',  // deny all users

@@ -46,15 +46,15 @@ class ComprobanteContableController extends Controller
 			);
 	}
 	
-/*	public function actions() {
-    return array(
-        'getRowForm' => array(
-        	'class' => 'ext.dynamictabularform.actions.GetRowForm',
-        	'view' => '_rowForm',
-        	'modelClass' => 'LineaContable'
-        ),
-    );
-}*/
+public function setMenu($mid) {
+        $this->menu = array(
+            array('active' => $mid === 'action-c', 'label' => Yii::t('default', 'Crear Comprobante'), 'url' => array('ComprobanteContable/create'),'visible'=>Yii::app()->user->Contador()),
+            array('active' => $mid === 'action-r', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
+            array('active' => $mid === 'action-u', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
+            array('active' => $mid === 'action-d', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
+        	
+        );
+    }
 
 	/**
 	 * Displays a particular model.
@@ -99,7 +99,7 @@ class ComprobanteContableController extends Controller
 			$haber=$_POST['Haber'];
 
 			$sql='INSERT INTO comprobante_contable(ID_TIPOCOMP,RUT_EMPRESA,FECHA_COMPROBANTE,GLOSA_COMPROBANTE)
-				   VALUES ('.$tipoComprobante.',"'.$rutEmpresa.'","'.$_POST['FECHA_COMPROBANTE'].'","'.$glosa.'")';
+				   VALUES ('.$tipoComprobante.',"'.$rutEmpresa.'","'.$_POST['ComprobanteContable']['FECHA_COMPROBANTE'].'","'.$glosa.'")';
 			Yii::app()->db->createCommand($sql)->execute();
 			
 			$data=ComprobanteContable::model()->cargaUltimoComprobante();
@@ -277,10 +277,12 @@ class ComprobanteContableController extends Controller
 	}
 	public function actionTree()
     {
+    	$modelLinea=new LineaContable;
     	$rut=$_POST["id"];
     	$model=Cuenta::model()->loadCuentas($rut);
-    	$this->renderPartial('_viewTree',array(
+    	$this->renderPartial('_form',array(
 			'model'=>$model,
+			'modelLinea'=>$modelLinea,
 		));
     }
 }

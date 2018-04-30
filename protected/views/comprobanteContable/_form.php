@@ -1,7 +1,14 @@
+
+
 <?php
 /* @var $this ComprobanteContableController */
 /* @var $model ComprobanteContable */
 /* @var $form CActiveForm */
+$this->setMenu('action-c');
+$this->setMenu('action-r');
+$this->setMenu('action-u');
+$this->setMenu('action-d');
+
 ?>
 <div class="form">
 
@@ -15,9 +22,7 @@
 	'htmlOptions' => array('class'=>'form-horizontal'),
 )); ?>
 
-
-
-	<?php echo $form->errorSummary($model,$modelLinea); ?>
+<?php echo $form->errorSummary($model,$modelLinea); ?>
 <div div class="panel panel-primary">
 <div class="panel-heading text-center"><h1 class="panel-title">Crear Comprobante Contable</h1></div>
 	<div class="panel-body">
@@ -40,7 +45,7 @@
 			<div class="col-lg-3">
 				<?php echo $form->labelEx($model,'FECHA_COMPROBANTE'); ?>	
 				<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-			    			'name'=>'FECHA_COMPROBANTE',
+			    			'name'=>'FECHA',
 			    			'language'=>'es',
 			    			'attribute' =>'FECHA',
 							'value'	=>$model->FECHA_COMPROBANTE,
@@ -48,15 +53,18 @@
 						    'options'=>array(
 						        'showAnim'=>'fold',
 						        'constrainInput'=>true,
-											'currentText'=>'Now',
-											'dateFormat'=>'yy-mm-dd',
+								'currentText'=>'Now',
+						        'dateFormat'=>'yy-mm-dd',
+								'altField' => '#FECHA',
+								'altFormat' => 'dd-mm-yy',
 						    ),
 						    'htmlOptions'=>array(
 						        'class'=>'form-control',
-						        'id'=>'fecha_comp'
+						        'onchange'=>'Asignate(this)'
 						    ),
 						));
 				?>
+				<?php echo $form->hiddenField($model,'FECHA_COMPROBANTE');?>
 				<?php //echo $form->TextField($model,'FECHA_COMPROBANTE',array('class'=>'form-control','id'=>'datepicker'));?>
 				<?php echo $form->error($model,'FECHA_COMPROBANTE'); ?>
 			</div>
@@ -92,12 +100,13 @@
 			     <button id="add" type="button" class="btn btn-default" >Agregar Linea</button>
 			 </div>
 			 <div class="col-lg-3">
-			     <button id="submit" type="button" class="btn btn-primary">Guardar Comprobante</button>
+			     <!--<button id="submit" type="button" class="btn btn-primary">Guardar Comprobante</button>-->
 			 </div>
 		</div>
 	</div>
 	</div>
 <?php $this->endWidget(); ?>
+</div>
 <!--Muestra el plan de cuentas según el rut de la empresa-->
 
 <div id="resultado"></div>
@@ -273,5 +282,186 @@
                		}
                	});
     }
+
+/* Invierte la fecha */
+    function Asignate(obj)
+    {
+        var choose = obj.value;
+        console.log(choose.id);
+        var pieces = choose.split('-');
+		pieces.reverse();
+		var reversed = pieces.join('-');
+        document.getElementById('ComprobanteContable_FECHA_COMPROBANTE').value = reversed;
+        document.getElementById('FECHA').value = choose;
+}
+</script>
+
+<div class="form">
+    <div class="panel panel-primary">
+        <div class="panel-heading text-center"><h1 class="panel-title"> Plan de Cuentas</h1> </div>
+            <!-- TREEVIEW CODE -->
+            <ul class="treeview">
+                <li><a href="#">Activo </a>
+                    <ul>
+                        <li><a href="#">Activo Circulante</a><!--Inicio Activo Circulante-->
+                            <ul>
+
+                                <?php
+                                     foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10100000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Circulante -->
+                        <li><a href="#">Activo Fijo</a><!--Inicio Activo Fijo-->
+                            <ul>
+                                <?php 
+                                foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10200000){ 
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Fijo -->
+                        <li><a href="#">Activo Into</a><!--Inicio Activo Into-->
+                            <ul>
+                                <?php 
+                                foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==10300000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Into -->
+                    </ul>                  
+                  </li>
+
+                  <li><a href="#">Pasivo </a>
+                    <ul>
+                        <li><a href="#">Pasivo Exigible</a><!--Inicio Activo Circulante-->
+                            <ul>
+
+                                <?php
+                                     foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==20100000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Circulante -->
+                        <li><a href="#">Pasivo Largo Plazo</a><!--Inicio Activo Fijo-->
+                            <ul>
+                                <?php 
+                                foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==20200000){ 
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Fijo -->
+                        <li><a href="#">Patrimonio</a><!--Inicio Activo Into-->
+                            <ul>
+                                <?php 
+                                foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==20300000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>
+                                               
+                            </ul>
+                        </li><!-- Fin Activo Into -->
+                    </ul>                  
+                  </li>
+                  <li><a href="#">Perdida </a>
+                    <ul>
+                        <li><a href="#">Perdida Resultado</a><!--Inicio Perdida-->
+                            <ul>
+
+                                <?php
+                                     foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==30100000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>              
+                            </ul>
+                        </li>
+                    </ul>                  
+                  </li>
+                  <li><a href="#">Ganancia </a>
+                    <ul>
+                        <li><a href="#">Ganancia Resultado</a><!--Inicio Ganancia-->
+                            <ul>
+
+                                <?php
+                                     foreach ($model as $key => $value) 
+                                    if($value['ID_SUBTIPOCUENTA']==40100000){
+                                {?>
+                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
+                                <?php }}?>              
+                            </ul>
+                        </li>
+                    </ul>                  
+                  </li>
+            </ul>
+            <!-- TREEVIEW CODE -->
+    </div>
+</div>
+
+<script>
+   $.fn.extend({
+    treeview:   function() {
+        return this.each(function() {
+            // Initialize the top levels;
+            var tree = $(this);
+        
+            tree.find('li').has("ul").each(function () {
+                var branch = $(this); //li with children ul
+                
+                branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
+                branch.addClass('tree-branch');
+                branch.on('click', function (e) {
+                    if (this == e.target) {
+                        var icon = $(this).children('i:first');
+                        
+                        icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
+                        $(this).children().children().toggle();
+                    }
+                })
+                branch.children().children().toggle();
+                
+                /**
+                 *  The following snippet of code enables the treeview to
+                 *  function when a button, indicator or anchor is clicked.
+                 *
+                 *  It also prevents the default function of an anchor and
+                 *  a button from firing.
+                 */
+                branch.children('.tree-indicator, button, a').click(function(e) {
+                    branch.click();
+                    
+                    e.preventDefault();
+                });
+            });
+        });
+    }
+});
+
+/**
+ *  The following snippet of code automatically converst
+ *  any '.treeview' DOM elements into a treeview component.
+ */
+$(window).on('load', function () {
+    $('.treeview').each(function () {
+        var tree = $(this);
+        tree.treeview();
+    })
+})
+  
 </script>
 

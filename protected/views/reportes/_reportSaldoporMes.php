@@ -114,11 +114,11 @@
 <h2 align= "center"><small><?php echo 'Año:'.@$_SESSION['filtro']['periodo'].' Cuenta:'.@$_SESSION['filtro']['cuenta'].''?></small></h2>
 <br></br>
   <?php 
-   
+    $rdata=@$_SESSION['data'];
     $rawData=@$_SESSION['arraySaldoMes'];
     unset($_SESSION['arraySaldoMes']);
-
-    if (!empty($rawData)) 
+    unset($_SESSION['data']);
+    if (!empty($rdata)) 
     {
            echo '<table class="table table-striped table-hover">
                     <thead>

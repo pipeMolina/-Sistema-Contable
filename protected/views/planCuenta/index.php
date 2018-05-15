@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Crear PlanCuenta', 'url'=>array('create')),
-	array('label'=>'Administrar PlanCuenta', 'url'=>array('admin')),
+	array('label'=>'Crear PlanCuenta', 'url'=>array('create'),'visible'=>Yii::app()->user->Contador()),
+	array('label'=>'Administrar PlanCuenta', 'url'=>array('admin'),'visible'=>Yii::app()->user->Contador()),
 );
 ?>
 

@@ -25,10 +25,9 @@
 $this->breadcrumbs=array(
 	'Empresas',
 );
-
 $this->menu=array(
-	array('label'=>'Crear Empresa', 'url'=>array('create')),
-	array('label'=>'Administrar Empresa', 'url'=>array('admin')),
+	array('label'=>'Crear Empresa', 'url'=>array('create'),'visible'=>Yii::app()->user->Contador()),
+	array('label'=>'Administrar Empresa', 'url'=>array('admin'),'visible'=>Yii::app()->user->Contador()),
 );
 ?>
 

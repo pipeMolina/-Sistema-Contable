@@ -28,10 +28,10 @@ class PlanCuentaController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view'),
 				'expression'=>'$user->Administrador()',
-			),
+			),*/
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view'),
 				'expression'=>'$user->Contador()',

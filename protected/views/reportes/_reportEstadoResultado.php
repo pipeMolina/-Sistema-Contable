@@ -102,6 +102,9 @@
        $perdidaEjercicio = @$_SESSION['perdidaEjercicio'];
        $rawDataSI=@$_SESSION['sumasIguales'];
        unset($_SESSION['arrayCuentas']);
+       unset($_SESSION['arrayTotalAcumulado']);
+       unset($_SESSION['arrayTotalGeneral']);
+       unset($_SESSION['perdidaEjercicio']);
 
      if (!empty($rawData)) 
       {

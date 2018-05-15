@@ -15,13 +15,20 @@
 <?php @session_start();?>
 <h2 align="center">Estado Resultado de Perdida y/o Ganancia:</h2>
 
-<br></br>
 <?php
+        $rData = @$_SESSION['data'];
        $rawData = @$_SESSION['arrayCuentas'];
        $rawDataTAc = @$_SESSION['arrayTotalAcumulado']; 
        $rawDataTG = @$_SESSION['arrayTotalGeneral'];
        $perdidaEjercicio = @$_SESSION['perdidaEjercicio'];
        $rawDataSI=@$_SESSION['sumasIguales'];
+       unset($_SESSION['data']);
+       unset($_SESSION['arrayCuentas']);
+       unset($_SESSION['arrayTotalAcumulado']);
+       unset($_SESSION['arrayTotalGeneral']);
+       unset($_SESSION['perdidaEjercicio']);
+       echo '<h3 align="center">Empresa:'.$rData[0]["razonsocial_empresa"].' &nbsp;&nbsp; Periodo:'.$rData[0]["Año"].'</h3>';
+
         
      if (!empty($rawData)) 
         {
@@ -108,5 +115,5 @@
         }
         else
           echo "No se encontraron datos con los valores indicados";
-?>traron datos con los valores indicados";
+
 ?>

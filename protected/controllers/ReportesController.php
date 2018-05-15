@@ -16,7 +16,7 @@ public function accessRules()
 
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','filterLibroDiario','filterExcelLibroDiario','exportarExcelLibroDiario','libroMayor','filterLibroMayor','filterExcelLibroMayor','exportarExcelLibroMayor','libroDiario','balanceGeneral','filterBalanceGeneral','filterExcelBalanceGeneral','exportarExcelBalanceGeneral','saldoporMes','filterSaldoporMes','filterExcelSaldoporMes','exportarExcelSaldoPorMes','estadoResultado','filterEstadoResultado','filterExcelEstadoResultado','exportarExcelEstadoResultado','cargaCuentas'),
-				'expression'=>'$user->Administrador() || $user->Contador() || $user->Secretario',
+				'expression'=>'$user->Contador() || $user->Secretario()',
 				),
 			
 			array('deny',  // deny all users
@@ -115,8 +115,9 @@ public function actionIndex()
 					$cadena = ''.$cadena.' AND DAY(cc.fecha_comprobante)='.$dia.'';
 				}
 				$data = ComprobanteContable::model()->cargarComprobantes($cadena);
-		
-			
+				
+				if(!empty($data))
+				{
 					//controla el cambio de comprobante
 					$referencia=$data[0]["numero_comprobante"];
 					
@@ -143,6 +144,7 @@ public function actionIndex()
 					$_SESSION['data']=$data;
 					$_SESSION['arrayDebe']=$arrayDebe;
 					$_SESSION['arrayHaber']=$arrayHaber;
+				}
 
 					echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/LibroDiario";</script>';			
 				
@@ -230,19 +232,17 @@ public function actionIndex()
 		@$_SESSION['filtro']['cuenta']=$_POST['hiddenC'];
 
 		$cadena='';
-		if(empty($empresa))
+		if(empty($empresa) || empty($cuenta) || empty($periodo))
 		{
 			echo '<script language="JavaScript" type="text/javascript">
-						alert("Debe elegir Empresa");
+						alert("Debe seleccionar los 3 filtros para hacer la busqueda");
 			</script>';
 		}
 		else
 			{
-				$cadena = 'WHERE lc.cuenta="'.$_POST['hiddenC'].'"';
-				if(isset($periodo) && !empty($periodo))
-				{
-					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
-				}
+			
+			    $cadena ='WHERE cc.rut_empresa="'.$_POST['hiddenE'].'" AND lc.cuenta="'.$_POST['hiddenC'].'" AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				
 				
 				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
 				if(!empty($data))
@@ -335,20 +335,23 @@ public function actionIndex()
 		$cuenta=$_POST['hiddenC'];
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
+		/*Mantiene Valores del filtrado al recargar la pagina*/
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+		@$_SESSION['filtro']['cuenta']=$_POST['hiddenC'];
+
 		$cadena='';
-		if(empty($empresa))
+		if(empty($empresa) || empty($cuenta) || empty($periodo))
 		{
 			echo '<script language="JavaScript" type="text/javascript">
-						alert("Debe elegir Empresa");
+						alert("Debe seleccionar los 3 filtros para hacer la busqueda");
 			</script>';
 		}
 		else
 			{
-				$cadena = 'WHERE lc.cuenta="'.$_POST['hiddenC'].'"';
-				if(isset($periodo) && !empty($periodo))
-				{
-					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
-				}
+			
+			    $cadena ='WHERE cc.rut_empresa="'.$_POST['hiddenE'].'" AND lc.cuenta="'.$_POST['hiddenC'].'" AND YEAR(cc.fecha_comprobante)='.$periodo.'';
+				
 				
 				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
 				if(!empty($data))
@@ -361,55 +364,77 @@ public function actionIndex()
 					
 					$sumaDebe=0;
 					$sumaHaber=0;
+
 					$totalSaldos=0;
+					$totalAcDebe=0;
+					$totalAcHaber=0;
+					$totalAcSaldo=0;
+					
 					$arrayDebe;
 					$arrayHaber;
-					$arrayTotalSaldos;
+					$arrayTotalAcDebe=array();
+					$arrayTotalAcHaber=array();
+					$arrayTotalAcTotal=array();
+					$saldoAnteriorD[]=0;
+					$saldoAnteriorH[]=0;
+					$saldoAnteriorS[]=0;
 					foreach ($data as $key => $value) 
 					{
 
 						if($data[$key]["mes"]!=$referencia)
 						{
 							$referencia=$data[$key]["mes"];
-							$arrayListaSaldos[]=$arraySaldos;
-							$arraySaldos=array();
-
+							//Se almacena la suma de los debe
 							$arrayDebe[]=$sumaDebe;
 							$arrayHaber[]=$sumaHaber;
+							$totalSaldos=$sumaDebe-$sumaHaber;
+							$arrayListaSaldos[]=$totalSaldos;
 							$sumaDebe=0;
 							$sumaHaber=0;
 						}
 						$diferencia =$data[$key]["debe"]-$data[$key]["haber"];
 						$valorSaldo+=$diferencia;
-						$arraySaldos[]=$valorSaldo;
+						/*Se extrae valor negativo de columna saldo*/
+						$arraySaldos[]=substr($valorSaldo,1);
 
 						$sumaDebe += $data[$key]["debe"];
 						$sumaHaber += $data[$key]["haber"];
 
 					}
-					$arrayListaSaldos[]=$arraySaldos;
-					/*Suma columna Saldo*/
-					for($i=0;$i<count($arrayListaSaldos);$i++)
-					{
-						for($j=0;$j<count($arrayListaSaldos[$i]);$j++)
-						{
-							$totalSaldos+=$arrayListaSaldos[$i][$j];
-						}
-						$arrayTotalSaldos[]=$totalSaldos;
-						$totalSaldos=0;
-					}
 					$arrayDebe[]=$sumaDebe;
 					$arrayHaber[]=$sumaHaber;
+					$totalSaldos=$sumaDebe-$sumaHaber;
+					$arrayListaSaldos[]=$totalSaldos;
+					/*Valores del total acumulado Debe,Haber y Saldo*/
+					for($i=0;$i<count($arrayListaSaldos);$i++)
+					{
+						$totalAcDebe+=$arrayDebe[$i];
+						$totalAcHaber+=$arrayHaber[$i];
+						$totalAcSaldo+=$arrayListaSaldos[$i];
+						$saldoAnteriorD[]=$totalAcDebe;
+						$saldoAnteriorH[]=$totalAcHaber;
+						$saldoAnteriorS[]=$totalAcSaldo;
+						$arrayTotalAcDebe[]=$totalAcDebe;
+						$arrayTotalAcHaber[]=$totalAcHaber;
+						$arrayTotalAcSaldo[]=$totalAcSaldo;
 
+					}
 					$_SESSION['data']=$data;
 					$_SESSION['arrayDebe']=$arrayDebe;
 					$_SESSION['arrayHaber']=$arrayHaber;
+					$_SESSION['arraySaldos']=$arraySaldos;
 					$_SESSION['arrayListaSaldos']=$arrayListaSaldos;
-					$_SESSION['arrayTotalSaldos']=$arrayTotalSaldos;
+					$_SESSION['arrayTotalAcDebe']=$arrayTotalAcDebe;
+					$_SESSION['arrayTotalAcHaber']=$arrayTotalAcHaber;
+					$_SESSION['arrayTotalAcSaldo']=$arrayTotalAcSaldo;
+					$_SESSION['saldoAnteriorD']=$saldoAnteriorD;
+					$_SESSION['saldoAnteriorH']=$saldoAnteriorH;
+					$_SESSION['saldoAnteriorS']=$saldoAnteriorS;
+
 
 				}
 
-				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/ExportarExcelLibroMayor";</script>';			
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelLibroMayor";</script>';			
 			}
 	}
 	public function actionFilterSaldoporMes()
@@ -423,19 +448,15 @@ public function actionIndex()
 		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
 		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
 		@$_SESSION['filtro']['cuenta']=$_POST['hiddenC'];
-		if(empty($empresa))
+		if(empty($empresa) || empty($cuenta) || empty($periodo) )
 		{
 			echo '<script language="JavaScript" type="text/javascript">
-						alert("Debe elegir Empresa");
+						alert("Debe seleccionar los 3 filtros para hacer la busqueda");
 			</script>';
 		}
 		else
 			{
-				$cadena = 'WHERE lc.cuenta="'.$_POST['hiddenC'].'"';
-				if(isset($periodo) && !empty($periodo))
-				{
-					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
-				}
+			    $cadena ='WHERE cc.rut_empresa="'.$_POST['hiddenE'].'" AND lc.cuenta="'.$_POST['hiddenC'].'" AND YEAR(cc.fecha_comprobante)='.$periodo.'';
 				
 				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
 				if(!empty($data))
@@ -489,8 +510,8 @@ public function actionIndex()
 					$arraySaldoMes[$i][] = $diferencia;
 					$arraySaldoMes[$i][] = $valorSaldo;
 					
+					$_SESSION['data'] = $data;
 					$_SESSION['arraySaldoMes'] = $arraySaldoMes;
-					
 				}
 				
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/saldoporMes";</script>';			
@@ -503,19 +524,19 @@ public function actionIndex()
 		$periodo=$_POST['hiddenP'];
 		$empresa=$_POST['hiddenE'];
 		$cadena='';
-		if(empty($empresa))
+		/*Mantiene Valores del filtrado al recargar la pagina*/
+		@$_SESSION['filtro']['empresa']=$_POST['hiddenE'];
+		@$_SESSION['filtro']['periodo']=$_POST['hiddenP'];
+		@$_SESSION['filtro']['cuenta']=$_POST['hiddenC'];
+		if(empty($empresa) || empty($cuenta) || empty($periodo) )
 		{
 			echo '<script language="JavaScript" type="text/javascript">
-						alert("Debe elegir Empresa");
+						alert("Debe seleccionar los 3 filtros para hacer la busqueda");
 			</script>';
 		}
 		else
 			{
-				$cadena = 'WHERE lc.cuenta="'.$_POST['hiddenC'].'"';
-				if(isset($periodo) && !empty($periodo))
-				{
-					$cadena =''.$cadena.' AND YEAR(cc.fecha_comprobante)='.$periodo.'';
-				}
+			    $cadena ='WHERE cc.rut_empresa="'.$_POST['hiddenE'].'" AND lc.cuenta="'.$_POST['hiddenC'].'" AND YEAR(cc.fecha_comprobante)='.$periodo.'';
 				
 				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
 				if(!empty($data))
@@ -569,8 +590,8 @@ public function actionIndex()
 					$arraySaldoMes[$i][] = $diferencia;
 					$arraySaldoMes[$i][] = $valorSaldo;
 					
+					$_SESSION['data'] = $data;
 					$_SESSION['arraySaldoMes'] = $arraySaldoMes;
-					
 				}
 				
 				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/exportarExcelSaldoporMes";</script>';			
@@ -601,6 +622,9 @@ public function actionIndex()
 				}
 				
 				$data = ComprobanteContable::model()->cargaCuentasBalance($cadena);
+				
+				if(!empty($data))
+				{
 				//se guardaran las cuentas con sus respectivos valores
 				$arrayCuentas=array();
 				
@@ -771,13 +795,13 @@ public function actionIndex()
 				{ 
 					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
 				}
-
-				$_SESSION['data']=$data;
+				
 				$_SESSION['arrayCuentas']=$arrayCuentas;
 				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
 				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
 				$_SESSION['perdidaEjercicio']=$perdidaEjercicio;
 				$_SESSION['sumasIguales']=$sumasIguales;
+			}
 
 			echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/BalanceGeneral";</script>';			
 
@@ -977,7 +1001,7 @@ public function actionIndex()
 					$sumasIguales[]=$arrayTotalGeneral[$i]+$perdidaEjercicio[$i];
 				}
 
-				
+				$_SESSION['data']=$data;
 				$_SESSION['arrayCuentas']=$arrayCuentas;
 				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
 				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;
@@ -1255,6 +1279,7 @@ public function actionIndex()
 						}
 					}
 				}
+				$_SESSION['data']=$data;
 				$_SESSION['arrayCuentas']=$arrayCuentas;
 				$_SESSION['arrayTotalAcumulado']=$arrayTotalAcumulado;
 				$_SESSION['arrayTotalGeneral']=$arrayTotalGeneral;

@@ -129,6 +129,16 @@
     $saldoAnteriorS=@$_SESSION['saldoAnteriorS'];
 
     unset($_SESSION['data']);
+    unset($_SESSION['arrayDebe']);
+    unset($_SESSION['arrayHaber']);
+    unset($_SESSION['arraySaldos']);
+    unset($_SESSION['arrayListaSaldos']);
+    unset($_SESSION['arrayTotalAcDebe']);
+    unset($_SESSION['arrayTotalAcHaber']);
+    unset($_SESSION['arrayTotalAcSaldo']);
+    unset($_SESSION['saldoAnteriorD']);
+    unset($_SESSION['saldoAnteriorH']);
+    unset($_SESSION['saldoAnteriorS']);
 
     //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 

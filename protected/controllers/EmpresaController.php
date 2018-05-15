@@ -28,16 +28,16 @@ class EmpresaController extends Controller
 	{
 		return array(
 			
-			array('allow',
+			/*array('allow',
 				'actions'=>array('index','view','create','update','delete','admin'),
 				'expression'=>'$user->Administrador()',
-			),
+			),*/
 			array('allow',
 				'actions'=>array('index','view','create','update','delete','admin'),
 				'expression'=>'$user->Contador()',
 			),
 			array('allow',
-				'actions'=>array('index','view','admin'),
+				'actions'=>array('index'),
 				'expression'=>'$user->Secretario()',
 			),
 			array('deny',  // deny all users
@@ -46,6 +46,14 @@ class EmpresaController extends Controller
 			);
 	
 	}
+
+	public function setMenu($mid) {
+        $this->menu = array(
+            array('active' => $mid === 'action-c', 'label' => Yii::t('default', 'Crear Empresa'), 'url' => array('Empresa/create'),'visible'=>Yii::app()->user->Contador()),
+            array('active' => $mid === 'action-u', 'label' => Yii::t('default', 'Administrar Empresa'), 'url' => array('Empresa/admin'),'visible'=>Yii::app()->user->Contador()),
+        	
+        );
+    }
 	
 
 	/**

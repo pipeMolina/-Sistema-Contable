@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="form" method="post">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'usuario-form',
@@ -79,7 +79,7 @@
 
 	<div class="form-group">
 		<div class="col-md-offset-1 col-md-11">
-			<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary")); ?>
+			<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array("class"=>"btn btn-primary","onclick"=>"return validarForm(); return false")); ?>
 		</div>
 	</div>
 

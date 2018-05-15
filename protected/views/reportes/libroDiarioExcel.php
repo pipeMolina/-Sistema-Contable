@@ -15,6 +15,7 @@
 <?php @session_start();?>
 
 <h2 align="center">Libro Diario:</h2>
+
 <br></br>
 <?php
         $rawData = @$_SESSION['data'];

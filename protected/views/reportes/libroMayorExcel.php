@@ -19,11 +19,36 @@
 <br></br>
 <div id="print-total">
   <?php 
+
     $rawData=@$_SESSION['data'];
-    $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
     $rawDataDebe=@$_SESSION['arrayDebe'];
     $rawDataHaber=@$_SESSION['arrayHaber'];
-    $rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
+    $rawDataSaldos=@$_SESSION['arraySaldos'];
+    $rawDataArrayListaSaldos=@$_SESSION['arrayListaSaldos'];
+    $acumuladoDebe=@$_SESSION['arrayTotalAcDebe'];
+    $acumuladoHaber=@$_SESSION['arrayTotalAcHaber'];
+    $acumuladoSaldos=@$_SESSION['arrayTotalAcSaldo'];
+    
+    $saldoAnteriorD=@$_SESSION['saldoAnteriorD'];
+    $saldoAnteriorH=@$_SESSION['saldoAnteriorH'];
+    $saldoAnteriorS=@$_SESSION['saldoAnteriorS'];
+
+    @$_SESSION['filtro']['empresa']="";
+    @$_SESSION['filtro']['periodo']="";
+    @$_SESSION['filtro']['cuenta']="";
+
+    unset($_SESSION['data']);
+    unset($_SESSION['arrayDebe']);
+    unset($_SESSION['arrayHaber']);
+    unset($_SESSION['arraySaldos']);
+    unset($_SESSION['arrayListaSaldos']);
+    unset($_SESSION['arrayTotalAcDebe']);
+    unset($_SESSION['arrayTotalAcHaber']);
+    unset($_SESSION['arrayTotalAcSaldo']);
+    unset($_SESSION['saldoAnteriorD']);
+    unset($_SESSION['saldoAnteriorH']);
+    unset($_SESSION['saldoAnteriorS']);
+    echo '<h3 align="center">Empresa:'.$rawData[0]["razonsocial_empresa"].' &nbsp;&nbsp; Periodo:'.$rawData[0]["Año"].'</h3>';
     if (!empty($rawData)) 
     {
       $arrayComprobante=array();
@@ -31,6 +56,7 @@
       $referencia=$rawData[0]["mes"];
       $fila=0;
       $columna=0;
+      $i=0;
       foreach ($rawData as $key => $value) 
       {
         if($rawData[$key]["mes"]!=$referencia )
@@ -53,8 +79,10 @@
         $arrayComprobante[]=$rawData[$key]["glosa_comprobante"];
         $arrayComprobante[]=$rawData[$key]["debe"];
         $arrayComprobante[]=$rawData[$key]["haber"];
+        $arrayComprobante[]=$rawDataSaldos[$i];
         $arrayComprobante[]=$rawDataArrayListaSaldos[$fila][$columna];
         $columna++;
+        $i++;
       }
       $arrayListaComprobantes[]=$arrayComprobante;
     
@@ -64,7 +92,7 @@
            echo '<table class="table table-striped table-hover">
                     <thead>
                       <tr style="background-color: #FFFF00;">
-                        <th>Cuenta:'.$arrayListaComprobantes[$i][1].''.$arrayListaComprobantes[$i][2].' </th>
+                        <th>Cuenta:'.$arrayListaComprobantes[$i][1].'&nbsp;&nbsp;&nbsp;'.$arrayListaComprobantes[$i][2].' </th>
                       </tr>
                     </thead>
                     <thead>
@@ -75,21 +103,21 @@
                         <th></th>
                         <th></th>
                         <th>Saldo Anterior</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>0</th>
+                        <th>'.number_format($saldoAnteriorD[$i], 0, ",", ".").'</th>
+                        <th>'.number_format($saldoAnteriorH[$i], 0, ",", ".").'</th>
+                        <th>'.number_format($saldoAnteriorS[$i], 0, ",", ".").'</th>
                       </tr>
                     </thead>
                     <thead>
                       <tr style="background-color: #FFFF00;">
                         <th>Dia</th>
                         <th>Mes</th>
-                        <th>periodo</th>
+                        <th>Periodo</th>
                         <th>Numero</th>
                         <th>Tipo</th>
                         <th>Documento Glosa</th>
                         <th>Debito</th>
-                        <th>credito</th>
+                        <th>Credito</th>
                         <th>Saldo</th>
                       </tr>
                     </thead>
@@ -105,14 +133,13 @@
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
                                       <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>
-                                      <td> '.number_format($arrayListaComprobantes[$i][$j], 0, ",", ".").' </td>';
-
+                                      <td> '.number_format($arrayListaComprobantes[$i][$j++], 0, ",", ".").' </td>';
                                     echo  '</tr>';
                                       $j+=3;
                           }
 
                     echo  '</tbody>';
-                     echo '<tr style="background-color: #FFFF00;">
+                     echo '<tr>
                               <td></td>
                               <td></td>
                               <td></td>
@@ -121,28 +148,29 @@
                               <td class="text-center">Total Mes de '.$arrayListaComprobantes[$i][4].'</td>
                               <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
-                              <td>'.number_format($rawDataTotalSaldos[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($rawDataArrayListaSaldos[$i], 0, ",", ".").'</td>
                             </tr>
 
-                            <tr style="background-color: #FFFF00;">
+                            <tr>
                               <td></td>
                               <td></td>
                               <td></td>
                               <td></td>
                               <td></td>
                               <td class="text-center">Total Acumulado </td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
+                              <td>'.number_format($acumuladoDebe[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($acumuladoHaber[$i], 0, ",", ".").'</td>
+                              <td>'.number_format($acumuladoSaldos[$i], 0, ",", ".").'</td>
                             </tr>
-                 </table>'; 
-                 echo '<br></br>';       
+                 </table>';        
       }
     }
     else
     {
       echo "No se encontraron datos con los valores indicados";
-      $_SESSION['arrayListaSaldos']='';
+      @$_SESSION['filtro']['empresa']="";
+      @$_SESSION['filtro']['periodo']="";
+      @$_SESSION['filtro']['cuenta']="";
         }
 
   ?>

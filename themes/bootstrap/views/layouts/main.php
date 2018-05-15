@@ -14,8 +14,6 @@
 		$cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap-treepanel.css');
-
-
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -37,13 +35,13 @@
 				//array('label'=>'Home', 'url'=>array('/site/index')),
 				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Empresa', 'url'=>array('/Empresa/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Plan Cuenta', 'url'=>array('/PlanCuenta/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Cuenta', 'url'=>array('/Cuenta/index'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Comprobante Contable', 'url'=>array('/ComprobanteContable/index'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Empresa', 'url'=>array('/Empresa/index'),'visible'=>Yii::app()->user->Contador() || Yii::app()->user->Secretario()),
+				array('label'=>'Plan Cuenta', 'url'=>array('/PlanCuenta/index'),'visible'=>Yii::app()->user->Contador() || Yii::app()->user->Secretario()),
+				array('label'=>'Cuenta', 'url'=>array('/Cuenta/index'),'visible'=>Yii::app()->user->Contador()),
+				array('label'=>'Comprobante Contable', 'url'=>array('/ComprobanteContable/index'),'visible'=>Yii::app()->user->Contador() || Yii::app()->user->Secretario()),
 				//array('label'=>'Linea Contable', 'url'=>array('/lineaContable/index')),
 				//array('label'=>'Tipo Cuenta', 'url'=>array('/TipoCuenta/index')),
-				array('label'=>'Reportes', 'url'=>array('/reportes/index'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Reportes', 'url'=>array('/reportes/index'),'visible'=>Yii::app()->user->Contador() || Yii::app()->user->Secretario()),
 				array('label'=>'Ciudad', 'url'=>array('/Ciudad/index'),'visible'=>Yii::app()->user->Administrador()),
 				array('label'=>'Region', 'url'=>array('/Region/index'),'visible'=>Yii::app()->user->Administrador()),
 				array('label'=>'Usuario', 'url'=>array('/Usuario/index'),'visible'=>Yii::app()->user->Administrador()),

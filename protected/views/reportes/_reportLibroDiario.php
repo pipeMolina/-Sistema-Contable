@@ -146,6 +146,8 @@
         $rawDataDebe = @$_SESSION['arrayDebe'];
         $rawDataHaber = @$_SESSION['arrayHaber'];
         unset($_SESSION['data']);
+        unset($_SESSION['arrayDebe']);
+        unset($_SESSION['arrayHaber']);
         if (!empty($rawData)) 
         {
             $arrayComprobante=array();

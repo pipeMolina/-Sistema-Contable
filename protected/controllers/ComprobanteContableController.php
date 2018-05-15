@@ -28,10 +28,10 @@ class ComprobanteContableController extends Controller
 	{
 		return array(
 			
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
 				'expression'=>'$user->Administrador()',
-			),
+			),*/
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view','cargaCuentas','cargaCuentasJs','Tree'),
 				'expression'=>'$user->Contador()',
@@ -46,15 +46,6 @@ class ComprobanteContableController extends Controller
 			);
 	}
 	
-public function setMenu($mid) {
-        $this->menu = array(
-            array('active' => $mid === 'action-c', 'label' => Yii::t('default', 'Crear Comprobante'), 'url' => array('ComprobanteContable/create'),'visible'=>Yii::app()->user->Contador()),
-            array('active' => $mid === 'action-r', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
-            array('active' => $mid === 'action-u', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
-            array('active' => $mid === 'action-d', 'label' => Yii::t('default', 'Actualizar Comprobante'), 'url' => array('ComprobanteContable/admin')),
-        	
-        );
-    }
 
 	/**
 	 * Displays a particular model.
@@ -159,7 +150,7 @@ public function setMenu($mid) {
 			{
 				$arrayCuenta[]=$modelLinea[$key]['CUENTA'];
 			}
-			$fecha=$_POST['FECHA_COMPROBANTE'];
+			$fecha=$_POST['ComprobanteContable']['FECHA_COMPROBANTE'];
 			$debe=$_POST['DEBE'];
 			$haber=$_POST['HABER'];
 			$i=0;
@@ -277,12 +268,10 @@ public function setMenu($mid) {
 	}
 	public function actionTree()
     {
-    	$modelLinea=new LineaContable;
-    	$rut=$_POST["id"];
+    	$rut=$_POST["rut"];
     	$model=Cuenta::model()->loadCuentas($rut);
-    	$this->renderPartial('_form',array(
+    	$this->renderPartial('_viewTree',array(
 			'model'=>$model,
-			'modelLinea'=>$modelLinea,
-		));
+		)); 	
     }
 }

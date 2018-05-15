@@ -14,14 +14,21 @@
 </style>
 <?php @session_start();?>
 <h2 align="center">Balance General:</h2>
-<h2 align= "center"><small><?php echo 'Empresa:'.@$_SESSION['filtro']['empresa'].' Periodo:'.@$_SESSION['filtro']['periodo'].''?></small></h2>
 <br></br>
 <?php
+        $rData=@$_SESSION['data'];
         $rawData = @$_SESSION['arrayCuentas'];
         $rawDataTAc = @$_SESSION['arrayTotalAcumulado'];
         $rawDataTG=@$_SESSION['arrayTotalGeneral'];
         $rawDataPE=@$_SESSION['perdidaEjercicio'];
         $rawDataSI=@$_SESSION['sumasIguales'];
+        unset($_SESSION['data']);
+        unset($_SESSION['arrayCuentas']);
+        unset($_SESSION['arrayTotalAcumulado']);
+        unset($_SESSION['arrayTotalGeneral']);
+        unset($_SESSION['perdidaEjercicio']);
+        unset($_SESSION['sumasIguales']);
+        echo '<h3 align="center">Empresa:'.$rData[0]["razonsocial_empresa"].' &nbsp;&nbsp; Periodo:'.$rData[0]["Año"].'</h3>';
 
      if (!empty($rawData)) 
         {

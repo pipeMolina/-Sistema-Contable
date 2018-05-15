@@ -41,7 +41,7 @@
 			<div class="col-lg-3">
 				<?php echo $form->labelEx($model,'FECHA_COMPROBANTE'); ?>	
 				<?php $this->widget('zii.widgets.jui.CJuiDatePicker',array(
-			    			'name'=>'FECHA_COMPROBANTE',
+			    			'name'=>'FECHA',
 			    			'language'=>'es',
 			    			'attribute' =>'FECHA',
 							'value'	=>$model->FECHA_COMPROBANTE,
@@ -49,17 +49,19 @@
 						    'options'=>array(
 						        'showAnim'=>'fold',
 						        'constrainInput'=>true,
-											'currentText'=>'Now',
-											'dateFormat'=>'yy-mm-dd',
+								'currentText'=>'Now',
+						        'dateFormat'=>'yy-mm-dd',
+								'altField' => '#FECHA',
+								'altFormat' => 'dd-mm-yy',
 						    ),
 						    'htmlOptions'=>array(
 						        'class'=>'form-control',
-						        'id'=>'fecha_comp',
+						        'onchange'=>'invertirFecha(this)'
 						    
 						    ),
 						));
 				?>
-				<?php //echo $form->TextField($model,'FECHA_COMPROBANTE',array('class'=>'form-control','id'=>'datepicker'));?>
+				<?php echo $form->hiddenField($model,'FECHA_COMPROBANTE');?>
 				<?php echo $form->error($model,'FECHA_COMPROBANTE'); ?>
 			</div>
 		</div>
@@ -202,6 +204,19 @@
 
  }); 
 
+ </script>
+ <script>
+
+/* Invierte la fecha */
+    function invertirFecha(obj)
+    {
+        var choose = obj.value;
+        var pieces = choose.split('-');
+		pieces.reverse();
+		var reversed = pieces.join('-');
+        document.getElementById('ComprobanteContable_FECHA_COMPROBANTE').value = reversed;
+        document.getElementById('FECHA').value = choose;
+}
  </script>
 
 

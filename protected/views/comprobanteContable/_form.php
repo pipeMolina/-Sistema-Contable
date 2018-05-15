@@ -1,13 +1,8 @@
 
-
 <?php
 /* @var $this ComprobanteContableController */
 /* @var $model ComprobanteContable */
 /* @var $form CActiveForm */
-$this->setMenu('action-c');
-$this->setMenu('action-r');
-$this->setMenu('action-u');
-$this->setMenu('action-d');
 
 ?>
 <div class="form">
@@ -60,7 +55,7 @@ $this->setMenu('action-d');
 						    ),
 						    'htmlOptions'=>array(
 						        'class'=>'form-control',
-						        'onchange'=>'Asignate(this)'
+						        'onchange'=>'invertirFecha(this)'
 						    ),
 						));
 				?>
@@ -73,7 +68,7 @@ $this->setMenu('action-d');
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $form->labelEx($model,'GLOSA_COMPROBANTE'); ?>
-				<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50)); ?>
+				<?php echo $form->textField($model,'GLOSA_COMPROBANTE',array("class"=>"form-control",'size'=>50,'maxlength'=>50,"id"=>"glosa")); ?>
 				<?php echo $form->error($model,'GLOSA_COMPROBANTE'); ?>
 			</div>
 			<br></br>
@@ -100,23 +95,19 @@ $this->setMenu('action-d');
 			     <button id="add" type="button" class="btn btn-default" >Agregar Linea</button>
 			 </div>
 			 <div class="col-lg-3">
-			     <!--<button id="submit" type="button" class="btn btn-primary">Guardar Comprobante</button>-->
+			     <button id="submit" type="button" class="btn btn-primary">Guardar Comprobante</button>
 			 </div>
 		</div>
 	</div>
 	</div>
 <?php $this->endWidget(); ?>
-</div>
-<!--Muestra el plan de cuentas según el rut de la empresa-->
-
 <div id="resultado"></div>
+</div>
 
-
-<script type="text/javascript">  
-
+<script >  
+	var i=0;
  $(document).ready(function(){ 
  	  /*Variables Globales*/
- 	  var i=0;
       var sumaDebe=0;
       var sumaHaber=0;
       var valueDebe=0;
@@ -128,7 +119,7 @@ $this->setMenu('action-d');
            if (rutEmpresa == "") 
            {
 	           	$("#mensaje").html("Debe elegir Empresa");
-				$("#mensaje").addClass("alert alert-dismissible alert-warning");
+				$("#mensaje").addClass("alert alert-danger");
            } 
            else
            {
@@ -139,9 +130,9 @@ $this->setMenu('action-d');
 		      	   var divHaber=$('<div class=\"col-lg-3\" id="row'+i+'"></div>');
 		      	   var divEliminar=$('<div class=\"col-lg-2\" id="row'+i+'"></div>');
 		           //alert('row'+i);
-		           var dropDown = $("<select id='dropDown"+i+"' name=Cuenta[] class='form-control'/><div id='validaDropDown"+i+"'></div>");
-		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control'><div id='validaDebe"+i+"'></div>");
-		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control'><div id='validaHaber"+i+"'></div>");
+		           var dropDown = $("<select id='dropDown"+i+"' name=Cuenta[] class='form-control' onchange='checkDropdown(this);' /><div id='validaDropDown"+i+"'></div>");
+		           var debe=$("<input type='text' id='debe"+i+"' name=Debe[] value=0 class='form-control' onchange='checkDebe(this);'><div id='validaDebe"+i+"'></div>");
+		           var haber=$("<input type='text' id='haber"+i+"' name=Haber[] value=0 class='form-control' onchange='checkHaber(this);'><div id='validaHaber"+i+"'></div>");
 		           //var debe=$('<?php echo $form->textField($modelLinea,"DEBE[]",array("class"=>"form-control","onchange"=>"total(1,this.value);","id"=>"debe1"))?><div id="validaDebe'+i+'"></div>');
 		           //var haber=$('<?php echo $form->textField($modelLinea,"HABER[]",array("class"=>"form-control","onchange"=>"total(0,this.value,'i');"));?>');
 		           var eliminar=$('<button type="button" name="remove" id="'+i+'" class="btn btn_remove btn-danger">x</button>');
@@ -181,92 +172,138 @@ $this->setMenu('action-d');
       $("#submit").click(function(){
 
            	var tipoComprobante = $("#tipoComprobante").val();
+           	var fecha = $("#FECHA").val();
+           	var glosa = $("#glosa").val();
+
            	var x = i;
            	var z=i;
            	var activar=1;
-           	if(tipoComprobante=="")
+           	if(tipoComprobante === "" || fecha === "" || glosa === "")
            	{
-           		$("#mensaje").html("Debe elegir Tipo ");
+           		$("#mensaje").html("Debe rellenar los campos con *");
 				$("#mensaje").addClass("alert alert-danger");
-           	}
-           	while(x>0)
+				activar=0;
+           	}else
            	{
-	           	var dropDown=$('#dropDown'+x+'').val();
-	           	var valueDebe=$('#debe'+x+'').val();
-	           	var valueHaber=$('#haber'+x+'').val();
-	           	if(dropDown=="")
+	           	while(x>0)
 	           	{
-	           		$('#validaDropDown'+x+'').html("Debe elegir Cuenta");
-	           		activar=0;
+		           	var dropDown=$('#dropDown'+x+'').val();
+		           	var valueDebe=$('#debe'+x+'').val();
+		           	var valueHaber=$('#haber'+x+'').val();
+		           	if(dropDown === "")
+		           	{
+		           		$('#validaDropDown'+x+'').html("Debe elegir Cuenta");
+		           		activar=0;
+		           	}
+		           	else if(!/^([0-9])*$/.test(valueDebe))
+		           	{
+		           		$('#validaDebe'+x+'').html("Se permite solo números");
+		           		activar=0;
+		           	}else if(!/^([0-9])*$/.test(valueHaber))
+		           	{
+		           		$('#validaHaber'+x+'').html("Se permite solo números");
+		           		activar=0;
+		           	}else
+		           	{
+		           		$('#validaDropDown'+x+'').empty();
+		           		$('#validaDebe'+x+'').empty();
+		           		$('#validaHaber'+x+'').empty();
+		           	}
+		           	x--;
 	           	}
-	           	else if(!/^([0-9])*$/.test(valueDebe))
-	           	{
-	           		$('#validaDebe'+x+'').html("Se permite solo números");
-	           		activar=0;
-	           	}else if(!/^([0-9])*$/.test(valueHaber))
-	           	{
-	           		$('#validaHaber'+x+'').html("Se permite solo números");
-	           		activar=0;
-	           	}else
-	           	{
-	           		$('#validaDropDown'+x+'').empty();
-	           		$('#validaDebe'+x+'').empty();
-	           		$('#validaHaber'+x+'').empty();
-	           	}
-	           	x--;
-           	}
-	 		//console.log(activar);
-         	if(activar==1)
-         	{
-			   	while(z > 0)
-			    {
-	         		sumaDebe += parseInt($("#debe"+z+'').val());
-			    	sumaHaber += parseInt($("#haber"+z+'').val());
-			    	z--;
-			    }	
-		 		resultado = sumaDebe - sumaHaber;	
-	 			console.log(resultado);
-	 			console.log(sumaDebe);
-	 			console.log(sumaHaber);
+		 		//console.log(activar);
+	         	if(activar==1)
+	         	{
+				   	while(z > 0)
+				    {
+		         		sumaDebe += parseInt($("#debe"+z+'').val());
+				    	sumaHaber += parseInt($("#haber"+z+'').val());
+				    	z--;
+				    }	
+			 		resultado = sumaDebe - sumaHaber;	
 
-         	}
-			if(resultado == 0 && activar==1)
-			{
-				var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
-	      		$.ajax(
-			            {
-			               	type:"POST",
-			                url: url,
-		               		data:$("#comprobante-contable-form").serialize(),
-			               	success: function(data)
-			               	{
-				               	$("#mensaje").empty();
-	           	   				$("#mensaje").removeClass("alert alert-dismissible alert-warning");
-	           	   				$("#mensaje").html(data);
-	      						/*Se eliminan las lineas contables*/
-					      		while(i>0)
-					      		{
-					      			$("#grupoLineas"+i+'').remove(); 
-					      			i--;
-					      		}
-			               	}
-			            });				
-			}
-			else
-			{
-				sumaDebe=0;
-				sumaHaber=0;
-				$("#mensaje").html("Problemas con las lineas");
-				$("#mensaje").addClass("alert alert-danger");
-			}
-    
+	         	}
+				if(resultado == 0 && activar==1)
+				{
+					if(sumaDebe==0 && sumaHaber==0)
+					{
+						$("#mensaje").html("Problemas con las lineas");
+						$("#mensaje").addClass("alert alert-danger");
+					}
+					else
+					{
+					var url = "<?php echo CController::createUrl('comprobanteContable/create'); ?>";
+		      		$.ajax(
+				            {
+				               	type:"POST",
+				                url: url,
+			               		data:$("#comprobante-contable-form").serialize(),
+				               	success: function(data)
+				               	{
+					               	$("#mensaje").empty();
+		           	   				$("#mensaje").removeClass("alert alert-danger");
+		           	   				$("#mensaje").html(data);
+		      						/*Se eliminan las lineas contables*/
+						      		while(i>0)
+						      		{
+						      			$("#grupoLineas"+i+'').remove(); 
+						      			i--;
+						      		}
+						      		activar=0;
+				               	}
+				            });				
+					}
+				}
+				else
+				{
+					sumaDebe=0;
+					sumaHaber=0;
+					$("#mensaje").html("Problemas con las lineas");
+					$("#mensaje").addClass("alert alert-danger");
+				}
+	    
+           	}
       });
 
 
  }); 
 
- </script>
-<script>
+    function checkDropdown(obj)
+    {
+    	var elemento=obj.value;
+    	var i=obj.id.substring(8);
+    	if(elemento=="")
+    	{
+    		document.getElementById('validaDropDown'+i+'').innerHTML="Debe elegir Cuenta";
+    	}
+    	else
+    		document.getElementById('validaDropDown'+i+'').innerHTML="";
+
+    }
+    function checkDebe(obj)
+    {
+    	var elemento=obj.value;
+    	var i=obj.id.substring(4);
+    	if(!/^([0-9])*$/.test(elemento))
+    	{
+    		document.getElementById('validaDebe'+i+'').innerHTML="Se permite solo numeros";
+    	}
+    	else
+    		document.getElementById('validaDebe'+i+'').innerHTML="";
+    }
+
+    function checkHaber(obj)
+    {
+    	var elemento=obj.value;
+    	var i=obj.id.substring(5);
+    	if(!/^([0-9])*$/.test(elemento))
+    	{
+    		document.getElementById('validaHaber'+i+'').innerHTML="Se permite solo numeros";
+    	}
+    	else
+    		document.getElementById('validaHaber'+i+'').innerHTML="";
+
+    }
 	function treePanel()
     {
 		var url = "<?php echo CController::createUrl('ComprobanteContable/Tree'); ?>";
@@ -274,7 +311,7 @@ $this->setMenu('action-d');
                 {
                 	type:"POST",
                 	url: url,
-               		data:"id="+$("#rutEmpresa").val(),
+               		data:"rut="+$("#rutEmpresa").val(),
                		dataType:"html",
                		success: function(data)
                		{
@@ -283,8 +320,9 @@ $this->setMenu('action-d');
                	});
     }
 
+
 /* Invierte la fecha */
-    function Asignate(obj)
+    function invertirFecha(obj)
     {
         var choose = obj.value;
         console.log(choose.id);
@@ -295,173 +333,3 @@ $this->setMenu('action-d');
         document.getElementById('FECHA').value = choose;
 }
 </script>
-
-<div class="form">
-    <div class="panel panel-primary">
-        <div class="panel-heading text-center"><h1 class="panel-title"> Plan de Cuentas</h1> </div>
-            <!-- TREEVIEW CODE -->
-            <ul class="treeview">
-                <li><a href="#">Activo </a>
-                    <ul>
-                        <li><a href="#">Activo Circulante</a><!--Inicio Activo Circulante-->
-                            <ul>
-
-                                <?php
-                                     foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Circulante -->
-                        <li><a href="#">Activo Fijo</a><!--Inicio Activo Fijo-->
-                            <ul>
-                                <?php 
-                                foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10200000){ 
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Fijo -->
-                        <li><a href="#">Activo Into</a><!--Inicio Activo Into-->
-                            <ul>
-                                <?php 
-                                foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==10300000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Into -->
-                    </ul>                  
-                  </li>
-
-                  <li><a href="#">Pasivo </a>
-                    <ul>
-                        <li><a href="#">Pasivo Exigible</a><!--Inicio Activo Circulante-->
-                            <ul>
-
-                                <?php
-                                     foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Circulante -->
-                        <li><a href="#">Pasivo Largo Plazo</a><!--Inicio Activo Fijo-->
-                            <ul>
-                                <?php 
-                                foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20200000){ 
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Fijo -->
-                        <li><a href="#">Patrimonio</a><!--Inicio Activo Into-->
-                            <ul>
-                                <?php 
-                                foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==20300000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>
-                                               
-                            </ul>
-                        </li><!-- Fin Activo Into -->
-                    </ul>                  
-                  </li>
-                  <li><a href="#">Perdida </a>
-                    <ul>
-                        <li><a href="#">Perdida Resultado</a><!--Inicio Perdida-->
-                            <ul>
-
-                                <?php
-                                     foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==30100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>              
-                            </ul>
-                        </li>
-                    </ul>                  
-                  </li>
-                  <li><a href="#">Ganancia </a>
-                    <ul>
-                        <li><a href="#">Ganancia Resultado</a><!--Inicio Ganancia-->
-                            <ul>
-
-                                <?php
-                                     foreach ($model as $key => $value) 
-                                    if($value['ID_SUBTIPOCUENTA']==40100000){
-                                {?>
-                                    <li><p> <?php echo $value['DESCRIPCION_CUENTA'];?></p></li>
-                                <?php }}?>              
-                            </ul>
-                        </li>
-                    </ul>                  
-                  </li>
-            </ul>
-            <!-- TREEVIEW CODE -->
-    </div>
-</div>
-
-<script>
-   $.fn.extend({
-    treeview:   function() {
-        return this.each(function() {
-            // Initialize the top levels;
-            var tree = $(this);
-        
-            tree.find('li').has("ul").each(function () {
-                var branch = $(this); //li with children ul
-                
-                branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
-                branch.addClass('tree-branch');
-                branch.on('click', function (e) {
-                    if (this == e.target) {
-                        var icon = $(this).children('i:first');
-                        
-                        icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
-                        $(this).children().children().toggle();
-                    }
-                })
-                branch.children().children().toggle();
-                
-                /**
-                 *  The following snippet of code enables the treeview to
-                 *  function when a button, indicator or anchor is clicked.
-                 *
-                 *  It also prevents the default function of an anchor and
-                 *  a button from firing.
-                 */
-                branch.children('.tree-indicator, button, a').click(function(e) {
-                    branch.click();
-                    
-                    e.preventDefault();
-                });
-            });
-        });
-    }
-});
-
-/**
- *  The following snippet of code automatically converst
- *  any '.treeview' DOM elements into a treeview component.
- */
-$(window).on('load', function () {
-    $('.treeview').each(function () {
-        var tree = $(this);
-        tree.treeview();
-    })
-})
-  
-</script>
-

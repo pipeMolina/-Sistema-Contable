@@ -29,18 +29,18 @@ class CuentaController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos','setCodigo','Tree'),
 				'expression'=>'$user->Administrador()',
-			),
+			),*/
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete','admin','index','view','selectSubtipos','setCodigo','Tree'),
 				'expression'=>'$user->Contador()',
 			),
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+			/*array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'expression'=>'$user->Secretario()',
-			),
+			)*/
 			array('deny',  // deny all users
 				'users'=>array('*'),										
 			),

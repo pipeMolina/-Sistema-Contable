@@ -44,12 +44,6 @@ class LineaContableController extends Controller
 				'expression'=>'$user->OP1() || $user->M2() || $user->F2()',
 				
 			),*/
-			//CRUD todos los permisos otorgados a las cuentas indicadas
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view'),
-				'users'=>array('molina'),
-
-			),
 			//CRUD todos los permisos otorgados por default a las cuentas tipo administrador
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','admin','delete','index','view'),

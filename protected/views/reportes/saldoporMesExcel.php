@@ -13,21 +13,26 @@
   }
  </style>
 <?php @session_start();?>
+<div id="print-total">
 <h2 align="center">Saldo Por Mes:</h2>
-<h2 align= "center"><small><?php echo 'Año:'.@$_SESSION['filtro']['periodo'].' Cuenta:'.@$_SESSION['filtro']['cuenta'].''?></small></h2>
 <br></br>
   <?php 
-   
+    $rdata=@$_SESSION['data'];
     $rawData=@$_SESSION['arraySaldoMes'];
-
+    echo '<h3><small>Empresa:'.$rdata[0]["razonsocial_empresa"].' &nbsp; Periodo:'.$rdata[0]["Año"].' &nbsp; Cuenta:'.$rdata[0]["descripcion_cuenta"].'</small></h3>';
+    unset($_SESSION['arraySaldoMes']);
+    unset($_SESSION['data']);
+    @$_SESSION['filtro']['empresa']="";
+    @$_SESSION['filtro']['cuenta']="";
+    @$_SESSION['filtro']['periodo']="";
     if (!empty($rawData)) 
     {
            echo '<table class="table table-striped table-hover">
                     <thead>
                       <tr style="background-color: #FFFF00;"> 
                         <th>Mes</th>
-                        <th>Debito</th>
-                        <th>Credito</th>
+                        <th>Débito</th>
+                        <th>Crédito</th>
                         <th>Saldo del Mes</th>
                         <th>Total Acumulado</th>
                       </tr>
@@ -52,6 +57,9 @@
     else
     {
       echo "No se encontraron datos con los valores indicados";
+      @$_SESSION['filtro']['empresa']="";
+      @$_SESSION['filtro']['cuenta']="";
+      @$_SESSION['filtro']['periodo']="";
     }
 
   ?>

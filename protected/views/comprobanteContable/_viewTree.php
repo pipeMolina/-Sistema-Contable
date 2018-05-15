@@ -1,5 +1,4 @@
-<div class="form">
-<div class="container">
+
     <div class="panel panel-primary" id="size">
         <div class="panel-heading text-center"><h1 class="panel-title"> Plan de Cuentas</h1> </div>
             <!-- TREEVIEW CODE -->
@@ -114,7 +113,7 @@
             </ul>
             <!-- TREEVIEW CODE -->
     </div>
-</div>
+
 <script>
    $.fn.extend({
     treeview:   function() {
@@ -166,8 +165,3 @@ $(window).on('load', function () {
 })
   
 </script>
-<style>
-#size {
-    width : 700px;
-}
-</style>

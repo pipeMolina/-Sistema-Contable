@@ -37,7 +37,7 @@ class PlanCuentaController extends Controller
 				'expression'=>'$user->Contador()',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','index','view'),
+				'actions'=>array('index'),
 				'expression'=>'$user->Secretario()',
 			),
 			array('deny',  // deny all users

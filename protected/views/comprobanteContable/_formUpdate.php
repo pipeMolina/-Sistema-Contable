@@ -94,10 +94,10 @@
 					<?php echo $form->dropDownList($modelLinea[$i],'CUENTA',CHtml::listData(Cuenta::model()->findAll(), 'CODIGO_CUENTA', 'DESCRIPCION_CUENTA'),array("class"=>"form-control","disabled"=>"disabled")); ?>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "debe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control"><div id="<?php echo "validaDebe".$i;?>"></div>
+					<input type="text" id="<?php echo "debe".$i;?>" name="DEBE[]" value="<?php echo $modelLinea[$i]['DEBE']?>" class="form-control" onchange='checkDebe(this);'><div id="<?php echo "validaDebe".$i;?>"></div>
 				</div>
 				<div class="col-lg-3">
-					<input type="text" id="<?php echo "haber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control"><div id="<?php echo "validaHaber".$i;?>"></div>
+					<input type="text" id="<?php echo "haber".$i;?>" name="HABER[]" value="<?php echo $modelLinea[$i]['HABER']?>" class="form-control" onchange='checkHaber(this);'><div id="<?php echo "validaHaber".$i;?>"></div>
 				</div>
 			</div>
 			<?php 
@@ -139,20 +139,20 @@
 			var id = '<?php echo $model->NUMERO_COMPROBANTE; ?>';
            	var x = i-1;
            	var z = i-1;
-           	var activar = 1;
-           	while(x>0)
+           	var activar = 0;
+           	while(x>0 && activar==0)
            	{
-	           	var dropDown=$('#dropDown'+x+'').val();
 	           	var valueDebe=$('#debe'+x+'').val();
 	           	var valueHaber=$('#haber'+x+'').val();
+           		console.log(valueDebe);
 	            if(!/^([0-9])*$/.test(valueDebe))
 	           	{
 	           		$('#validaDebe'+x+'').html("Se permite solo números");
-	           		activar=0;
+	           		activar=1;
 	           	}else if(!/^([0-9])*$/.test(valueHaber))
 	           	{
 	           		$('#validaHaber'+x+'').html("Se permite solo números");
-	           		activar=0;
+	           		activar=1;
 	           	}else
 	           	{
 	           		$('#validaDebe'+x+'').empty();
@@ -160,7 +160,7 @@
 	           	}
 	           	x--;
            	}
-           	if(activar==1)
+           	if(activar==0)
          	{
 	           	while(z >= 0)
 	           	{
@@ -170,7 +170,7 @@
 	           	}
             }
 	 		resultado = sumaDebe - sumaHaber;
-		    if(resultado == 0)
+		    /*if(resultado == 0)
 			{
 				var url = "<?php echo CController::createUrl('comprobanteContable/update&id="+id+"'); ?>";
 	      		$.ajax(
@@ -189,7 +189,38 @@
 								$("#mensaje").addClass("alert alert-success");
 			               	}
 			            });				
-			}
+			}*/
+			if(resultado == 0 && activar==0)
+				{
+					if(sumaDebe==0 && sumaHaber==0)
+					{
+						$("#mensaje").html("Problemas con las lineas");
+						$("#mensaje").addClass("alert alert-danger");
+					}
+					else
+					{
+					var url = "<?php echo CController::createUrl('comprobanteContable/update&id="+id+"'); ?>";
+		      		$.ajax(
+				            {
+				               	type:"POST",
+				                url: url,
+			               		data:$("#comprobante-contable-form").serialize(),
+				               	success: function(data)
+				               	{
+					               	$("#mensaje").empty();
+		           	   				$("#mensaje").removeClass("alert alert-danger");
+		           	   				$("#mensaje").html(data);
+		      						/*Se eliminan las lineas contables*/
+						      		while(i>0)
+						      		{
+						      			$("#grupoLineas"+i+'').remove(); 
+						      			i--;
+						      		}
+						      		activar=0;
+				               	}
+				            });				
+					}
+				}
 			else
 			{	
 				sumaDebe=0;
@@ -206,6 +237,32 @@
 
  </script>
  <script>
+ //Valida Campo Debe
+ function checkDebe(obj)
+    {
+    	var elemento=obj.value;
+    	var i=obj.id.substring(4);
+    	if(!/^([0-9])*$/.test(elemento))
+    	{
+    		document.getElementById('validaDebe'+i+'').innerHTML="Se permite solo numeros";
+    	}
+    	else
+    		document.getElementById('validaDebe'+i+'').innerHTML="";
+    }
+
+    //Valida Campo Debe
+    function checkHaber(obj)
+    {
+    	var elemento=obj.value;
+    	var i=obj.id.substring(5);
+    	if(!/^([0-9])*$/.test(elemento))
+    	{
+    		document.getElementById('validaHaber'+i+'').innerHTML="Se permite solo numeros";
+    	}
+    	else
+    		document.getElementById('validaHaber'+i+'').innerHTML="";
+
+    }
 
 /* Invierte la fecha */
     function invertirFecha(obj)

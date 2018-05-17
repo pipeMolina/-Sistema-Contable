@@ -15,8 +15,6 @@ $this->menu=array(
 	array('label'=>'Administrar Empresa', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Modificar Empresa <?php echo $model->RUT_EMPRESA; ?></h1>
 <div class="panel panel-primary">
 	<div class="panel-heading text-center">Modificar Empresa <?php echo $model->RUT_EMPRESA; ?></div>
 	<div class="panel-body">

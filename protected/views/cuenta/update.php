@@ -15,10 +15,4 @@ $this->menu=array(
 	array('label'=>'Administrar Cuenta', 'url'=>array('admin')),
 );
 ?>
-
-<div class="panel panel-primary">
-	<div class="panel-heading text-center">Modificar Cuenta <?php echo $model->ID_CUENTA; ?></div>
-	<div class="panel-body">
-		<?php $this->renderPartial('_form', array('model'=>$model)); ?>
-	</div>
-</div>
+	<?php $this->renderPartial('_formUpdate', array('model'=>$model)); ?>

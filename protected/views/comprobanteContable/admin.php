@@ -55,7 +55,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 						'value' => '$data->iDTIPOCOMP->NOMBRE_TIPOCOMP',
 						'filter'=> CHtml::listData(TipoComprobante::model()->findAll(array('order'=>'NOMBRE_TIPOCOMP')),'ID_TIPOCOMP','NOMBRE_TIPOCOMP'),
 					),
-					'RUT_EMPRESA',
+					//'RUT_EMPRESA',
+					array(
+						'name'  => "RUT_EMPRESA",
+						'header'=> 'Empresa',
+						'value' => '$data->rUTEMPRESA->GIRO_EMPRESA',
+						'filter'=> CHtml::listData(Empresa::model()->findAll(array('order'=>'RUT_EMPRESA')),'RUT_EMPRESA','GIRO_EMPRESA'),
+					),
 					'FECHA_COMPROBANTE',
 					'GLOSA_COMPROBANTE',
 					array(

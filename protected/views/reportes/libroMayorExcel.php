@@ -51,6 +51,7 @@
     echo '<h3 align="center">Empresa:'.$rawData[0]["razonsocial_empresa"].' &nbsp;&nbsp; Periodo:'.$rawData[0]["Año"].'</h3>';
     if (!empty($rawData)) 
     {
+      $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
       $arrayComprobante=array();
       $arrayListaComprobantes=array();
       $referencia=$rawData[0]["mes"];
@@ -97,7 +98,7 @@
                     </thead>
                     <thead>
                       <tr style="background-color: #FFFF00;">
-                        <th>Mes:'.$arrayListaComprobantes[$i][4].'</th>
+                        <th>Mes:'.$meses[$arrayListaComprobantes[$i][4]].'</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -126,7 +127,7 @@
                           {
                               echo '<tr>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
-                                      <td>'. $arrayListaComprobantes[$i][$j++].'</td>
+                                      <td>'. $meses[$arrayListaComprobantes[$i][$j++]].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
@@ -145,7 +146,7 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td class="text-center">Total Mes de '.$arrayListaComprobantes[$i][4].'</td>
+                              <td class="text-center">Total Mes de '.$meses[$arrayListaComprobantes[$i][4]].'</td>
                               <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataArrayListaSaldos[$i], 0, ",", ".").'</td>

@@ -7,7 +7,9 @@
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>array(
 				array('label'=>'Operaciones',
-					'items'=>$this->menu),
+					'items'=>$this->menu
+					),
+			'htmlOptions'=>array('class'=>'nav sidebar-nav'),
 				),
 		));
 				

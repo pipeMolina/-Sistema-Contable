@@ -81,8 +81,8 @@
     {
         $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'media';
         $url = Yii::app()->getAssetManager()->publish($path); 
-        $imgUrl = $url.'/print.gif';
-        echo CHtml::link("<img src=\"$imgUrl\" class=\"img_link\" title=\"".Yii::t('lms', 'print')."\">", 
+        $imgUrl = $url.'/print.jpg';
+        echo CHtml::link("<img style=\"width:50px; height:50px;\" src=\"$imgUrl\" class=\"img_link\" title=\"".Yii::t('lms', 'print')."\">", 
                         "#", array_merge($this->htmlOptions, array('onclick'=>'return processPrint();')));
         self::$count++;
         if (self::$count == 1) {

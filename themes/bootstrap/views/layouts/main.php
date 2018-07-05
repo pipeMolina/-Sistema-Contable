@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-	
+	<!--<script src="jquery.printPage.js" type="text/javascript"></script>-->
 	<?php
 	  $baseUrl = Yii::app()->theme->baseUrl; 
 	  $cs = Yii::app()->getClientScript();
@@ -14,6 +14,9 @@
 		$cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap.css');
 		$cs->registerCssFile($baseUrl.'/css/bootstrap-treepanel.css');
+	?>
+	<?php
+     	$cs->registerScriptFile($baseUrl.'/js/validar.js'); 
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>

@@ -52,7 +52,8 @@
                           echo '<form action=<"'.CController::createUrl('reportes/filterCuenta').'" id="formulario3" method="post" name="formulario3">';
                           echo CHtml::dropDownList('filterC',@$_SESSION['filtro']['cuenta'],array(),array(
                               'onchange' => 'Asignate(this)',
-                              'class'=>'form-control'
+                              'class'=>'form-control',
+                              'empty'=>"Debe elegir empresa"
                           ));
                           echo '</form>';
                       ?>
@@ -105,15 +106,29 @@
                     
                     ?>        
                 </td>
+                 <td valign="top" align="center" class="col-lg-1">
+                  <?php 
+                  /*$this->widget('application.extensions.print.printWidget',
+                    array(
+                      'printedElement' => '#print-total', //element to be printed
+                      ));*/
+                  $this->widget('ext.mPrint.mPrint', array(
+                  'title' => 'SaldoPorMes',          //the title of the document. Defaults to the HTML title
+                  'tooltip' => 'Print',        //tooltip message of the print icon. Defaults to 'print'
+                  'element' => '#print-total',        //the element to be printed.
+                ));
+                  ?>
+                </td> 
           </tr>
       </table>
     </div>
 
 <div id="print-total">
 <h2 align="center">Saldo Por Mes:</h2>
-<h2 align= "center"><small><?php echo 'Año:'.@$_SESSION['filtro']['periodo'].' Cuenta:'.@$_SESSION['filtro']['cuenta'].''?></small></h2>
+<h2 align= "center"><small><?php echo 'Año:'.@$_SESSION['filtro']['periodo'].' Cuenta:'.@$_SESSION['arraySaldoMes'][0][1].' '?></small></h2>
 <br></br>
   <?php 
+    $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
     $rdata=@$_SESSION['data'];
     $rawData=@$_SESSION['arraySaldoMes'];
     unset($_SESSION['arraySaldoMes']);
@@ -136,7 +151,7 @@
         for($j=0;$j<count($rawData[$i]);$j++)
         {
           echo '<tr>';
-              echo   '<td>'. $rawData[$i][$j++].'</td>
+              echo   '<td>'. $meses[$rawData[$i][$j++]].'</td>
                       <td>'.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
                        <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>
                        <td> '.number_format($rawData[$i][$j++], 0, ",", ".").' </td>

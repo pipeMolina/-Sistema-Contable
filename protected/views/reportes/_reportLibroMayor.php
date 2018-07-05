@@ -106,6 +106,19 @@
                     
                     ?>        
                 </td>
+                 <td valign="top" align="center" class="col-lg-1">
+                  <?php 
+                  /*$this->widget('application.extensions.print.printWidget',
+                    array(
+                      'printedElement' => '#print-total', //element to be printed
+                      ));*/
+                  $this->widget('ext.mPrint.mPrint', array(
+                  'title' => 'LibroMayor',          //the title of the document. Defaults to the HTML title
+                  'tooltip' => 'Print',        //tooltip message of the print icon. Defaults to 'print'
+                  'element' => '#print-total',        //the element to be printed.
+                ));
+                  ?>
+                </td> 
           </tr>
       </table>
     </div>
@@ -143,6 +156,7 @@
     //$rawDataTotalSaldos=@$_SESSION['arrayTotalSaldos'];;
     if (!empty($rawData)) 
     {
+      $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
       $arrayComprobante=array();
       $arrayListaComprobantes=array();
       $referencia=$rawData[0]["mes"];
@@ -189,7 +203,7 @@
                     </thead>
                     <thead>
                       <tr>
-                        <th>Mes:'.$arrayListaComprobantes[$i][4].'</th>
+                        <th>Mes:'.$meses[$arrayListaComprobantes[$i][4]].'</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -218,7 +232,7 @@
                           {
                               echo '<tr>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
-                                      <td>'. $arrayListaComprobantes[$i][$j++].'</td>
+                                      <td>'. $meses[$arrayListaComprobantes[$i][$j++]].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
                                       <td>'. $arrayListaComprobantes[$i][$j++].'</td>
@@ -237,7 +251,7 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td class="text-center">Total Mes de '.$arrayListaComprobantes[$i][4].'</td>
+                              <td class="text-center">Total Mes de '.$meses[$arrayListaComprobantes[$i][4]].'</td>
                               <td>'.number_format($rawDataDebe[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataHaber[$i], 0, ",", ".").'</td>
                               <td>'.number_format($rawDataArrayListaSaldos[$i], 0, ",", ".").'</td>

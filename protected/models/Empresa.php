@@ -51,19 +51,19 @@ class Empresa extends CActiveRecord
 		);
 	}
 
-	public function valName($atributo,$params)
+	public function valName()
 	{
 		if(nombrevalido($this->RAZONSOCIAL_EMPRESA)==false)
 			$this->addError('RAZONSOCIAL_EMPRESA','Nombre Invalido');
 	}
 
-	public function valCorreo($atributo,$params)
+	public function valCorreo()
 	{
 		if(comprobar_email($this->CORREO)==false)
 			$this->addError('CORREO','Correo Invalido');
 	}
 
-	public function validateRut($attribute, $params) 
+	public function validateRut() 
 	{
         $data = explode('-', $this->RUT_EMPRESA);
         $evaluate = strrev($data[0]);

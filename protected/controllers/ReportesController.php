@@ -461,6 +461,7 @@ public function actionIndex()
 				$data = ComprobanteContable::model()->cargarComprobantesCuenta($cadena);
 				if(!empty($data))
 				{
+					//var_dump($data);
 					//controla el cambio de Mes
 					$referencia=$data[0]["mes"];
 					$diferencia=0;
@@ -488,7 +489,7 @@ public function actionIndex()
 							$arraySaldoMes[$i][] = $referencia;
 							$arraySaldoMes[$i][] = $sumaDebe;
 							$arraySaldoMes[$i][] = $sumaHaber;
-							$arraySaldoMes[$i][] = $diferencia;
+							$arraySaldoMes[$i][] = substr($diferencia,1);
 							$arraySaldoMes[$i][] = $valorSaldo;
 							
 
@@ -507,14 +508,14 @@ public function actionIndex()
 					$arraySaldoMes[$i][] = $data[$key]["mes"];
 					$arraySaldoMes[$i][] = $sumaDebe;
 					$arraySaldoMes[$i][] = $sumaHaber;
-					$arraySaldoMes[$i][] = $diferencia;
+					$arraySaldoMes[$i][] = substr($diferencia,1);
 					$arraySaldoMes[$i][] = $valorSaldo;
 					
 					$_SESSION['data'] = $data;
-					$_SESSION['arraySaldoMes'] = $arraySaldoMes;
+					$_SESSION['arraySaldoMes'] = $arraySaldoMes;	
 				}
 				
-				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/saldoporMes";</script>';			
+				echo '<script type="text/javascript"> window.location="'.Yii::app()->baseUrl.'/index.php?r=reportes/saldoporMes";</script>';
 			}
 	}
 	public function actionFilterExcelSaldoporMes()
@@ -568,7 +569,7 @@ public function actionIndex()
 							$arraySaldoMes[$i][] = $referencia;
 							$arraySaldoMes[$i][] = $sumaDebe;
 							$arraySaldoMes[$i][] = $sumaHaber;
-							$arraySaldoMes[$i][] = $diferencia;
+							$arraySaldoMes[$i][] =  substr($diferencia,1);
 							$arraySaldoMes[$i][] = $valorSaldo;
 							
 
@@ -587,7 +588,7 @@ public function actionIndex()
 					$arraySaldoMes[$i][] = $data[$key]["mes"];
 					$arraySaldoMes[$i][] = $sumaDebe;
 					$arraySaldoMes[$i][] = $sumaHaber;
-					$arraySaldoMes[$i][] = $diferencia;
+					$arraySaldoMes[$i][] =  substr($diferencia,1);
 					$arraySaldoMes[$i][] = $valorSaldo;
 					
 					$_SESSION['data'] = $data;

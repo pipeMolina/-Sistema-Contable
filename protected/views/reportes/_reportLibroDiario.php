@@ -23,7 +23,7 @@
 ?>
 <?php @session_start();?>
 <div class="row-fluid">
-  <div>
+  <div id="no-imprimir">
       <table>
         <tr>
               <td style="min-width:200px;" align="center">
@@ -41,11 +41,11 @@
         </tr>
 
           <tr>
-              <td valign="top" align="center" class="col-lg-4">
+              <td valign="top" align="center" class="col-lg-3">
                       <?php  
                         echo '<form action=<"'.CController::createUrl('reportes/filterEmp').'" id="formulario4" method="post" name="formulario4">';
                           echo CHtml::dropDownList('filterE',@$_SESSION['filtro']['empresa'],CHtml::listData(Empresa::model()->findAll(array('order'=>'RAZONSOCIAL_EMPRESA')),'RUT_EMPRESA','RAZONSOCIAL_EMPRESA'),array(
-                              'empty'=>'Seleccione Empresa',
+                              'empty'=>'Elige Empresa',
                               'onchange' => 'Asignate(this)',
                               'class'=>'form-control'
                               ));
@@ -61,7 +61,7 @@
                         {
                             $years[$i] = $i;
                         }
-                        echo CHtml::dropDownList('filterP',@$_SESSION['filtro']['periodo'],$years,array('empty'=>'Seleccione Año','class'=>'form-control','onchange' => 'Asignate(this)'));  
+                        echo CHtml::dropDownList('filterP',@$_SESSION['filtro']['periodo'],$years,array('empty'=>'Todos','class'=>'form-control','onchange' => 'Asignate(this)'));  
                         echo '</form>';
                     ?>        
                 </td>
@@ -70,7 +70,7 @@
                           echo '<form action=<"'.CController::createUrl('reportes/filterMonth').'" id="formulario1" method="post" name="formulario1">';
                           $meses = array(1=>'Enero',2=>'Febrero',3=>'Marzo',4=>'Abril',5=>'Mayo',6=>'Junio',7=>'Julio',8=>'Agosto',9=>'Septiembre',10=>'Octubre',11=>'Noviembre',12=>'Diciembre');
                           echo CHtml::dropDownList('filterM',@$_SESSION['filtro']['mes'],$meses,array(
-                                'empty'=>"Seleccione Mes",
+                                'empty'=>"Todos",
                                 'onchange' => 'Asignate(this)',
                                 'class'=>'form-control'
                                 ));
@@ -133,6 +133,19 @@
                     
                     ?>        
                 </td>
+                 <td valign="top" align="center" class="col-lg-1">
+                  <?php 
+                  /*$this->widget('application.extensions.print.printWidget',
+                    array(
+                      'printedElement' => '#print-total', //element to be printed
+                      ));*/
+                  $this->widget('ext.mPrint.mPrint', array(
+                  'title' => 'LibroDiario',          //the title of the document. Defaults to the HTML title
+                  'tooltip' => 'Print',        //tooltip message of the print icon. Defaults to 'print'
+                  'element' => '#print-total',        //the element to be printed.
+                ));
+                  ?>
+                </td> 
           </tr>
       </table>
     </div>
@@ -230,3 +243,17 @@
 ?>
 </div>
 </div>
+<?php
+/*$this->widget('ext.mPrint.mPrint', array(
+    'title' => 'User Result',        //the title of the document. Defaults to the HTML title
+    'tooltip' => 'User Result',    //tooltip message of the print icon. Defaults to 'print'
+    'text' => 'Print Results', //text which will appear beside the print icon. Defaults to NULL
+    'element' => '#print-total',      //the element to be printed.
+    'exceptions' => array(     //the element/s which will be ignored
+        '.summary',
+        '.search-form'
+    ),
+    'publishCss' => true,       //publish the CSS for the whole page?
+    'id' => 'resultprintid',                      
+));*/
+?>

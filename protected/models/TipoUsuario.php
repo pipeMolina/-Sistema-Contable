@@ -37,6 +37,7 @@ class TipoUsuario extends CActiveRecord
 		);
 	}
 
+
 	/**
 	 * @return array relational rules.
 	 */

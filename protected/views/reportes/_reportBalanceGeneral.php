@@ -87,6 +87,19 @@
                     
                     ?>        
                 </td>
+                 <td valign="top" align="center" class="col-lg-1">
+                  <?php 
+                  /*$this->widget('application.extensions.print.printWidget',
+                    array(
+                      'printedElement' => '#print-total', //element to be printed
+                      ));*/
+                  $this->widget('ext.mPrint.mPrint', array(
+                  'title' => 'BalanceGeneral',          //the title of the document. Defaults to the HTML title
+                  'tooltip' => 'Print',        //tooltip message of the print icon. Defaults to 'print'
+                  'element' => '#print-total',        //the element to be printed.
+                ));
+                  ?>
+                </td> 
 	        </tr>
     	</table>
     </div>

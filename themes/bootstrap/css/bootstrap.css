@@ -12,7 +12,13 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-
+/*Mi container*/
+.my-container{
+  height: 450px;
+  width: 700px;
+  margin-left: 250px;
+  margin-top: -30px;
+}
 /*Side Nav*/
 .sidebar-nav {
   padding:0!important;
@@ -1185,7 +1191,7 @@ img {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
 }
 .img-circle {
@@ -7003,4 +7009,11 @@ button.close {
 }
 .panel-primary .panel-title {
   color: #fff;
+}
+.box-shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* Definimos el color inicial */
+img.mediana{
+  width: 100px; height: 100px;
 }

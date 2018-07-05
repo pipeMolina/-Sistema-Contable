@@ -31,7 +31,7 @@ class Usuario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('RUT_PERSONA, ID_TIPOUSUARIO', 'required'),
+			array('RUT_PERSONA, ID_TIPOUSUARIO, LOGIN_USUARIO, PASS_USUARIO', 'required'),
 			array('RUT_PERSONA', 'length', 'max'=>12),
 			array('ID_TIPOUSUARIO', 'length', 'max'=>2),
 			array('LOGIN_USUARIO', 'length', 'max'=>20),
@@ -62,7 +62,7 @@ class Usuario extends CActiveRecord
 	{
 		return array(
 			'RUT_PERSONA' => 'Rut',
-			'ID_TIPOUSUARIO' => 'Tipo',
+			'ID_TIPOUSUARIO' => 'Tipo de Usuario',
 			'LOGIN_USUARIO' => 'Login',
 			'PASS_USUARIO' => 'Contraseña',
 		);

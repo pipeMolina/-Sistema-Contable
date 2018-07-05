@@ -8,7 +8,7 @@
 return array(
 	'theme'=>'bootstrap',
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Sistema Contable Carlos Molina',
+	'name'=>'Sistema Contable para Multiempresas',
 	
 
 	// preloading 'log' component

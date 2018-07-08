@@ -15,16 +15,42 @@
         }
     }
 </script>
+<script type="text/javascript">
+        // When the document is ready, initialize the link so
+        // that when it is clicked, the printable area of the
+        // page will print.
+        $(
+            function(){
+                // Hook up the print link.
+                $( "a" )
+                    .attr( "href", "javascript:void( 0 )" )
+                    .click(
+                        function(){
+                            // Print the DIV.
+                            $( "#print-total" ).print();
+                            // Cancel click event.
+                            return( false );
+                        }
+                        )
+                ;
+            }
+            );
+    </script>
+    <style>
+      td {border: 0; border: 1px solid #999; height:0;}
+    </style>
 <?php
   $this->breadcrumbs=array(
     'Reportes'=>array('index'),
     'LibroDiario',
   );
 ?>
+
 <?php @session_start();?>
 <div class="row-fluid">
   <div id="no-imprimir">
       <table>
+        <a>Print Bio</a>
         <tr>
               <td style="min-width:200px;" align="center">
                         <?php echo "Empresa";?>
@@ -143,6 +169,7 @@
                   'title' => 'LibroDiario',          //the title of the document. Defaults to the HTML title
                   'tooltip' => 'Print',        //tooltip message of the print icon. Defaults to 'print'
                   'element' => '#print-total',        //the element to be printed.
+                  'publishCss' => 'true',
                 ));
                   ?>
                 </td> 

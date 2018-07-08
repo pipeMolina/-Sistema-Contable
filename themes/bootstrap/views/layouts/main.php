@@ -16,7 +16,9 @@
 		$cs->registerCssFile($baseUrl.'/css/bootstrap-treepanel.css');
 	?>
 	<?php
-     	$cs->registerScriptFile($baseUrl.'/js/validar.js'); 
+     	$cs->registerScriptFile($baseUrl.'/js/validar.js');
+     	$cs->registerScriptFile($baseUrl.'/js/printPage.js'); 
+
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
